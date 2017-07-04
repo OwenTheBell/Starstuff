@@ -8,6 +8,8 @@ public class Tile : MonoBehaviour {
     public Vector2 Dimensions;
     public float Scale;
     public float Density;
+    [Range(0, 1)]
+    public float Alpha;
 
     private List<GameObject> _Stars;
 
@@ -24,6 +26,9 @@ public class Tile : MonoBehaviour {
             var star = Instantiate(StarPrefab, position, Quaternion.identity);
             star.transform.localScale = Vector3.one * Scale;
             star.transform.parent = transform;
+            var color = star.GetComponentInChildren<SpriteRenderer>().color;
+            color.a = Alpha;
+            star.GetComponentInChildren<SpriteRenderer>().color = color;
             _Stars.Add(star);
         }
 	}

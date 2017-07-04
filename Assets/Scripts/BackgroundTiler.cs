@@ -8,6 +8,8 @@ public class BackgroundTiler : MonoBehaviour {
     public Vector2 Dimensions;
     public float Density;
     public float Scale;
+    [Range(0, 1)]
+    public float Alpha;
     public GameObject TilePrefab;
 
     private List<GameObject> _Tiles;
@@ -60,6 +62,7 @@ public class BackgroundTiler : MonoBehaviour {
                         tile.GetComponent<Tile>().Dimensions = Dimensions;
                         tile.GetComponent<Tile>().Density = Density;
                         tile.GetComponent<Tile>().Scale = Scale;
+                        tile.GetComponent<Tile>().Alpha = Alpha;
                         _OnScreenTiles.Add(tile);
                         _Tiles.Add(tile);
                     }
