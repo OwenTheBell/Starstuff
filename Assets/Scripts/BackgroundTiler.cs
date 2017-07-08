@@ -10,14 +10,17 @@ public class BackgroundTiler : MonoBehaviour {
     public float Scale;
     [Range(0, 1)]
     public float Alpha;
+    public float DestroyDistance;
     public GameObject TilePrefab;
 
     private List<GameObject> _Tiles;
     private List<GameObject> _OnScreenTiles;
+    private List<GameObject> _TilePool;
 
     private void Awake() {
         _Tiles = new List<GameObject>();
         _OnScreenTiles = new List<GameObject>();
+        _TilePool = new List<GameObject>();
     }
 
     void Start () {
@@ -57,16 +60,37 @@ public class BackgroundTiler : MonoBehaviour {
                         _OnScreenTiles.Add(filtered[0]);
                     }
                     else {
-                        var tile = Instantiate(TilePrefab, tilePos, Quaternion.identity);
-                        tile.transform.parent = transform;
-                        tile.GetComponent<Tile>().Dimensions = Dimensions;
-                        tile.GetComponent<Tile>().Density = Density;
-                        tile.GetComponent<Tile>().Scale = Scale;
-                        tile.GetComponent<Tile>().Alpha = Alpha;
-                        _OnScreenTiles.Add(tile);
-                        _Tiles.Add(tile);
+                        if (_TilePool.Count > 0) {
+                            var tile = _TilePool[0];
+                            tile.SetActive(true);
+                            _TilePool.RemoveAt(0);
+                            _OnScreenTiles.Add(tile);
+                            _Tiles.Add(tile);
+                        }
+                        else {
+                            var tile = Instantiate(TilePrefab, tilePos, Quaternion.identity);
+                            tile.transform.parent = transform;
+                            tile.GetComponent<Tile>().Dimensions = Dimensions;
+                            tile.GetComponent<Tile>().Density = Density;
+                            tile.GetComponent<Tile>().Scale = Scale;
+                            tile.GetComponent<Tile>().Alpha = Alpha;
+                            _OnScreenTiles.Add(tile);
+                            _Tiles.Add(tile);
+                        }
                     }
                 }
+            }
+        }
+
+        // clean out tiles that are too far away so that updating doesn't become too heavy
+        for (var i = _Tiles.Count - 1; i >= 0; i--) {
+            var tile = _Tiles[i];
+            var distance = Vector2.Distance(camera.transform.position, tile.transform.position);
+            if (distance > DestroyDistance) {
+                _Tiles.RemoveAt(i);
+                tile.SetActive(false);
+                _TilePool.Add(tile);
+                //Destroy(tile);
             }
         }
 	}

@@ -8,6 +8,7 @@ public class StarPlacer : MonoBehaviour {
     public float Arc;
     public float SpawnDistance;
     public Vector2 SpawnRange;
+    public int MaxStars;
 
     private float _RemainingDistance;
     private Vector3 _LastPosition;
@@ -25,7 +26,7 @@ public class StarPlacer : MonoBehaviour {
 	void Update () {
         _RemainingDistance -= (transform.position - _LastPosition).magnitude;
         _LastPosition = transform.position;
-        if (_RemainingDistance <= 0f) {
+        if (_RemainingDistance <= 0f && _Stars.Count < MaxStars) {
             _RemainingDistance = Random.Range(SpawnRange.x, SpawnRange.y);
             var halfarc = Arc * Mathf.Deg2Rad / 2f;
             var angle = Random.Range(-halfarc, halfarc) + (Mathf.PI / 2f);
