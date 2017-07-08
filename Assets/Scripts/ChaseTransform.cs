@@ -89,6 +89,7 @@ public class ChaseTransform : MonoBehaviour {
         if (distance < _Catchup.Range) {
             _NextUpdated = FollowUpdate;
             _oldVelocity = GetComponent<Rigidbody2D>().velocity;
+            Target.SendMessage("AddNewFollower", gameObject);
             return _oldVelocity;
         }
        return CalculateChaseVelocity();

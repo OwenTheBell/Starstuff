@@ -27,6 +27,5 @@ public class Thruster : MonoBehaviour {
 			var force = transform.up * Force;
 			rigidbody.AddForce(force, ForceMode2D.Force);
 		}
-
 	}
 }
