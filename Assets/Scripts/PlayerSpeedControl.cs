@@ -6,6 +6,8 @@ public class PlayerSpeedControl : MonoBehaviour {
 
     public float BaseSpeed;
     public float SpeedPerFollower;
+    public float BaseThrust;
+    public float ThurstPerFollower;
 
     private List<GameObject> _Followers;
 
@@ -19,6 +21,7 @@ public class PlayerSpeedControl : MonoBehaviour {
 	
 	void Update () {
         GetComponent<Thruster>().MaxVelocity = _Followers.Count * SpeedPerFollower + BaseSpeed;
+        GetComponent<Thruster>().Force = _Followers.Count * ThurstPerFollower + BaseThrust;
 	}
 
     public void AddNewFollower(GameObject follower) {

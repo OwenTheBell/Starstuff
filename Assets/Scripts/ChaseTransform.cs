@@ -3,6 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
+struct WaitingValues {
+    public bool BeVisible;
+    public float Range;
+    public float Delay;
+    [HideInInspector]
+    public bool NotMoving;
+    [HideInInspector]
+    public float RemainingDelay;
+}
+
+[System.Serializable]
 struct CatchupValues {
     public float Range;
     public float Factor;
@@ -18,15 +29,12 @@ struct FollowValues {
 public class ChaseTransform : MonoBehaviour {
 
 	public Transform Target;
-	public float Force;
-	public AnimationCurve DistanceAmplification;
-	public float AmplificationCutoff;
-
     public float StateChangeTime;
 
     [SerializeField]
+    private WaitingValues _Wait;
+    [SerializeField]
     private CatchupValues _Catchup;
-
     [SerializeField]
     private FollowValues _Follow;
 
@@ -38,8 +46,8 @@ public class ChaseTransform : MonoBehaviour {
     private float _remainingTransitionTime;
 
     private void Awake() {
-        _UpdatedDelegate = CatchupUpdate;
-        _NextUpdated = CatchupUpdate;
+        _UpdatedDelegate = WaitUpdate;
+        _NextUpdated = WaitUpdate;
         _oldVelocity = Vector2.zero;
     }
 
@@ -64,24 +72,30 @@ public class ChaseTransform : MonoBehaviour {
         GetComponent<Rigidbody2D>().velocity = velocity;
 	}
 
-    void ChaseUpdate() {
-		var selfPos = transform.position;
-		var targetPos = Target.position;
-		var distance = Vector2.Distance(selfPos, targetPos);
-		var percent = distance / AmplificationCutoff;
-		var amp = Mathf.Clamp(percent, 1f, 2f) - 1f;
-		var angle = Mathf.Atan2(selfPos.y - targetPos.y, selfPos.x - targetPos.x);
-		var force = new Vector2(Force * Mathf.Cos(angle), Force * Mathf.Sin(angle));
-		force *= DistanceAmplification.Evaluate(amp);
-
-		var relativeAngle = Vector2.Angle(GetComponent<Rigidbody2D>().velocity, force);
-		if (relativeAngle > 10 && GetComponent<Rigidbody2D>().velocity.magnitude > 2) {
-			var rigidbody = GetComponent<Rigidbody2D>();
-			var velocity = rigidbody.velocity;	
-			velocity = -velocity * 2;
-			rigidbody.AddForce(velocity, ForceMode2D.Force);
-		}
-		GetComponent<Rigidbody2D>().AddForce(-force, ForceMode2D.Force);
+    Vector2 WaitUpdate() {
+        var distance = CalculateDistance();
+        var renderer = GetComponentInChildren<Renderer>();
+        if (!_Wait.NotMoving &&
+            distance < _Wait.Range &&
+            (!_Wait.BeVisible || (_Wait.BeVisible && renderer.isVisible))
+        ) {
+            _Wait.NotMoving = true;
+            _Wait.RemainingDelay = _Wait.Delay;
+        }
+        if (_Wait.NotMoving) {
+            _Wait.RemainingDelay -= Time.deltaTime;
+            if (_Wait.RemainingDelay <= 0f) {
+                if (gameObject.HasComponent<WakeupEffect>() &&
+                    GetComponentInChildren<Renderer>().isVisible
+                ) {
+                    GetComponent<WakeupEffect>().Play();
+                }
+                Target.SendMessage("AddNewFollower", gameObject);
+                _NextUpdated = CatchupUpdate;
+                _oldVelocity = Vector2.zero;
+            }
+        }
+        return Vector2.zero;
     }
 
     Vector2 CatchupUpdate() {
@@ -89,7 +103,6 @@ public class ChaseTransform : MonoBehaviour {
         if (distance < _Catchup.Range) {
             _NextUpdated = FollowUpdate;
             _oldVelocity = GetComponent<Rigidbody2D>().velocity;
-            Target.SendMessage("AddNewFollower", gameObject);
             return _oldVelocity;
         }
        return CalculateChaseVelocity();
@@ -135,8 +148,7 @@ public class ChaseTransform : MonoBehaviour {
         var targetVel = Target.GetComponent<Rigidbody2D>().velocity;
         var vel = GetComponent<Rigidbody2D>().velocity;
         var angle = Mathf.Atan2(targetVel.y - vel.y, targetVel.x - vel.x) * Mathf.Rad2Deg;
-        // if the relativeVelocity is greater than the object velocity, the bodies are
-        // moving towards each other
+        // if relativeVelocity is greater than velocity, bodies are moving towards each other
         if (relativeVelocity.magnitude > magnitude) {
             var diff = relativeVelocity.magnitude - magnitude;
             magnitude -= diff;

@@ -32,7 +32,6 @@ public class Thruster : MonoBehaviour {
             var angle1 = Mathf.Atan2(force.y, force.x) * Mathf.Rad2Deg;
             var angle2 = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
             if (Mathf.Abs(angle1 - angle2) > 20f) {
-                Debug.Log("apply dampening because of angle " + velocity.magnitude);
                 ApplyDampening();
             }
 		}
