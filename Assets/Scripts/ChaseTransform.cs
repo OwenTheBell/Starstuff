@@ -128,6 +128,22 @@ public class ChaseTransform : MonoBehaviour {
             Mathf.Cos(radians) * magnitude,
             Mathf.Sin(radians) * magnitude
         );
+
+        // if the star and player are moving roughly towards each other, then restrict
+        // the magnitude of the velocity
+        var relativeVelocity = velocity - targetVelocity;
+        var targetVel = Target.GetComponent<Rigidbody2D>().velocity;
+        var vel = GetComponent<Rigidbody2D>().velocity;
+        var angle = Mathf.Atan2(targetVel.y - vel.y, targetVel.x - vel.x) * Mathf.Rad2Deg;
+        // if the relativeVelocity is greater than the object velocity, the bodies are
+        // moving towards each other
+        if (relativeVelocity.magnitude > magnitude) {
+            var diff = relativeVelocity.magnitude - magnitude;
+            magnitude -= diff;
+            if (magnitude < _Catchup.MinimumMagnitude) magnitude = _Catchup.MinimumMagnitude;
+            velocity.Normalize();
+            velocity *= magnitude;
+        }
         return velocity;
     }
 }

@@ -30,24 +30,25 @@ public class BackgroundTiler : MonoBehaviour {
         var camera = Camera.main;
         var height = 2f * camera.orthographicSize;
         var width = camera.aspect * height;
+        var widthBound = width * 2f;
+        var heightBound = height * 2f;
 
-        Predicate<GameObject> inBounds = (g) => {
+        _OnScreenTiles = _OnScreenTiles.Filter<GameObject>( g => {
             var local = camera.transform.InverseTransformPoint(g.transform.position);
-            if (Mathf.Abs(local.x + Dimensions.x/2f) <= width / 2f + Dimensions.x &&
-                Mathf.Abs(local.y + Dimensions.y/2f) <= height / 2f + Dimensions.y) {
+            if (Mathf.Abs(local.x + Dimensions.x / 2f) <= widthBound / 2f &&
+                Mathf.Abs(local.y + Dimensions.y / 2f) <= heightBound / 2f) {
                 return true;
             }
             return false;
-        };
-        _OnScreenTiles = _OnScreenTiles.Filter<GameObject>(inBounds);
+        });
 
         var localPositions = new List<Vector2>();
         foreach (var tile in _OnScreenTiles) {
             localPositions.Add(camera.transform.InverseTransformPoint(tile.transform.position));
         }
         // check for missing tiles in the range and add a new one
-        for (var x = -width/2f - Dimensions.x; x <= width/2f + Dimensions.x; x += Dimensions.x) {
-            for (var y = -height/2f - Dimensions.y; y <= height/2f + Dimensions.y; y += Dimensions.y) {
+        for (var x = -widthBound/2f; x <= widthBound/2f; x += Dimensions.x) {
+            for (var y = -heightBound/2f; y <= heightBound/2f; y += Dimensions.y) {
                 var point = camera.transform.TransformPoint(new Vector2(x, y));
                 var tilePos = TilePositionForPointOnGrid(transform.InverseTransformPoint(point));
                 tilePos = transform.TransformPoint(tilePos);
@@ -63,6 +64,7 @@ public class BackgroundTiler : MonoBehaviour {
                         if (_TilePool.Count > 0) {
                             var tile = _TilePool[0];
                             tile.SetActive(true);
+                            tile.transform.position = tilePos;
                             _TilePool.RemoveAt(0);
                             _OnScreenTiles.Add(tile);
                             _Tiles.Add(tile);

@@ -9,6 +9,9 @@ public class Spin : MonoBehaviour
 	public KeyCode RightKey;
 	public float Torque;
 
+    [Range(0f, 0.1f)]
+    public float Dampening;
+
 	void Start ()
 	{
 		
@@ -17,14 +20,23 @@ public class Spin : MonoBehaviour
 	void FixedUpdate ()
 	{
 		var adjust = 0;
+        var keyDown = false;
 		if (Input.GetKey(LeftKey) && !Input.GetKey(RightKey))
 		{
+            keyDown = true;
 			adjust = 1;
 		}
 		if (!Input.GetKey(LeftKey) && Input.GetKey(RightKey))
 		{
+            keyDown = true;
 			adjust = -1;
 		}
-		GetComponent<Rigidbody2D>().AddTorque(Torque * adjust);
+        var rigidbody = GetComponent<Rigidbody2D>();
+		rigidbody.AddTorque(Torque * adjust);
+        var angularVelocity = rigidbody.angularVelocity;
+        if (!keyDown || angularVelocity/Mathf.Abs(angularVelocity) != adjust/Mathf.Abs(adjust)) {
+            angularVelocity = -angularVelocity * Dampening;
+            rigidbody.AddTorque(angularVelocity);
+        }
 	}
 }

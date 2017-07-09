@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerSpeedControl : MonoBehaviour {
 
+    public float BaseSpeed;
     public float SpeedPerFollower;
 
     private List<GameObject> _Followers;
@@ -17,7 +18,7 @@ public class PlayerSpeedControl : MonoBehaviour {
 	}
 	
 	void Update () {
-        GetComponent<Thruster>().MaxVelocity = (_Followers.Count + 1) * SpeedPerFollower;
+        GetComponent<Thruster>().MaxVelocity = _Followers.Count * SpeedPerFollower + BaseSpeed;
 	}
 
     public void AddNewFollower(GameObject follower) {
