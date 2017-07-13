@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Entitas;
 using Entitas.CodeGeneration.Attributes;
+using System;
 
 // location & orientation
 [Game]
@@ -23,7 +24,7 @@ public class ViewComponent : IComponent {
 
 [Game]
 public class SpriteComponent : IComponent {
-    //public string name;
+    public string name;
     public Sprite sprite;
 }
 

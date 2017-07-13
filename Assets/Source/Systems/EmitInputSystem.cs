@@ -1,7 +1,8 @@
-﻿using Entitas;
+﻿using System;
+using Entitas;
 using UnityEngine;
 
-class EmitInputSystem : IInitializeSystem, IExecuteSystem {
+public class EmitInputSystem : IInitializeSystem, IExecuteSystem {
     readonly InputContext _context;
     private InputEntity _leftMouseEntity;
     private InputEntity _rightMouseEntity;
@@ -39,5 +40,12 @@ class EmitInputSystem : IInitializeSystem, IExecuteSystem {
         if (Input.GetMouseButtonUp(1)) {
             _rightMouseEntity.ReplaceMouseUp(mousePosition);
         }
+    }
+}
+
+[CreateAssetMenu(fileName = "Emit Input", menuName = "SuperMash/System Generators/Emit Input")]
+public class EmitInputGenerator : SystemGenerator {
+    public override ISystem Generate(Contexts contexts) {
+        return new EmitInputSystem(contexts);
     }
 }

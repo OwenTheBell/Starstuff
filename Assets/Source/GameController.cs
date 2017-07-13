@@ -5,17 +5,21 @@ using Entitas;
 
 public class GameController : MonoBehaviour {
 
+    public GenerateFeature[] Features;
+
     Systems _systems;
 
 	// Use this for initialization
 	void Start () {
         var contexts = Contexts.sharedInstance;
 
-        _systems = new Feature("Systems")
-            //.Add(new TestFeature(contexts));
-            .Add(new InputFeature(contexts))
-            .Add(new MovementFeature(contexts))
-            .Add(new ViewFeature(contexts));
+        _systems = new Feature("Systems");
+        foreach (var feature in Features) {
+            _systems.Add(feature.Generate(contexts));
+        }
+        //_systems.Add(new InputFeature(contexts))
+        _systems.Add(new MovementFeature(contexts));
+        _systems.Add(new ViewFeature(contexts));
 
         _systems.Initialize();
 	}

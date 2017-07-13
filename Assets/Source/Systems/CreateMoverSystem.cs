@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Entitas;
 using UnityEngine;
 
@@ -26,8 +27,16 @@ public class CreateMoverSystem : ReactiveSystem<InputEntity> {
             var mover = _context.CreateEntity();
             mover.isMover = true;
             mover.AddPosition(e.mouseDown.position);
-            mover.AddDirection(Random.Range(0, 360));
-            mover.AddSprite("Planet");
+            mover.AddDirection(UnityEngine.Random.Range(0, 360));
+            mover.AddSprite("Spritesheet/Planet", null);
         }
+    }
+}
+
+[CreateAssetMenu(fileName = "Create Mover",
+                menuName = "SuperMash/System Generators/Create Mover")]
+public class CreateMoverGenerator : SystemGenerator {
+    public override ISystem Generate(Contexts contexts) {
+        return new CreateMoverSystem(contexts);
     }
 }

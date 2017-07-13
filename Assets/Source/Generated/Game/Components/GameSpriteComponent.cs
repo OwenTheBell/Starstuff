@@ -11,17 +11,19 @@ public partial class GameEntity {
     public SpriteComponent sprite { get { return (SpriteComponent)GetComponent(GameComponentsLookup.Sprite); } }
     public bool hasSprite { get { return HasComponent(GameComponentsLookup.Sprite); } }
 
-    public void AddSprite(string newName) {
+    public void AddSprite(string newName, UnityEngine.Sprite newSprite) {
         var index = GameComponentsLookup.Sprite;
         var component = CreateComponent<SpriteComponent>(index);
         component.name = newName;
+        component.sprite = newSprite;
         AddComponent(index, component);
     }
 
-    public void ReplaceSprite(string newName) {
+    public void ReplaceSprite(string newName, UnityEngine.Sprite newSprite) {
         var index = GameComponentsLookup.Sprite;
         var component = CreateComponent<SpriteComponent>(index);
         component.name = newName;
+        component.sprite = newSprite;
         ReplaceComponent(index, component);
     }
 

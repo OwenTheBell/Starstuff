@@ -23,7 +23,12 @@ public class RenderSpriteSystem : ReactiveSystem<GameEntity> {
             if (renderer == null) {
                 renderer = go.AddComponent<SpriteRenderer>();
             }
-            renderer.sprite = Resources.Load<Sprite>(e.sprite.sprite);
+            if (e.sprite.sprite != null) {
+                renderer.sprite = e.sprite.sprite;
+            }
+            else {
+                renderer.sprite = Resources.Load<Sprite>(e.sprite.name);
+            }
         }
     }
 }
