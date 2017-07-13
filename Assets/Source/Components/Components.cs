@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Entitas;
+using Entitas.CodeGeneration.Attributes;
 
 // location & orientation
 [Game]
@@ -38,14 +39,14 @@ public class MoveComponent : IComponent {
 public class MoveCompleteComponent : IComponent { }
 
 // input
-[Input]
+[Input, Unique]
 public class LeftMouseComponent : IComponent { }
 
-[Input]
+[Input, Unique]
 public class RightMouseComponent : IComponent { }
 
 [Input]
-public class MouseDownComponet : IComponent {
+public class MouseDownComponent : IComponent {
     public Vector2 position;
 }
 

@@ -8,25 +8,25 @@
 //------------------------------------------------------------------------------
 public partial class InputEntity {
 
-    public MouseDownComponet mouseDownComponet { get { return (MouseDownComponet)GetComponent(InputComponentsLookup.MouseDownComponet); } }
-    public bool hasMouseDownComponet { get { return HasComponent(InputComponentsLookup.MouseDownComponet); } }
+    public MouseDownComponent mouseDown { get { return (MouseDownComponent)GetComponent(InputComponentsLookup.MouseDown); } }
+    public bool hasMouseDownComponent { get { return HasComponent(InputComponentsLookup.MouseDown); } }
 
-    public void AddMouseDownComponet(UnityEngine.Vector2 newPosition) {
-        var index = InputComponentsLookup.MouseDownComponet;
-        var component = CreateComponent<MouseDownComponet>(index);
+    public void AddMouseDown(UnityEngine.Vector2 newPosition) {
+        var index = InputComponentsLookup.MouseDown;
+        var component = CreateComponent<MouseDownComponent>(index);
         component.position = newPosition;
         AddComponent(index, component);
     }
 
-    public void ReplaceMouseDownComponet(UnityEngine.Vector2 newPosition) {
-        var index = InputComponentsLookup.MouseDownComponet;
-        var component = CreateComponent<MouseDownComponet>(index);
+    public void ReplaceMouseDown(UnityEngine.Vector2 newPosition) {
+        var index = InputComponentsLookup.MouseDown;
+        var component = CreateComponent<MouseDownComponent>(index);
         component.position = newPosition;
         ReplaceComponent(index, component);
     }
 
-    public void RemoveMouseDownComponet() {
-        RemoveComponent(InputComponentsLookup.MouseDownComponet);
+    public void RemoveMouseDown() {
+        RemoveComponent(InputComponentsLookup.MouseDown);
     }
 }
 
@@ -40,17 +40,17 @@ public partial class InputEntity {
 //------------------------------------------------------------------------------
 public sealed partial class InputMatcher {
 
-    static Entitas.IMatcher<InputEntity> _matcherMouseDownComponet;
+    static Entitas.IMatcher<InputEntity> _matcherMouseDown;
 
-    public static Entitas.IMatcher<InputEntity> MouseDownComponet {
+    public static Entitas.IMatcher<InputEntity> MouseDown {
         get {
-            if (_matcherMouseDownComponet == null) {
-                var matcher = (Entitas.Matcher<InputEntity>)Entitas.Matcher<InputEntity>.AllOf(InputComponentsLookup.MouseDownComponet);
+            if (_matcherMouseDown == null) {
+                var matcher = (Entitas.Matcher<InputEntity>)Entitas.Matcher<InputEntity>.AllOf(InputComponentsLookup.MouseDown);
                 matcher.componentNames = InputComponentsLookup.componentNames;
-                _matcherMouseDownComponet = matcher;
+                _matcherMouseDown = matcher;
             }
 
-            return _matcherMouseDownComponet;
+            return _matcherMouseDown;
         }
     }
 }
