@@ -20,8 +20,10 @@ public class RenderSpriteSystem : ReactiveSystem<GameEntity> {
         foreach (var e in entities) {
             var go = e.view.gameObject;
             var renderer = go.GetComponent<SpriteRenderer>();
-            if (renderer == null) { go.AddComponent<SpriteRenderer>(); }
-            renderer.sprite = Resources.Load<Sprite>(e.sprite.name);
+            if (renderer == null) {
+                renderer = go.AddComponent<SpriteRenderer>();
+            }
+            renderer.sprite = Resources.Load<Sprite>(e.sprite.sprite);
         }
     }
 }

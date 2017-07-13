@@ -9,7 +9,7 @@
 public partial class InputEntity {
 
     public MouseDownComponent mouseDown { get { return (MouseDownComponent)GetComponent(InputComponentsLookup.MouseDown); } }
-    public bool hasMouseDownComponent { get { return HasComponent(InputComponentsLookup.MouseDown); } }
+    public bool hasMouseDown { get { return HasComponent(InputComponentsLookup.MouseDown); } }
 
     public void AddMouseDown(UnityEngine.Vector2 newPosition) {
         var index = InputComponentsLookup.MouseDown;

@@ -12,7 +12,10 @@ public class GameController : MonoBehaviour {
         var contexts = Contexts.sharedInstance;
 
         _systems = new Feature("Systems")
-            .Add(new TestFeature(contexts));
+            //.Add(new TestFeature(contexts));
+            .Add(new InputFeature(contexts))
+            .Add(new MovementFeature(contexts))
+            .Add(new ViewFeature(contexts));
 
         _systems.Initialize();
 	}
