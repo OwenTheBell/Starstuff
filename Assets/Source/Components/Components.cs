@@ -28,6 +28,12 @@ public class SpriteComponent : IComponent {
     public Sprite sprite;
 }
 
+[Game]
+public class PlayerComponent : IComponent { }
+
+[Game]
+public class StarComponent : IComponent { }
+
 // moving
 [Game]
 public class MoverComponent : IComponent { }
@@ -61,3 +67,14 @@ public class MousePositionComponent : IComponent {
 public class MouseUpComponent : IComponent {
     public Vector2 position;
 }
+
+[Input]
+public class KeyDownComponent : IComponent { }
+
+[Input]
+public class KeyComponent : IComponent {
+    public KeyCode key;
+}
+
+[Input]
+public class KeyUpComponent : IComponent { }

@@ -39,9 +39,3 @@ public class MoveSystem : IExecuteSystem, ICleanupSystem {
 
 }
 
-[CreateAssetMenu(fileName = "Move", menuName = "SuperMash/Systems/Move")]
-public class MoveGenerator : SystemGenerator {
-    public override ISystem Generate(Contexts contexts) {
-        return new MoveSystem(contexts);
-    }
-}

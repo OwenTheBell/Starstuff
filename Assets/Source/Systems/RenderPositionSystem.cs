@@ -23,9 +23,3 @@ public class RenderPositionSystem : ReactiveSystem<GameEntity> {
     }
 }
 
-[CreateAssetMenu(fileName = "Render Position", menuName = "SuperMash/Systems/Render Position")]
-public class RenderPositionGenerator : SystemGenerator {
-    public override ISystem Generate(Contexts contexts) {
-        return new RenderPositionSystem(contexts);
-    }
-}

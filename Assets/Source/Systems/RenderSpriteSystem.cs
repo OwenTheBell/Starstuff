@@ -32,9 +32,3 @@ public class RenderSpriteSystem : ReactiveSystem<GameEntity> {
         }
     }
 }
-[CreateAssetMenu(fileName = "Render Sprite", menuName = "SuperMash/Systems/Render Sprite")]
-public class RenderSpriteGenerator : SystemGenerator {
-    public override ISystem Generate(Contexts contexts) {
-        return new RenderSpriteSystem(contexts);
-    }
-}
