@@ -18,8 +18,8 @@ public class GameController : MonoBehaviour {
             _systems.Add(feature.Generate(contexts));
         }
         //_systems.Add(new InputFeature(contexts))
-        _systems.Add(new MovementFeature(contexts));
-        _systems.Add(new ViewFeature(contexts));
+        //_systems.Add(new MovementFeature(contexts));
+        //_systems.Add(new ViewFeature(contexts));
 
         _systems.Initialize();
 	}

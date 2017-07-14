@@ -43,7 +43,7 @@ public class EmitInputSystem : IInitializeSystem, IExecuteSystem {
     }
 }
 
-[CreateAssetMenu(fileName = "Emit Input", menuName = "SuperMash/System Generators/Emit Input")]
+[CreateAssetMenu(fileName = "Emit Input", menuName = "SuperMash/Systems/Emit Input")]
 public class EmitInputGenerator : SystemGenerator {
     public override ISystem Generate(Contexts contexts) {
         return new EmitInputSystem(contexts);

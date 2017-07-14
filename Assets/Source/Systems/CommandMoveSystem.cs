@@ -29,7 +29,7 @@ public class CommandMoveSystem : ReactiveSystem<InputEntity> {
     }
 }
 
-[CreateAssetMenu(menuName = "SuperMash/System Generators/Command Move")]
+[CreateAssetMenu(fileName = "Command Move", menuName = "SuperMash/Systems/Command Move")]
 public class CommandMoveGenerator : SystemGenerator {
     public override ISystem Generate(Contexts contexts) {
         return new CommandMoveSystem(contexts);

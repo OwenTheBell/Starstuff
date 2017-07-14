@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class CreateMoverSystem : ReactiveSystem<InputEntity> {
 
+    public Sprite Sprite;
+    public string Name;
     readonly GameContext _context;
 
     public CreateMoverSystem(Contexts contexts) : base(contexts.input) {
@@ -28,15 +30,21 @@ public class CreateMoverSystem : ReactiveSystem<InputEntity> {
             mover.isMover = true;
             mover.AddPosition(e.mouseDown.position);
             mover.AddDirection(UnityEngine.Random.Range(0, 360));
-            mover.AddSprite("Spritesheet/Planet", null);
+            mover.AddSprite(Name, Sprite);
         }
     }
 }
 
-[CreateAssetMenu(fileName = "Create Mover",
-                menuName = "SuperMash/System Generators/Create Mover")]
+[CreateAssetMenu(fileName = "Create Mover", menuName = "SuperMash/Systems/Create Mover")]
 public class CreateMoverGenerator : SystemGenerator {
+
+    public Sprite Sprite;
+    public string Name;
+
     public override ISystem Generate(Contexts contexts) {
-        return new CreateMoverSystem(contexts);
+        var mover = new CreateMoverSystem(contexts);
+        mover.Sprite = Sprite;
+        mover.Name = Name;
+        return mover;
     }
 }
