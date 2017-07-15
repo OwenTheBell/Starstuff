@@ -10,40 +10,55 @@ public static class GameComponentsLookup {
 
     public const int DebugMessage = 0;
     public const int Direction = 1;
-    public const int MoveComplete = 2;
-    public const int Move = 3;
-    public const int Mover = 4;
-    public const int Player = 5;
-    public const int Position = 6;
-    public const int Sprite = 7;
-    public const int Star = 8;
-    public const int View = 9;
+    public const int FollowingPlayer = 2;
+    public const int MatchMotion = 3;
+    public const int MoveComplete = 4;
+    public const int Move = 5;
+    public const int Mover = 6;
+    public const int Player = 7;
+    public const int Position = 8;
+    public const int Spin = 9;
+    public const int Sprite = 10;
+    public const int Star = 11;
+    public const int Thruster = 12;
+    public const int ThrustPerFollower = 13;
+    public const int View = 14;
 
-    public const int TotalComponents = 10;
+    public const int TotalComponents = 15;
 
     public static readonly string[] componentNames = {
         "DebugMessage",
         "Direction",
+        "FollowingPlayer",
+        "MatchMotion",
         "MoveComplete",
         "Move",
         "Mover",
         "Player",
         "Position",
+        "Spin",
         "Sprite",
         "Star",
+        "Thruster",
+        "ThrustPerFollower",
         "View"
     };
 
     public static readonly System.Type[] componentTypes = {
         typeof(DebugMessageComponent),
         typeof(DirectionComponent),
+        typeof(FollowingPlayerComponent),
+        typeof(MatchMotionComponent),
         typeof(MoveCompleteComponent),
         typeof(MoveComponent),
         typeof(MoverComponent),
         typeof(PlayerComponent),
         typeof(PositionComponent),
+        typeof(SpinComponent),
         typeof(SpriteComponent),
         typeof(StarComponent),
+        typeof(ThrusterComponent),
+        typeof(ThrustPerFollowerComponent),
         typeof(ViewComponent)
     };
 }

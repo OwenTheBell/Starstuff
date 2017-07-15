@@ -8,23 +8,19 @@
 //------------------------------------------------------------------------------
 public partial class InputEntity {
 
-    public KeyUpComponent keyUp { get { return (KeyUpComponent)GetComponent(InputComponentsLookup.KeyUp); } }
-    public bool hasKeyUp { get { return HasComponent(InputComponentsLookup.KeyUp); } }
+    static readonly KeyUpComponent keyUpComponent = new KeyUpComponent();
 
-    public void AddKeyUp() {
-        var index = InputComponentsLookup.KeyUp;
-        var component = CreateComponent<KeyUpComponent>(index);
-        AddComponent(index, component);
-    }
-
-    public void ReplaceKeyUp() {
-        var index = InputComponentsLookup.KeyUp;
-        var component = CreateComponent<KeyUpComponent>(index);
-        ReplaceComponent(index, component);
-    }
-
-    public void RemoveKeyUp() {
-        RemoveComponent(InputComponentsLookup.KeyUp);
+    public bool isKeyUp {
+        get { return HasComponent(InputComponentsLookup.KeyUp); }
+        set {
+            if (value != isKeyUp) {
+                if (value) {
+                    AddComponent(InputComponentsLookup.KeyUp, keyUpComponent);
+                } else {
+                    RemoveComponent(InputComponentsLookup.KeyUp);
+                }
+            }
+        }
     }
 }
 

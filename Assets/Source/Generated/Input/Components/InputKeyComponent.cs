@@ -11,17 +11,19 @@ public partial class InputEntity {
     public KeyComponent key { get { return (KeyComponent)GetComponent(InputComponentsLookup.Key); } }
     public bool hasKey { get { return HasComponent(InputComponentsLookup.Key); } }
 
-    public void AddKey(UnityEngine.KeyCode newKey) {
+    public void AddKey(UnityEngine.KeyCode newKey, string newName) {
         var index = InputComponentsLookup.Key;
         var component = CreateComponent<KeyComponent>(index);
         component.key = newKey;
+        component.name = newName;
         AddComponent(index, component);
     }
 
-    public void ReplaceKey(UnityEngine.KeyCode newKey) {
+    public void ReplaceKey(UnityEngine.KeyCode newKey, string newName) {
         var index = InputComponentsLookup.Key;
         var component = CreateComponent<KeyComponent>(index);
         component.key = newKey;
+        component.name = newName;
         ReplaceComponent(index, component);
     }
 

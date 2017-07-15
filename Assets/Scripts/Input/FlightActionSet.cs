@@ -9,7 +9,7 @@ public class FlightActionSet : PlayerActionSet {
     public PlayerAction Right;
     public PlayerAction Thrust;
 
-    public FlightActionSet() {
+    public FlightActionSet() : base() {
         Left = CreatePlayerAction("Left");
         Right = CreatePlayerAction("Right");
         Thrust = CreatePlayerAction("Thrust");
@@ -24,7 +24,7 @@ public class FlightActionSet : PlayerActionSet {
         playerActions.Thrust.AddDefaultBinding(Key.W);
         playerActions.Thrust.AddDefaultBinding(Key.Space);
         playerActions.Thrust.AddDefaultBinding(Key.UpArrow);
+        InputManager.AttachPlayerActionSet(playerActions);
         return playerActions;
     }
-
 }

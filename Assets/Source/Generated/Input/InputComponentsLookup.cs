@@ -21,7 +21,7 @@ public static class InputComponentsLookup {
 
     public static readonly string[] componentNames = {
         "Key",
-        "KeyDownComponent",
+        "KeyDown",
         "KeyUp",
         "LeftMouse",
         "MouseDown",
