@@ -11,19 +11,21 @@ public partial class GameEntity {
     public MatchMotionComponent matchMotion { get { return (MatchMotionComponent)GetComponent(GameComponentsLookup.MatchMotion); } }
     public bool hasMatchMotion { get { return HasComponent(GameComponentsLookup.MatchMotion); } }
 
-    public void AddMatchMotion(UnityEngine.GameObject newGameObject, float newScale) {
+    public void AddMatchMotion(UnityEngine.GameObject newGameObject, float newScale, UnityEngine.Vector2 new_lastPosition) {
         var index = GameComponentsLookup.MatchMotion;
         var component = CreateComponent<MatchMotionComponent>(index);
         component.gameObject = newGameObject;
         component.Scale = newScale;
+        component._lastPosition = new_lastPosition;
         AddComponent(index, component);
     }
 
-    public void ReplaceMatchMotion(UnityEngine.GameObject newGameObject, float newScale) {
+    public void ReplaceMatchMotion(UnityEngine.GameObject newGameObject, float newScale, UnityEngine.Vector2 new_lastPosition) {
         var index = GameComponentsLookup.MatchMotion;
         var component = CreateComponent<MatchMotionComponent>(index);
         component.gameObject = newGameObject;
         component.Scale = newScale;
+        component._lastPosition = new_lastPosition;
         ReplaceComponent(index, component);
     }
 

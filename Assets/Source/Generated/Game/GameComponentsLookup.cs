@@ -8,32 +8,38 @@
 //------------------------------------------------------------------------------
 public static class GameComponentsLookup {
 
-    public const int DebugMessage = 0;
-    public const int Direction = 1;
-    public const int FollowingPlayer = 2;
-    public const int MatchMotion = 3;
-    public const int MoveComplete = 4;
-    public const int Move = 5;
-    public const int Mover = 6;
-    public const int Player = 7;
-    public const int Position = 8;
-    public const int Spin = 9;
-    public const int Sprite = 10;
-    public const int Star = 11;
-    public const int Thruster = 12;
-    public const int ThrustPerFollower = 13;
-    public const int View = 14;
+    public const int BackgroundTile = 0;
+    public const int DebugMessage = 1;
+    public const int Direction = 2;
+    public const int FollowingPlayer = 3;
+    public const int HiddenTile = 4;
+    public const int MatchMotion = 5;
+    public const int MoveComplete = 6;
+    public const int Move = 7;
+    public const int Mover = 8;
+    public const int OnScreenTile = 9;
+    public const int Player = 10;
+    public const int Position = 11;
+    public const int Spin = 12;
+    public const int Sprite = 13;
+    public const int Star = 14;
+    public const int Thruster = 15;
+    public const int ThrustPerFollower = 16;
+    public const int View = 17;
 
-    public const int TotalComponents = 15;
+    public const int TotalComponents = 18;
 
     public static readonly string[] componentNames = {
+        "BackgroundTile",
         "DebugMessage",
         "Direction",
         "FollowingPlayer",
+        "HiddenTile",
         "MatchMotion",
         "MoveComplete",
         "Move",
         "Mover",
+        "OnScreenTile",
         "Player",
         "Position",
         "Spin",
@@ -45,13 +51,16 @@ public static class GameComponentsLookup {
     };
 
     public static readonly System.Type[] componentTypes = {
+        typeof(BackgroundTile),
         typeof(DebugMessageComponent),
         typeof(DirectionComponent),
         typeof(FollowingPlayerComponent),
+        typeof(HiddenTile),
         typeof(MatchMotionComponent),
         typeof(MoveCompleteComponent),
         typeof(MoveComponent),
         typeof(MoverComponent),
+        typeof(OnScreenTile),
         typeof(PlayerComponent),
         typeof(PositionComponent),
         typeof(SpinComponent),

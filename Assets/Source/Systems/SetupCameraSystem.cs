@@ -20,7 +20,7 @@ public class SetupCameraSystem : IInitializeSystem {
         var camera = Camera.main;
         var player = _context.playerEntity.view.gameObject;
         var e = _context.CreateEntity();
-        e.AddMatchMotion(player, _scale);
+        e.AddMatchMotion(player, _scale, Vector2.zero);
         e.AddView(camera.gameObject);
         camera.gameObject.Link(e, _context);
     }

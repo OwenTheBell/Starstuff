@@ -75,9 +75,22 @@ public class SpinComponent : IComponent {
     public float Dampening;
 }
 
-
 [Game]
 public class MoveCompleteComponent : IComponent { }
+
+[Game]
+public class OnScreenTile : IComponent { }
+
+[Game]
+public class BackgroundTileLayer : IComponent { }
+
+[Game]
+public class BackgroundTile : IComponent {
+    public BackgroundTileSetup TileSetup;
+}
+
+[Game]
+public class HiddenTile : IComponent { }
 
 // input
 [Input, Unique]
