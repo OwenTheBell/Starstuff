@@ -7,6 +7,7 @@ using Entitas;
 
 [CreateAssetMenu(fileName = "Generic Feature", menuName = "SuperMash/Features/Generic Feature")]
 public class GenerateFeature : ScriptableObject {
+    public bool UseFixedUpdate;
     public SystemGenerator[] Systems;
 
     public Feature Generate(Contexts contexts) {

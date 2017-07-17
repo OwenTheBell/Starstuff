@@ -8,15 +8,23 @@ public class GameController : MonoBehaviour {
     public GenerateFeature[] Features;
 
     Systems _systems;
+    Systems _fixedUpdatedSystems;
 
 	// Use this for initialization
 	void Start () {
         var contexts = Contexts.sharedInstance;
         _systems = new Feature("Systems");
+        _fixedUpdatedSystems = new Feature("Fixed Update Systems");
         foreach (var feature in Features) {
-            _systems.Add(feature.Generate(contexts));
+            if (feature.UseFixedUpdate) {
+                _fixedUpdatedSystems.Add(feature.Generate(contexts));
+            }
+            else {
+                _systems.Add(feature.Generate(contexts));
+            }
         }
         _systems.Initialize();
+        _fixedUpdatedSystems.Initialize();
 	}
 	
 	// Update is called once per frame
@@ -24,4 +32,9 @@ public class GameController : MonoBehaviour {
         _systems.Execute();
         _systems.Cleanup();
 	}
+
+    private void FixedUpdate() {
+        _fixedUpdatedSystems.Execute();
+        _fixedUpdatedSystems.Cleanup();
+    }
 }
