@@ -17,6 +17,11 @@ public class AdjustPlayerThrustSystem : ReactiveSystem<GameEntity>, IInitializeS
 
     public void Initialize() {
         _player = _context.playerEntity;
+        var thruster = _player.thruster;
+        var perFollower = _player.thrustPerFollower;
+        thruster.HasMaxVelocity = true;
+        thruster.MaxVelocity = perFollower.BaseSpeed;
+        thruster.Force = perFollower.BaseThrust;
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context) {

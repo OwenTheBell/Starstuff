@@ -18,6 +18,8 @@ public class BackgroundSystem : IInitializeSystem, IExecuteSystem {
     readonly BackgroundTileSetup[] _tileSetups;
     readonly float _hideDistance;
 
+    bool _firstPass = true;
+
     public BackgroundSystem(Contexts contexts, GameObject tile, BackgroundTileSetup[] setups, float distance) {
         _context = contexts.game;
         _layers = _context.GetGroup(GameMatcher.BackgroundLayer);
@@ -45,6 +47,8 @@ public class BackgroundSystem : IInitializeSystem, IExecuteSystem {
     }
 
     public void Execute() {
+        //if (!_firstPass) return;
+
         var camera = Camera.main;
         var height = 2f * camera.orthographicSize;
         var width = camera.aspect * height;
@@ -142,6 +146,8 @@ public class BackgroundSystem : IInitializeSystem, IExecuteSystem {
                 tile.isHiddenTile = true;
             }
         }
+
+        _firstPass = false;
     }
 
     Vector2 TilePositionForPointOnGrid(Vector2 point, Vector2 dimensions) {
