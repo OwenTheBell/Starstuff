@@ -11,22 +11,18 @@ public partial class GameEntity {
     public ThrusterComponent thruster { get { return (ThrusterComponent)GetComponent(GameComponentsLookup.Thruster); } }
     public bool hasThruster { get { return HasComponent(GameComponentsLookup.Thruster); } }
 
-    public void AddThruster(float newForce, bool newHasMaxVelocity, float newMaxVelocity, float newDampening) {
+    public void AddThruster(float newForce, float newDampening) {
         var index = GameComponentsLookup.Thruster;
         var component = CreateComponent<ThrusterComponent>(index);
         component.Force = newForce;
-        component.HasMaxVelocity = newHasMaxVelocity;
-        component.MaxVelocity = newMaxVelocity;
         component.Dampening = newDampening;
         AddComponent(index, component);
     }
 
-    public void ReplaceThruster(float newForce, bool newHasMaxVelocity, float newMaxVelocity, float newDampening) {
+    public void ReplaceThruster(float newForce, float newDampening) {
         var index = GameComponentsLookup.Thruster;
         var component = CreateComponent<ThrusterComponent>(index);
         component.Force = newForce;
-        component.HasMaxVelocity = newHasMaxVelocity;
-        component.MaxVelocity = newMaxVelocity;
         component.Dampening = newDampening;
         ReplaceComponent(index, component);
     }

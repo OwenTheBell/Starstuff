@@ -10,7 +10,6 @@ public class GameController : MonoBehaviour {
     Systems _systems;
     Systems _fixedUpdatedSystems;
 
-	// Use this for initialization
 	void Start () {
         var contexts = Contexts.sharedInstance;
         _systems = new Feature("Systems");
@@ -23,11 +22,11 @@ public class GameController : MonoBehaviour {
                 _systems.Add(feature.Generate(contexts));
             }
         }
+        //_systems.Add(new CheckForGridCorrectnessSystem(contexts));
         _systems.Initialize();
         _fixedUpdatedSystems.Initialize();
 	}
 	
-	// Update is called once per frame
 	void Update () {
         _systems.Execute();
         _systems.Cleanup();

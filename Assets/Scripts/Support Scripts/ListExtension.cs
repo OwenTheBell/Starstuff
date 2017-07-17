@@ -38,4 +38,9 @@ public static class ListExtensions {
         foreach (var t in toCheck) if (todo(t)) return true;
         return false;
     }
+
+    public static T Match<T>(this List<T> list, Predicate<T> condition) {
+        foreach (var l in list) if (condition(l)) return l;
+        return default(T);
+    }
 }

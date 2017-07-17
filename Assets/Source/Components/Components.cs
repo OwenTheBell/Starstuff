@@ -20,6 +20,8 @@ public class DirectionComponent : IComponent {
 [Game]
 public class ViewComponent : IComponent {
     public GameObject gameObject;
+
+    public Transform transform { get { return gameObject.transform; } }
 }
 
 [Game]
@@ -64,9 +66,12 @@ public class MoveComponent : IComponent {
 [Game, System.Serializable]
 public class ThrusterComponent : IComponent {
     public float Force;
-    public bool HasMaxVelocity;
-    public float MaxVelocity;
     public float Dampening;
+}
+
+[Game]
+public class MaxVelocityComponent : IComponent {
+    public float MaxVelocity;
 }
 
 [Game, System.Serializable]
@@ -87,10 +92,15 @@ public class BackgroundLayer : IComponent {
 }
 
 [Game]
-public class BackgroundTile : IComponent { }
+public class BackgroundTile : IComponent {
+    public BackgroundTileSetup TileSetup;
+}
 
 [Game]
 public class HiddenTile : IComponent { }
+
+[Game]
+public class UnusedTile : IComponent { }
 
 // input
 [Input, Unique]

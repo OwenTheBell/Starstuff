@@ -49,10 +49,12 @@ public class ThrusterSystem : IExecuteSystem {
             else {
                 applyDampening();
             }
-            if (e.thruster.HasMaxVelocity && rigidbody.velocity.magnitude > e.thruster.MaxVelocity) {
+
+            if (e.hasMaxVelocity && rigidbody.velocity.magnitude > e.maxVelocity.MaxVelocity) {
                 var velocity = rigidbody.velocity;
                 velocity.Normalize();
-                rigidbody.velocity = velocity * e.thruster.MaxVelocity;
+                rigidbody.velocity = velocity * e.maxVelocity.MaxVelocity;
+                e.RemoveMaxVelocity();
             }
         }
     }

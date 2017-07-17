@@ -15,20 +15,22 @@ public static class GameComponentsLookup {
     public const int FollowingPlayer = 4;
     public const int HiddenTile = 5;
     public const int MatchMotion = 6;
-    public const int MoveComplete = 7;
-    public const int Move = 8;
-    public const int Mover = 9;
-    public const int OnScreenTile = 10;
-    public const int Player = 11;
-    public const int Position = 12;
-    public const int Spin = 13;
-    public const int Sprite = 14;
-    public const int Star = 15;
-    public const int Thruster = 16;
-    public const int ThrustPerFollower = 17;
-    public const int View = 18;
+    public const int MaxVelocity = 7;
+    public const int MoveComplete = 8;
+    public const int Move = 9;
+    public const int Mover = 10;
+    public const int OnScreenTile = 11;
+    public const int Player = 12;
+    public const int Position = 13;
+    public const int Spin = 14;
+    public const int Sprite = 15;
+    public const int Star = 16;
+    public const int Thruster = 17;
+    public const int ThrustPerFollower = 18;
+    public const int UnusedTile = 19;
+    public const int View = 20;
 
-    public const int TotalComponents = 19;
+    public const int TotalComponents = 21;
 
     public static readonly string[] componentNames = {
         "BackgroundLayer",
@@ -38,6 +40,7 @@ public static class GameComponentsLookup {
         "FollowingPlayer",
         "HiddenTile",
         "MatchMotion",
+        "MaxVelocity",
         "MoveComplete",
         "Move",
         "Mover",
@@ -49,6 +52,7 @@ public static class GameComponentsLookup {
         "Star",
         "Thruster",
         "ThrustPerFollower",
+        "UnusedTile",
         "View"
     };
 
@@ -60,6 +64,7 @@ public static class GameComponentsLookup {
         typeof(FollowingPlayerComponent),
         typeof(HiddenTile),
         typeof(MatchMotionComponent),
+        typeof(MaxVelocityComponent),
         typeof(MoveCompleteComponent),
         typeof(MoveComponent),
         typeof(MoverComponent),
@@ -71,6 +76,7 @@ public static class GameComponentsLookup {
         typeof(StarComponent),
         typeof(ThrusterComponent),
         typeof(ThrustPerFollowerComponent),
+        typeof(UnusedTile),
         typeof(ViewComponent)
     };
 }
