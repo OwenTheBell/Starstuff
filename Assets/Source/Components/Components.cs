@@ -82,12 +82,12 @@ public class MoveCompleteComponent : IComponent { }
 public class OnScreenTile : IComponent { }
 
 [Game]
-public class BackgroundTileLayer : IComponent { }
-
-[Game]
-public class BackgroundTile : IComponent {
+public class BackgroundLayer : IComponent {
     public BackgroundTileSetup TileSetup;
 }
+
+[Game]
+public class BackgroundTile : IComponent { }
 
 [Game]
 public class HiddenTile : IComponent { }

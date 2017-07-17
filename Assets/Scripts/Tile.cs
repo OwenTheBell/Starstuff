@@ -32,10 +32,6 @@ public class Tile : MonoBehaviour {
             _Stars.Add(star);
         }
 	}
-	
-	void Update () {
-		
-	}
 
     private void OnDrawGizmos() {
         var upperLeft = transform.TransformPoint(new Vector2(-Dimensions.x / 2f, Dimensions.y / 2f));
