@@ -5,29 +5,12 @@ using Entitas;
 using Entitas.CodeGeneration.Attributes;
 using System;
 
-// location & orientation
-[Game]
-public class PositionComponent : IComponent {
-    public Vector2 value;
-}
-
-[Game]
-public class DirectionComponent : IComponent {
-    public float value;
-}
-
 // rendering
 [Game]
 public class ViewComponent : IComponent {
     public GameObject gameObject;
 
     public Transform transform { get { return gameObject.transform; } }
-}
-
-[Game]
-public class SpriteComponent : IComponent {
-    public string name;
-    public Sprite sprite;
 }
 
 [Game, Unique]
@@ -54,15 +37,6 @@ public class MatchMotionComponent : IComponent {
     public Vector2 _lastPosition;
 }
 
-// moving
-[Game]
-public class MoverComponent : IComponent { }
-
-[Game]
-public class MoveComponent : IComponent {
-    public Vector2 target;
-}
-
 [Game, System.Serializable]
 public class ThrusterComponent : IComponent {
     public float Force;
@@ -81,25 +55,13 @@ public class SpinComponent : IComponent {
 }
 
 [Game]
-public class MoveCompleteComponent : IComponent { }
-
-[Game]
-public class OnScreenTile : IComponent { }
-
-[Game]
 public class BackgroundLayer : IComponent {
     public BackgroundTileSetup TileSetup;
-    public List<GameEntity> _Tiles = new List<GameEntity>();
+    public List<GameEntity> _Tiles;
 }
 
 [Game]
 public class BackgroundTile : IComponent { }
-
-[Game]
-public class HiddenTile : IComponent { }
-
-[Game]
-public class UnusedTile : IComponent { }
 
 // input
 [Input, Unique]

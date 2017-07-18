@@ -10,70 +10,43 @@ public static class GameComponentsLookup {
 
     public const int BackgroundLayer = 0;
     public const int BackgroundTile = 1;
-    public const int Direction = 2;
-    public const int FollowingPlayer = 3;
-    public const int HiddenTile = 4;
-    public const int MatchMotion = 5;
-    public const int MaxVelocity = 6;
-    public const int MoveComplete = 7;
-    public const int Move = 8;
-    public const int Mover = 9;
-    public const int OnScreenTile = 10;
-    public const int Player = 11;
-    public const int Position = 12;
-    public const int Spin = 13;
-    public const int Sprite = 14;
-    public const int Star = 15;
-    public const int Thruster = 16;
-    public const int ThrustPerFollower = 17;
-    public const int UnusedTile = 18;
-    public const int View = 19;
+    public const int FollowingPlayer = 2;
+    public const int MatchMotion = 3;
+    public const int MaxVelocity = 4;
+    public const int Player = 5;
+    public const int Spin = 6;
+    public const int Star = 7;
+    public const int Thruster = 8;
+    public const int ThrustPerFollower = 9;
+    public const int View = 10;
 
-    public const int TotalComponents = 20;
+    public const int TotalComponents = 11;
 
     public static readonly string[] componentNames = {
         "BackgroundLayer",
         "BackgroundTile",
-        "Direction",
         "FollowingPlayer",
-        "HiddenTile",
         "MatchMotion",
         "MaxVelocity",
-        "MoveComplete",
-        "Move",
-        "Mover",
-        "OnScreenTile",
         "Player",
-        "Position",
         "Spin",
-        "Sprite",
         "Star",
         "Thruster",
         "ThrustPerFollower",
-        "UnusedTile",
         "View"
     };
 
     public static readonly System.Type[] componentTypes = {
         typeof(BackgroundLayer),
         typeof(BackgroundTile),
-        typeof(DirectionComponent),
         typeof(FollowingPlayerComponent),
-        typeof(HiddenTile),
         typeof(MatchMotionComponent),
         typeof(MaxVelocityComponent),
-        typeof(MoveCompleteComponent),
-        typeof(MoveComponent),
-        typeof(MoverComponent),
-        typeof(OnScreenTile),
         typeof(PlayerComponent),
-        typeof(PositionComponent),
         typeof(SpinComponent),
-        typeof(SpriteComponent),
         typeof(StarComponent),
         typeof(ThrusterComponent),
         typeof(ThrustPerFollowerComponent),
-        typeof(UnusedTile),
         typeof(ViewComponent)
     };
 }
