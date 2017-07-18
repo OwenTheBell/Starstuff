@@ -10,32 +10,30 @@ public static class GameComponentsLookup {
 
     public const int BackgroundLayer = 0;
     public const int BackgroundTile = 1;
-    public const int DebugMessage = 2;
-    public const int Direction = 3;
-    public const int FollowingPlayer = 4;
-    public const int HiddenTile = 5;
-    public const int MatchMotion = 6;
-    public const int MaxVelocity = 7;
-    public const int MoveComplete = 8;
-    public const int Move = 9;
-    public const int Mover = 10;
-    public const int OnScreenTile = 11;
-    public const int Player = 12;
-    public const int Position = 13;
-    public const int Spin = 14;
-    public const int Sprite = 15;
-    public const int Star = 16;
-    public const int Thruster = 17;
-    public const int ThrustPerFollower = 18;
-    public const int UnusedTile = 19;
-    public const int View = 20;
+    public const int Direction = 2;
+    public const int FollowingPlayer = 3;
+    public const int HiddenTile = 4;
+    public const int MatchMotion = 5;
+    public const int MaxVelocity = 6;
+    public const int MoveComplete = 7;
+    public const int Move = 8;
+    public const int Mover = 9;
+    public const int OnScreenTile = 10;
+    public const int Player = 11;
+    public const int Position = 12;
+    public const int Spin = 13;
+    public const int Sprite = 14;
+    public const int Star = 15;
+    public const int Thruster = 16;
+    public const int ThrustPerFollower = 17;
+    public const int UnusedTile = 18;
+    public const int View = 19;
 
-    public const int TotalComponents = 21;
+    public const int TotalComponents = 20;
 
     public static readonly string[] componentNames = {
         "BackgroundLayer",
         "BackgroundTile",
-        "DebugMessage",
         "Direction",
         "FollowingPlayer",
         "HiddenTile",
@@ -59,7 +57,6 @@ public static class GameComponentsLookup {
     public static readonly System.Type[] componentTypes = {
         typeof(BackgroundLayer),
         typeof(BackgroundTile),
-        typeof(DebugMessageComponent),
         typeof(DirectionComponent),
         typeof(FollowingPlayerComponent),
         typeof(HiddenTile),
