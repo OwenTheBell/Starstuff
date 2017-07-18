@@ -10,4 +10,11 @@ public static class GameObjectExtensions {
 	public static bool HasComponentInChildren<T>(this GameObject gameObject) {
 		return gameObject.GetComponentInChildren<T>() != null;
 	}
+    public static List<GameObject> ListOfChildrenWithComponent<T>(this GameObject gameObject) where T : Component {
+        var output = new List<GameObject>();
+        foreach (var child in gameObject.GetComponentsInChildren<T>()) {
+            output.Add(child.gameObject);
+        }
+        return output;
+    }
 }

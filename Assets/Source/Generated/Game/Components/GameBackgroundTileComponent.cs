@@ -8,26 +8,42 @@
 //------------------------------------------------------------------------------
 public partial class GameEntity {
 
-    public BackgroundTile backgroundTile { get { return (BackgroundTile)GetComponent(GameComponentsLookup.BackgroundTile); } }
-    public bool hasBackgroundTile { get { return HasComponent(GameComponentsLookup.BackgroundTile); } }
+    static readonly BackgroundTile backgroundTileComponent = new BackgroundTile();
 
-    public void AddBackgroundTile(BackgroundTileSetup newTileSetup) {
-        var index = GameComponentsLookup.BackgroundTile;
-        var component = CreateComponent<BackgroundTile>(index);
-        component.TileSetup = newTileSetup;
-        AddComponent(index, component);
+    public bool isBackgroundTile {
+        get { return HasComponent(GameComponentsLookup.BackgroundTile); }
+        set {
+            if (value != isBackgroundTile) {
+                if (value) {
+                    AddComponent(GameComponentsLookup.BackgroundTile, backgroundTileComponent);
+                }
+                else {
+                    RemoveComponent(GameComponentsLookup.BackgroundTile);
+                }
+            }
+        }
     }
 
-    public void ReplaceBackgroundTile(BackgroundTileSetup newTileSetup) {
-        var index = GameComponentsLookup.BackgroundTile;
-        var component = CreateComponent<BackgroundTile>(index);
-        component.TileSetup = newTileSetup;
-        ReplaceComponent(index, component);
-    }
+    //public BackgroundTile backgroundTile { get { return (BackgroundTile)GetComponent(GameComponentsLookup.BackgroundTile); } }
+    //public bool hasBackgroundTile { get { return HasComponent(GameComponentsLookup.BackgroundTile); } }
 
-    public void RemoveBackgroundTile() {
-        RemoveComponent(GameComponentsLookup.BackgroundTile);
-    }
+    //public void AddBackgroundTile(BackgroundTileSetup newTileSetup) {
+    //    var index = GameComponentsLookup.BackgroundTile;
+    //    var component = CreateComponent<BackgroundTile>(index);
+    //    component.TileSetup = newTileSetup;
+    //    AddComponent(index, component);
+    //}
+
+    //public void ReplaceBackgroundTile(BackgroundTileSetup newTileSetup) {
+    //    var index = GameComponentsLookup.BackgroundTile;
+    //    var component = CreateComponent<BackgroundTile>(index);
+    //    component.TileSetup = newTileSetup;
+    //    ReplaceComponent(index, component);
+    //}
+
+    //public void RemoveBackgroundTile() {
+    //    RemoveComponent(GameComponentsLookup.BackgroundTile);
+    //}
 }
 
 //------------------------------------------------------------------------------

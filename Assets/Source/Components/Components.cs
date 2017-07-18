@@ -89,12 +89,11 @@ public class OnScreenTile : IComponent { }
 [Game]
 public class BackgroundLayer : IComponent {
     public BackgroundTileSetup TileSetup;
+    public List<GameEntity> _Tiles = new List<GameEntity>();
 }
 
 [Game]
-public class BackgroundTile : IComponent {
-    public BackgroundTileSetup TileSetup;
-}
+public class BackgroundTile : IComponent { }
 
 [Game]
 public class HiddenTile : IComponent { }

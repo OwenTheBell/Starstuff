@@ -11,17 +11,19 @@ public partial class GameEntity {
     public BackgroundLayer backgroundLayer { get { return (BackgroundLayer)GetComponent(GameComponentsLookup.BackgroundLayer); } }
     public bool hasBackgroundLayer { get { return HasComponent(GameComponentsLookup.BackgroundLayer); } }
 
-    public void AddBackgroundLayer(BackgroundTileSetup newTileSetup) {
+    public void AddBackgroundLayer(BackgroundTileSetup newTileSetup, System.Collections.Generic.List<GameEntity> new_Tiles) {
         var index = GameComponentsLookup.BackgroundLayer;
         var component = CreateComponent<BackgroundLayer>(index);
         component.TileSetup = newTileSetup;
+        component._Tiles = new_Tiles;
         AddComponent(index, component);
     }
 
-    public void ReplaceBackgroundLayer(BackgroundTileSetup newTileSetup) {
+    public void ReplaceBackgroundLayer(BackgroundTileSetup newTileSetup, System.Collections.Generic.List<GameEntity> new_Tiles) {
         var index = GameComponentsLookup.BackgroundLayer;
         var component = CreateComponent<BackgroundLayer>(index);
         component.TileSetup = newTileSetup;
+        component._Tiles = new_Tiles;
         ReplaceComponent(index, component);
     }
 

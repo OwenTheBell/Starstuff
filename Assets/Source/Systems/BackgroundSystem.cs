@@ -10,18 +10,14 @@ public class BackgroundSystem : IInitializeSystem, IExecuteSystem {
 
     readonly GameContext _context;
     readonly IGroup<GameEntity> _layers;
-    readonly IGroup<GameEntity> _tiles;
-    readonly IGroup<GameEntity> _onScreenTiles;
-    readonly IGroup<GameEntity> _hiddenTiles;
-    readonly IGroup<GameEntity> _unusedTiles;
 
     readonly GameObject _tilePrefab;
     readonly BackgroundTileSetup[] _tileSetups;
     readonly float _hideDistance;
 
-    Dictionary<GameEntity, List<GameObject>> _childTiles;
-
-    bool _firstPass = true;
+    // this list is maintained purely for garbage collection reasons
+    // it should be cleared at the end of every Execute()
+    List<GameEntity> _childTiles = new List<GameEntity>();
 
     public BackgroundSystem(
         Contexts contexts,
@@ -30,11 +26,7 @@ public class BackgroundSystem : IInitializeSystem, IExecuteSystem {
         float distance
     ) {
         _context = contexts.game;
-        _layers = _context.GetGroup(GameMatcher.BackgroundLayer);
-        _tiles = _context.GetGroup(GameMatcher.BackgroundTile);
-        _onScreenTiles = _context.GetGroup(GameMatcher.OnScreenTile);
-        _hiddenTiles = _context.GetGroup(GameMatcher.HiddenTile);
-        _unusedTiles = _context.GetGroup(GameMatcher.UnusedTile);
+        _layers = _context.GetGroup(GameMatcher.BackgroundLayer);;
         _tilePrefab = tile;
         _tileSetups = setups;
         _hideDistance = distance;
@@ -42,38 +34,25 @@ public class BackgroundSystem : IInitializeSystem, IExecuteSystem {
 
     public void Initialize() {
         var camera = Camera.main;
-        _childTiles = new Dictionary<GameEntity, List<GameObject>>();
         foreach (var setup in _tileSetups) {
             var e = _context.CreateEntity();
             var go = new GameObject(setup.name);
             go.transform.position = new Vector3(0f, 0f, setup.ZDepth);
             e.AddView(go);
             e.AddMatchMotion(camera.gameObject, setup.ParalaxScale, Vector2.zero);
-            e.AddBackgroundLayer(setup);
+            e.AddBackgroundLayer(setup, new List<GameEntity>());
             go.Link(e, _context);
-            _childTiles.Add(e, new List<GameObject>());
-        }
-    }
-
-    struct GridPosition {
-        public readonly Vector2 point;
-        public readonly BackgroundTileSetup layer;
-
-        public GridPosition(Vector2 position, BackgroundTileSetup layer) {
-            this.point = position;
-            this.layer = layer;
         }
     }
 
     public void Execute() {
-        //if (!_firstPass) return;
         var camera = Camera.main;
         var height = 2f * camera.orthographicSize;
         var width = camera.aspect * height;
         var widthBound = width * 2f;
         var heightBound = height * 2f;
 
-        var layers = new List<GameEntity>(_layers.GetEntities());
+        var iteration = 0;
         foreach (var layer in _layers.GetEntities()) {
             var slots = new List<Vector2>();
             var setup = layer.backgroundLayer.TileSetup;
@@ -85,30 +64,27 @@ public class BackgroundSystem : IInitializeSystem, IExecuteSystem {
                     slots.Add(point);
                 }
             }
-            //var childTiles = new List<Tile>(layer.view.gameObject.GetComponentsInChildren<Tile>());
 
-            // make a new list so objects aren't being removed from the original
-            var childTiles = new List<GameObject>(_childTiles[layer]);
+            _childTiles.Clear();
+            _childTiles = new List<GameEntity>(layer.backgroundLayer._Tiles);
             var camPos = camera.transform.position;
-            var iterations = 0;
             foreach (var slot in slots) {
-                GameObject selectedTile = null;
+                GameEntity selectedTile = null;
                 var furthestDistance = 0f;
-                foreach (var child in childTiles) {
-                    iterations++;
-                    if ((Vector2)child.transform.localPosition == slot) {
+                foreach (var child in _childTiles) {
+                    iteration++;
+                    if ((Vector2)child.view.transform.localPosition == slot) {
                         selectedTile = child;
                         break;
                     }
-                    var distance = Vector2.Distance(child.transform.position, camPos);
+                    var distance = Vector2.Distance(child.view.transform.position, camPos);
                     if (distance > furthestDistance && distance > _hideDistance) {
                         furthestDistance = distance;
                         selectedTile = child;
                     }
                 }
                 if (selectedTile != null) {
-                    selectedTile.transform.localPosition = slot;
-                    //childTiles.Remove(selectedTile);
+                    selectedTile.view.transform.localPosition = slot;
                     continue;
                 }
 
@@ -120,41 +96,14 @@ public class BackgroundSystem : IInitializeSystem, IExecuteSystem {
                 tile.GetComponent<Tile>().Density = setup.Density;
                 tile.GetComponent<Tile>().Scale = setup.Scale;
                 tile.GetComponent<Tile>().Alpha = setup.Alpha;
-                _childTiles[layer].Add(tile);
-
-                //// check if there is a tile on screen that fits in this slot
-                //var onScreen = childTiles.Filter<Tile>(t => {
-                //    return (Vector2)t.transform.localPosition == missing.point;
-                //});
-                //if (onScreen.Count > 0) {
-                //    continue;
-                //}
-
-                //// is there a tile far enough away that can be moved
-                //var farAway = childTiles.Filter<Tile>(t => {
-                //    var myPos = t.transform.position;
-                //    var camPos = camera.transform.position;
-                //    var distance = Vector2.Distance(myPos, camPos);
-                //    return distance > _hideDistance;
-                //});
-                //if (farAway.Count > 0) {
-                //    var farTile = farAway[0];
-                //    farTile.transform.localPosition = missing.point;
-                //    continue;
-                //}
-
-                //// make a tile to fill the gap
-                //var tile = GameObject.Instantiate(_tilePrefab);
-                //tile.transform.parent = layer.view.transform;
-                //tile.transform.localPosition = missing.point;
-                //tile.GetComponent<Tile>().Dimensions = setup.Dimensions;
-                //tile.GetComponent<Tile>().Density = setup.Density;
-                //tile.GetComponent<Tile>().Scale = setup.Scale;
-                //tile.GetComponent<Tile>().Alpha = setup.Alpha;
+                var e = _context.CreateEntity();
+                e.AddView(tile);
+                e.isBackgroundTile = true;
+                tile.Link(e, _context);
+                layer.backgroundLayer._Tiles.Add(e);
             }
-            Debug.Log("iterations this frame: " + iterations);
         }
-       _firstPass = false;
+        _childTiles.Clear();
     }
 
     Vector2 TilePositionForPointOnGrid(Vector2 point, Vector2 dimensions) {

@@ -20,6 +20,17 @@ public static class ListExtensions {
 		return output;
 	}
 
+    public static List<T> FilterAndRemove<T> (this List<T> toFilter, Predicate<T> p) {
+        var output = new List<T>();
+        for (var i = toFilter.Count - 1; i >= 0; i--) {
+            if (p(toFilter[i])) {
+                output.Add(toFilter[i]);
+                toFilter.RemoveAt(i);
+            }
+        }
+        return output;
+    }
+
 	public static List<T> Map<T> (this List<T> toMap, Func<T, T> todo) {
 		var map = new List<T>(toMap.Count);
 		for (var i = 0; i < toMap.Count; i++) {
