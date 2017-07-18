@@ -30,5 +30,4 @@ public class AddViewSystem : ReactiveSystem<GameEntity> {
             go.Link(e, _context);
         }
     }
-
 }

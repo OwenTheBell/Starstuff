@@ -7,18 +7,19 @@ using UnityEngine;
 
 public class AdjustPlayerThrustSystem : ReactiveSystem<GameEntity>, IInitializeSystem {
 
-    readonly GameContext _context;
+    readonly GameContext _gameContext;
     private GameEntity _player;
 
     public AdjustPlayerThrustSystem(Contexts contexts) : base(contexts.game) {
-        _context = contexts.game;
+        _gameContext = contexts.game;
     }
 
     public void Initialize() {
-        _player = _context.playerEntity;
+        _player = _gameContext.playerEntity;
         var thruster = _player.thruster;
         var perFollower = _player.thrustPerFollower;
         thruster.Force = perFollower.BaseThrust;
+        _player.AddMaxVelocity(perFollower.BaseSpeed);
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context) {
@@ -43,6 +44,5 @@ public class AdjustPlayerThrustSystem : ReactiveSystem<GameEntity>, IInitializeS
         else {
             _player.ReplaceMaxVelocity(maxVelocity);
         }
-
     }
 }

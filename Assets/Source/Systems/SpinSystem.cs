@@ -7,12 +7,17 @@ using UnityEngine;
 
 public class SpinSystem : IExecuteSystem {
 
+    readonly MessageContext _messageContext;
+
     readonly IGroup<GameEntity> _spinners;
     readonly IGroup<InputEntity> _keys;
+    readonly IGroup<MessageEntity> _senderMessages;
 
     public SpinSystem(Contexts contexts) {
+        _messageContext = contexts.message;
         _spinners = contexts.game.GetGroup(GameMatcher.Spin);
         _keys = contexts.input.GetGroup(InputMatcher.Key);
+        _senderMessages = contexts.message.GetGroup(MessageMatcher.MessageSender);
     }
 
     public void Execute() {
@@ -36,6 +41,13 @@ public class SpinSystem : IExecuteSystem {
             adjust = -1;
         }
 
+        // gather all unconsumed messages so they can be replaced with new info
+        var messagesISent = new List<MessageEntity>(_senderMessages.GetEntities());
+        messagesISent = messagesISent.Filter<MessageEntity>(e => {
+            return e.messageSender.Sender == this;
+        });
+
+        var index = 0;
         foreach (var e in _spinners.GetEntities()) {
             if (!e.hasView) {
                 continue;
@@ -44,13 +56,38 @@ public class SpinSystem : IExecuteSystem {
             var go = e.view.gameObject;
             var rigidbody = go.GetComponent<Rigidbody2D>();
 
-            rigidbody.AddTorque(e.spin.Torque * adjust);
+            if (adjust != 0) {
+                var torque = e.spin.Torque * adjust;
+                if (index < messagesISent.Count) {
+                    messagesISent[index++].ReplaceApplyTorqueMessage(torque, rigidbody);
+                }
+                else {
+                    var newMessage = _messageContext.CreateEntity();
+                    newMessage.AddMessageSender(this);
+                    newMessage.AddApplyTorqueMessage(torque, rigidbody);
+                    newMessage.isPersistUntilConsumed = true;
+                    newMessage.isDestroyOnConsume = true;
+                }
+            }
+
             var angularVelocity = rigidbody.angularVelocity;
             var angularDirection = (int)(angularVelocity / Mathf.Abs(angularVelocity));
             if (adjust == 0 || adjust != angularDirection) {
-                angularVelocity = -angularVelocity * e.spin.Dampening;
-                rigidbody.AddTorque(angularVelocity);
+                var counterTorque = -angularVelocity * e.spin.Dampening;
+                if (index < messagesISent.Count) {
+                    messagesISent[index++].ReplaceApplyTorqueMessage(counterTorque, rigidbody);
+                }
+                else {
+                    var newMessage = _messageContext.CreateEntity();
+                    newMessage.AddMessageSender(this);
+                    newMessage.AddApplyTorqueMessage(counterTorque, rigidbody);
+                    newMessage.isPersistUntilConsumed = true;
+                    newMessage.isDestroyOnConsume = true;
+                }
             }
+        }
+        while (index < messagesISent.Count) {
+            messagesISent[index++].Destroy();
         }
     }
 
