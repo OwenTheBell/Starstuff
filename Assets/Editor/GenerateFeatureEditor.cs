@@ -8,7 +8,7 @@ using UnityEditor;
 public class GenerateFeatureEditor : Editor {
 
     static GUIContent addButton = new GUIContent("+", "add system");
-    static GUIContent removeButton = new GUIContent("-", "remove system");
+    static GUIContent removeButton = new GUIContent("X", "remove system");
     static GUIContent moveUpButton = new GUIContent("\u02c4", "move up");
     static GUIContent moveDownButton = new GUIContent("\u02c5", "move up");
 
@@ -17,8 +17,10 @@ public class GenerateFeatureEditor : Editor {
         var property = serializedObject.GetIterator();
         property.NextVisible(true);
         while (property.NextVisible(false)) {
-            if (property.name == "Systems") {
-                CreateSystemField(property);
+            if (property.isArray &&
+                EditorSupport.CleanType(property.arrayElementType) == typeof(SystemGenerator).ToString()
+            ) {
+                EditorSupport.EditableArray(property);
             }
             else {
                 EditorGUILayout.PropertyField(property);
@@ -26,22 +28,4 @@ public class GenerateFeatureEditor : Editor {
         }
         serializedObject.ApplyModifiedProperties();
     }
-
-    void CreateSystemField(SerializedProperty property) {
-        //var oldPropertyState = property.Copy();
-        EditorGUILayout.LabelField("Systems");
-        EditorGUI.indentLevel += 1;
-        for (var i = 0; i < property.arraySize; i++) {
-            var childProperty = property.GetArrayElementAtIndex(i);
-            if (EditorSupport.GetPropertyType(childProperty) == typeof(SystemGenerator).ToString()) {
-                EditorGUILayout.PropertyField(childProperty, GUIContent.none);
-            }
-        }
-        if (GUILayout.Button(addButtonContent)) {
-            property.InsertArrayElementAtIndex(property.arraySize);
-        }
-        EditorGUI.indentLevel -= 1;
-        //property = oldPropertyState;
-    }
-
 }
