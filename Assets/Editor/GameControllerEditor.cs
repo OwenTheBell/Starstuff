@@ -1,26 +1,24 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using UnityEngine;
-using Entitas;
 using UnityEditor;
 using EditorTools;
 
-[CustomEditor(typeof(GenerateFeature))]
-public class GenerateFeatureEditor : Editor {
-
-    static GUIContent addButton = new GUIContent("+", "add");
-    static GUIContent removeButton = new GUIContent("X", "remove");
-    static GUIContent moveUpButton = new GUIContent("\u02c4", "move up");
-    static GUIContent moveDownButton = new GUIContent("\u02c5", "move up");
+[CustomEditor(typeof(GameController))]
+public class GameControllerEditor : Editor {
 
     public override void OnInspectorGUI() {
         serializedObject.Update();
         var property = serializedObject.GetIterator();
         Layout.DisplayScript(property);
+
+        // step into the child
         property.NextVisible(true);
         while (property.NextVisible(false)) {
             if (property.isArray &&
-                Support.CleanType(property.arrayElementType) == typeof(SystemGenerator).ToString()
+                Support.CleanType(property.arrayElementType) == typeof(GenerateFeature).ToString()
             ) {
                 Layout.EditableArray(property);
             }
@@ -30,4 +28,5 @@ public class GenerateFeatureEditor : Editor {
         }
         serializedObject.ApplyModifiedProperties();
     }
+
 }
