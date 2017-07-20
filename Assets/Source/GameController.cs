@@ -22,6 +22,7 @@ public class GameController : MonoBehaviour {
                 _systems.Add(feature.Generate(contexts));
             }
         }
+
         _systems.Initialize();
         _fixedUpdatedSystems.Initialize();
 	}

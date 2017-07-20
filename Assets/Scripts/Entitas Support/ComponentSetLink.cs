@@ -6,7 +6,5 @@ using Entitas;
 public class ComponentSetLink : MonoBehaviour {
     public ComponentSet Set;
 
-    public void SetupComponents(Contexts contexts) {
-
-   }
+    public void SetupComponents(Contexts contexts) { }
 }
