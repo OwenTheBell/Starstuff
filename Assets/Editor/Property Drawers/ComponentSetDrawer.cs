@@ -23,20 +23,55 @@ public class ComponentSetDrawer : PropertyDrawer {
         Rect contentPosition = EditorGUI.PrefixLabel(position, label);
         var savedIndent = EditorGUI.indentLevel;
         position.y += 18f;
-        EditorGUI.indentLevel = 0;
-        EditorGUI.indentLevel = savedIndent;
-        property.NextVisible(true);
-        //while (!property.isArray) {
-        //    property.NextVisible(false);
+        EditorGUI.indentLevel = 1;
+        //property.NextVisible(true);
+        //property.NextVisible(true);
+        //property.NextVisible(false);
+        var set = property.GetValue<ComponentSet>();
+        //Debug.Log("property is: " + property.type);
+        //if (property.isArray) {
+        //    Debug.Log("property is: " + property.arrayElementType);
         //}
-        foreach (var context in Contexts.sharedInstance.allContexts) {
-            contentPosition = ComponentsForContext(contentPosition, context, property);
-        }
-        for (var i = 0; i < property.arraySize; i++) {
-            EditorGUI.PropertyField(contentPosition, property.GetArrayElementAtIndex(i));
-        }
+        //Debug.Log("children: " + property.CountInProperty());
+        //Debug.Log(set.Components.Length);
+        SelectContext(position, property, set);
+        //var output = "";
+        //do {
+        //    if (property.isArray)
+        //        output += "array of type: " + property.arrayElementType + ", ";
+        //} while (property.NextVisible(false));
+        //Debug.Log(output);
+        //for (var i = 0; i < Contexts.sharedInstance.allContexts.Length; i++) {
+        //for (var i = 0; i < 1; i++) {
+        //    var context = Contexts.sharedInstance.allContexts[i];
+        //    contentPosition = ComponentsForContext(contentPosition, context, property);
+        //}
+        //for (var i = 0; i < property.arraySize; i++) {
+        //    EditorGUI.PropertyField(contentPosition, property.GetArrayElementAtIndex(i));
+        //}
+        property.SetValue<ComponentSet>(set);
         EditorGUI.indentLevel = savedIndent;
         EditorGUI.EndProperty();
+    }
+
+    private Rect SelectContext(Rect pos, SerializedProperty property, ComponentSet set) {
+        var contexts = Contexts.sharedInstance.allContexts;
+        var index = -1;
+        var options = new string[contexts.Length];
+        for (var i = 0; i < contexts.Length; i++) {
+            options[i] = contexts[i].GetType().ToString();
+            if (contexts[i] == set.Context) {
+                index = i;
+            }
+        }
+        var label = "Context:";
+        var newIndex = EditorGUI.Popup(pos, label, index, options);
+        if (newIndex != index) {
+            set.Context = Contexts.sharedInstance.allContexts[newIndex];
+        }
+        //Debug.Log(options);
+        pos.y += 18f;
+        return pos;
     }
 
     private Rect ComponentsForContext(Rect position, IContext context, SerializedProperty property) {
@@ -45,10 +80,12 @@ public class ComponentSetDrawer : PropertyDrawer {
         var index = EditorGUI.Popup(position, label, -1, components);
         if (index > 0) {
             Debug.Log("you added the " + components[index] + " component");
+            var insertIndex = property.arraySize;
+            property.arraySize += 1;
+            var component = (IComponent)Activator.CreateInstance(context.contextInfo.componentTypes[index]);
+            //property.GetArrayElementAtIndex(insertIndex).objectReferenceValue = component;
+            //property.GetArrayElementAtIndex(insertIndex).SetValue<IComponent>(component);
         }
-        property.arraySize += 1;
-        var component = (UnityEngine.Object)Activator.CreateInstance(context.contextInfo.componentTypes[index]);
-        property.GetArrayElementAtIndex(property.arraySize - 1).objectReferenceValue = component;
         position.y += 18f;
         return position;
     }

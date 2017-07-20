@@ -6,7 +6,10 @@ using Entitas;
 
 [System.Serializable]
 public class ComponentSet {
-    public IComponent[] Components = new IComponent[0];
+
+    public IContext Context;
+    public sm_Component[] Components = new sm_Component[10];
+    //public int[] testArray;
 
     public ComponentSet() { }
 }
