@@ -1,15 +1,28 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using UnityEngine;
 using Entitas;
 
 [System.Serializable]
-public class ComponentSet {
+[CreateAssetMenu(fileName = "Component Set", menuName = "SuperMash/Entities/Component Set")]
+public class ComponentSet : ScriptableObject {
 
+    //public IEntity Entity;
     public IContext Context;
-    public sm_Component[] Components = new sm_Component[10];
-    //public int[] testArray;
 
-    public ComponentSet() { }
+    //[HideInInspector]
+    //public Dictionary<System.Reflection.FieldInfo, object> SavedValues;
+    [HideInInspector]
+    public List<System.Reflection.FieldInfo> Fields;
+    [HideInInspector]
+    public List<object> Values;
+
+    [HideInInspector]
+    public List<int> Test;
+
+    public void SetupComponents(Contexts contexts) { }
+}
+
+public class SerializationTest {
+    public int Test;
 }

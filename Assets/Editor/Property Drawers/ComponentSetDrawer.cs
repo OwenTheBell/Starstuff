@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using Entitas;
+using Entitas.Unity;
 using UnityEditor;
 
 [CustomPropertyDrawer(typeof(ComponentSet))]
@@ -24,17 +25,21 @@ public class ComponentSetDrawer : PropertyDrawer {
         var savedIndent = EditorGUI.indentLevel;
         position.y += 18f;
         EditorGUI.indentLevel = 1;
+        while (property != property.GetEndProperty()) {
+            property.NextVisible(false);
+            Debug.Log("property is: " + property.type);
+        }
         //property.NextVisible(true);
         //property.NextVisible(true);
         //property.NextVisible(false);
-        var set = property.GetValue<ComponentSet>();
+        //var set = property.GetValue<ComponentSet>();
         //Debug.Log("property is: " + property.type);
         //if (property.isArray) {
         //    Debug.Log("property is: " + property.arrayElementType);
         //}
         //Debug.Log("children: " + property.CountInProperty());
         //Debug.Log(set.Components.Length);
-        SelectContext(position, property, set);
+        //SelectContext(position, property, set);
         //var output = "";
         //do {
         //    if (property.isArray)
@@ -49,30 +54,30 @@ public class ComponentSetDrawer : PropertyDrawer {
         //for (var i = 0; i < property.arraySize; i++) {
         //    EditorGUI.PropertyField(contentPosition, property.GetArrayElementAtIndex(i));
         //}
-        property.SetValue<ComponentSet>(set);
+        //property.SetValue<ComponentSet>(set);
         EditorGUI.indentLevel = savedIndent;
         EditorGUI.EndProperty();
     }
 
-    private Rect SelectContext(Rect pos, SerializedProperty property, ComponentSet set) {
-        var contexts = Contexts.sharedInstance.allContexts;
-        var index = -1;
-        var options = new string[contexts.Length];
-        for (var i = 0; i < contexts.Length; i++) {
-            options[i] = contexts[i].GetType().ToString();
-            if (contexts[i] == set.Context) {
-                index = i;
-            }
-        }
-        var label = "Context:";
-        var newIndex = EditorGUI.Popup(pos, label, index, options);
-        if (newIndex != index) {
-            set.Context = Contexts.sharedInstance.allContexts[newIndex];
-        }
-        //Debug.Log(options);
-        pos.y += 18f;
-        return pos;
-    }
+    //private Rect SelectContext(Rect pos, SerializedProperty property, ComponentSet set) {
+    //    var contexts = Contexts.sharedInstance.allContexts;
+    //    var index = -1;
+    //    var options = new string[contexts.Length];
+    //    for (var i = 0; i < contexts.Length; i++) {
+    //        options[i] = contexts[i].GetType().ToString();
+    //        if (contexts[i] == set.Context) {
+    //            index = i;
+    //        }
+    //    }
+    //    var label = "Context:";
+    //    var newIndex = EditorGUI.Popup(pos, label, index, options);
+    //    if (newIndex != index) {
+    //        set.Context = Contexts.sharedInstance.allContexts[newIndex];
+    //    }
+    //    //Debug.Log(options);
+    //    pos.y += 18f;
+    //    return pos;
+    //}
 
     private Rect ComponentsForContext(Rect position, IContext context, SerializedProperty property) {
         var components = context.contextInfo.componentNames;

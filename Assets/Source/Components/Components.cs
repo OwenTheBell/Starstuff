@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Entitas;
 using Entitas.CodeGeneration.Attributes;
-using System;
 
 // all components needs to inherit from sm_Component so that they can be
 // serialized in the inspector
 [System.Serializable]
-public abstract class sm_Component : IComponent { };
+public abstract class sm_Component : System.Object, IComponent { };
 
 // rendering
 [Game]

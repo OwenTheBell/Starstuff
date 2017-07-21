@@ -38,7 +38,6 @@ GameObject:
   - component: {fileID: 4796641762225398}
   - component: {fileID: 60029968295867210}
   - component: {fileID: 50161463879452278}
-  - component: {fileID: 114845855458332432}
   m_Layer: 8
   m_Name: Entitas Ship
   m_TagString: Untagged
@@ -150,17 +149,6 @@ PolygonCollider2D:
     - - {x: 0, y: 0.17}
       - {x: -0.12, y: -0.17}
       - {x: 0.12, y: -0.17}
---- !u!114 &114845855458332432
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1329851734800954}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24ba323b580e9e343b1b93f161412159, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!198 &198270300991735730
 ParticleSystem:
   m_ObjectHideFlags: 1

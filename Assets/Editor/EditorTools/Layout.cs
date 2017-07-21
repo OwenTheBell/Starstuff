@@ -68,21 +68,21 @@ namespace EditorTools {
             return true;
         }
 
-        public static void DrawComponentSet(ComponentSet set) {
-            var contexts = Contexts.sharedInstance.allContexts;
-            var index = -1;
-            var options = new string[contexts.Length];
-            for (var i = 0; i < contexts.Length; i++) {
-                options[i] = contexts[i].GetType().ToString();
-                if (contexts[i] == set.Context) {
-                    index = i;
-                }
-            }
-            var label = "Context:";
-            var newIndex = EditorGUILayout.Popup(label, index, options);
-            if (newIndex != index) {
-                set.Context = contexts[newIndex];
-            }
-        }
+        //public static void DrawComponentSet(ComponentSet set) {
+        //    var contexts = Contexts.sharedInstance.allContexts;
+        //    var index = -1;
+        //    var options = new string[contexts.Length];
+        //    for (var i = 0; i < contexts.Length; i++) {
+        //        options[i] = contexts[i].GetType().ToString();
+        //        if (contexts[i] == set.Context) {
+        //            index = i;
+        //        }
+        //    }
+        //    var label = "Context:";
+        //    var newIndex = EditorGUILayout.Popup(label, index, options);
+        //    if (newIndex != index) {
+        //        set.Context = contexts[newIndex];
+        //    }
+        //}
     }
 }
