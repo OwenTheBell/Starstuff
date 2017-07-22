@@ -9,11 +9,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e3c5a2291502fab498dba70ca574d25b, type: 3}
-  m_Name: Physics Feature
+  m_Name: Star Feature
   m_EditorClassIdentifier: 
-  UseFixedUpdate: 1
+  UseFixedUpdate: 0
   Systems:
-  - {fileID: 11400000, guid: b60f5a890358bfc479d0c7a94a0e3c7c, type: 2}
-  - {fileID: 11400000, guid: 3a65ca7e0684807409b8cfad5b654ad0, type: 2}
-  - {fileID: 11400000, guid: 7c0ae431bff3beb40ba68867d72c0a03, type: 2}
-  - {fileID: 11400000, guid: ec26936008c6dc549bacb21e550d2eba, type: 2}
+  - {fileID: 11400000, guid: 2056111832ab08b40aa8641efd0fd9c0, type: 2}

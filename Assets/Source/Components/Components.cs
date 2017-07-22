@@ -67,6 +67,20 @@ public class BackgroundLayer : sm_Component {
 [Game]
 public class BackgroundTile : sm_Component { }
 
+[Game, Unique, System.Serializable]
+public class StarSpawnInfo : sm_Component {
+    public GameObject StarPrefab;
+    public float Arc;
+    public float Distance;
+    public Vector2 Range;
+    public int MaxStars;
+
+    [HideInInspector]
+    public float _RemainingDistance;
+    [HideInInspector]
+    public Vector3 _LastPosition;
+}
+
 // input
 [Input, Unique]
 public class LeftMouseComponent : sm_Component { }

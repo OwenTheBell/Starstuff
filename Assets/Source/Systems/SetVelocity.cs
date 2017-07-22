@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using Entitas;
 
-public class ApplyTorqueSystem : ReactiveSystem<MessageEntity> {
+public class SetVelocitySystem : ReactiveSystem<MessageEntity> {
 
-    readonly IGroup<MessageEntity> _applyTorqueMessages;
-
-    public ApplyTorqueSystem(Contexts contexts) : base(contexts.message) { }
+    public SetVelocitySystem(Contexts contexts) : base (contexts.message) { }
 
     protected override ICollector<MessageEntity> GetTrigger(IContext<MessageEntity> context) {
-        return context.CreateCollector(MessageMatcher.ApplyTorqueMessage);
+        return context.CreateCollector(MessageMatcher.SetVelocityMessage);
     }
 
     protected override bool Filter(MessageEntity entity) {
@@ -18,8 +16,8 @@ public class ApplyTorqueSystem : ReactiveSystem<MessageEntity> {
 
     protected override void Execute(List<MessageEntity> entities) {
         foreach (var e in entities) {
-            var message = e.applyTorqueMessage;
-            message.Target.AddTorque(message.Torque);
+            var message = e.setVelocityMessage;
+            message.Target.velocity = message.Velocity;
             e.isPersistUntilConsumed = false;
         }
     }

@@ -16,11 +16,12 @@ public static class GameComponentsLookup {
     public const int Player = 5;
     public const int Spin = 6;
     public const int Star = 7;
-    public const int Thruster = 8;
-    public const int ThrustPerFollower = 9;
-    public const int View = 10;
+    public const int StarSpawnInfo = 8;
+    public const int Thruster = 9;
+    public const int ThrustPerFollower = 10;
+    public const int View = 11;
 
-    public const int TotalComponents = 11;
+    public const int TotalComponents = 12;
 
     public static readonly string[] componentNames = {
         "BackgroundLayer",
@@ -31,6 +32,7 @@ public static class GameComponentsLookup {
         "Player",
         "Spin",
         "Star",
+        "StarSpawnInfo",
         "Thruster",
         "ThrustPerFollower",
         "View"
@@ -45,6 +47,7 @@ public static class GameComponentsLookup {
         typeof(PlayerComponent),
         typeof(SpinComponent),
         typeof(StarComponent),
+        typeof(StarSpawnInfo),
         typeof(ThrusterComponent),
         typeof(ThrustPerFollowerComponent),
         typeof(ViewComponent)

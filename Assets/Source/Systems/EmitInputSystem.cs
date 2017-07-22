@@ -1,5 +1,4 @@
-﻿using System;
-using Entitas;
+﻿using Entitas;
 using UnityEngine;
 
 public class EmitInputSystem : IInitializeSystem, IExecuteSystem, ICleanupSystem {
