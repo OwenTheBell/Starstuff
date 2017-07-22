@@ -21,8 +21,7 @@ struct CatchupValues {
 }
 
 [System.Serializable]
-struct FollowValues {
-    // degrees per second
+struct FollowingValues {
     public float RetargetSpeed;
 }
 
@@ -36,7 +35,7 @@ public class ChaseTransform : MonoBehaviour {
     [SerializeField]
     private CatchupValues _Catchup;
     [SerializeField]
-    private FollowValues _Follow;
+    private FollowingValues _Follow;
 
     private delegate Vector2 FixedUpdatedDelegate();
     private FixedUpdatedDelegate _UpdatedDelegate;

@@ -10,22 +10,35 @@ public static class GameComponentsLookup {
 
     public const int BackgroundLayer = 0;
     public const int BackgroundTile = 1;
-    public const int FollowingPlayer = 2;
-    public const int MatchMotion = 3;
-    public const int MaxVelocity = 4;
-    public const int Player = 5;
-    public const int Spin = 6;
-    public const int Star = 7;
-    public const int StarSpawnInfo = 8;
-    public const int Thruster = 9;
-    public const int ThrustPerFollower = 10;
-    public const int View = 11;
+    public const int CatchingUp = 2;
+    public const int Catchup = 3;
+    public const int ChangingMovementStateComponeont = 4;
+    public const int Follow = 5;
+    public const int Following = 6;
+    public const int FollowingPlayer = 7;
+    public const int MatchMotion = 8;
+    public const int MaxVelocity = 9;
+    public const int Player = 10;
+    public const int Spin = 11;
+    public const int Star = 12;
+    public const int StarSpawnInfo = 13;
+    public const int Thruster = 14;
+    public const int ThrustPerFollower = 15;
+    public const int TrackedTransform = 16;
+    public const int View = 17;
+    public const int Wait = 18;
+    public const int Waiting = 19;
 
-    public const int TotalComponents = 12;
+    public const int TotalComponents = 20;
 
     public static readonly string[] componentNames = {
         "BackgroundLayer",
         "BackgroundTile",
+        "CatchingUp",
+        "Catchup",
+        "ChangingMovementStateComponeont",
+        "Follow",
+        "Following",
         "FollowingPlayer",
         "MatchMotion",
         "MaxVelocity",
@@ -35,12 +48,20 @@ public static class GameComponentsLookup {
         "StarSpawnInfo",
         "Thruster",
         "ThrustPerFollower",
-        "View"
+        "TrackedTransform",
+        "View",
+        "Wait",
+        "Waiting"
     };
 
     public static readonly System.Type[] componentTypes = {
         typeof(BackgroundLayer),
         typeof(BackgroundTile),
+        typeof(CatchingUpComponent),
+        typeof(CatchupComponent),
+        typeof(ChangingMovementStateComponeont),
+        typeof(FollowComponent),
+        typeof(FollowingComponent),
         typeof(FollowingPlayerComponent),
         typeof(MatchMotionComponent),
         typeof(MaxVelocityComponent),
@@ -50,6 +71,9 @@ public static class GameComponentsLookup {
         typeof(StarSpawnInfo),
         typeof(ThrusterComponent),
         typeof(ThrustPerFollowerComponent),
-        typeof(ViewComponent)
+        typeof(TrackedTransformComponent),
+        typeof(ViewComponent),
+        typeof(WaitComponent),
+        typeof(WaitingComponent)
     };
 }

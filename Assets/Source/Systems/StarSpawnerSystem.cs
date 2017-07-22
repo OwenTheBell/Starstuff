@@ -7,26 +7,21 @@ public class StarSpawnerSystem : IInitializeSystem, IExecuteSystem {
     readonly GameContext _context;
     readonly IGroup<GameEntity> _stars;
     readonly StarSpawnInfo _info;
+    readonly IComponent[] _starComponents;
+
     private GameEntity _player;
     private GameEntity _starInfo;
 
-    public StarSpawnerSystem(Contexts contexts, StarSpawnInfo info) {
+    public StarSpawnerSystem(Contexts contexts, StarSpawnInfo info, IComponent[] components) {
         _context = contexts.game;
         _stars = _context.GetGroup(GameMatcher.Star);
         _info = info;
+        _starComponents = components;
     }
 
     public void Initialize() {
         _starInfo = _context.CreateEntity();
-        var index = 0;
-        var types = GameComponentsLookup.componentTypes;
-        for (var i = 0; i < types.Length; i++) {
-            if (types[i] == typeof(StarSpawnInfo)) {
-                index = i;
-                break;
-            }
-        }
-        _starInfo.AddComponent(index, _info);
+        AddComponentToEntity(_starInfo, _info);
         _player = _context.playerEntity;
         _starInfo.starSpawnInfo._RemainingDistance = Random.Range(_info.Range.x, _info.Range.y);
         _starInfo.starSpawnInfo._LastPosition = _player.view.transform.position;
@@ -51,7 +46,25 @@ public class StarSpawnerSystem : IInitializeSystem, IExecuteSystem {
             var e = _context.CreateEntity();
             e.AddView(star);
             e.isStar = true;
+            foreach (var c in _starComponents) {
+                AddComponentToEntity(e, c);
+            }
+            e.isWaiting = true;
             star.Link(e, _context);
+        }
+    }
+
+    private void AddComponentToEntity(IEntity entity, IComponent component) {
+        var index = -1;
+        var types = entity.contextInfo.componentTypes;
+        for (var i = 0; i < types.Length; i++) {
+            if (types[i] == component.GetType()) {
+                index = i;
+                break;
+            }
+        }
+        if (index >= 0) {
+            entity.AddComponent(index, component);
         }
     }
 }

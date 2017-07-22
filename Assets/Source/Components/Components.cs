@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Entitas;
 using Entitas.CodeGeneration.Attributes;
@@ -80,6 +79,49 @@ public class StarSpawnInfo : sm_Component {
     [HideInInspector]
     public Vector3 _LastPosition;
 }
+
+[Game]
+public class WaitingComponent : sm_Component { }
+[Game]
+public class CatchingUpComponent : sm_Component { }
+[Game]
+public class FollowingComponent : sm_Component { }
+
+[Game, System.Serializable]
+public class WaitComponent : sm_Component {
+    public bool BeVisible;
+    public float Range;
+    public float Delay;
+    [HideInInspector]
+    public float _RemainingDelay;
+}
+
+[Game, System.Serializable]
+public class CatchupComponent : sm_Component {
+    public float Range;
+    public float Factor;
+    public float MinimumMagnitude;
+}
+
+[Game, System.Serializable]
+public class FollowComponent : sm_Component {
+    public float RetargetSpeed;
+}
+
+[Game]
+public class ChangingMovementStateComponeont : sm_Component {
+    public float Time;
+    [HideInInspector]
+    public float _Remaining;
+    [HideInInspector]
+    public Vector2 _OldVelocity;
+}
+
+[Game]
+public class TrackedTransformComponent : sm_Component {
+    public Transform Transform;
+}
+
 
 // input
 [Input, Unique]
