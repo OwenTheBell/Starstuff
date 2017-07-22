@@ -31,8 +31,8 @@ namespace EditorTools {
             var toMoveDown = -1;
             var toRemove = -1;
 
-            var savedColor = GUI.backgroundColor;
-            GUI.backgroundColor = Color.red;
+            //var savedColor = GUI.backgroundColor;
+            //GUI.backgroundColor = Color.red;
             if (name == "") name = property.displayName;
             EditorGUILayout.LabelField(name);
             EditorGUI.indentLevel += 2;
@@ -62,7 +62,7 @@ namespace EditorTools {
             if (GUILayout.Button(addButton)) {
                 property.InsertArrayElementAtIndex(property.arraySize);
             }
-            GUI.backgroundColor = savedColor;
+            //GUI.backgroundColor = savedColor;
             EditorGUI.indentLevel -= 2;
 
             return true;

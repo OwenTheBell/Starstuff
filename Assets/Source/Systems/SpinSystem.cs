@@ -13,11 +13,15 @@ public class SpinSystem : IExecuteSystem {
     readonly IGroup<InputEntity> _keys;
     readonly IGroup<MessageEntity> _senderMessages;
 
+    List<MessageEntity> _messagesISent;
+
     public SpinSystem(Contexts contexts) {
         _messageContext = contexts.message;
         _spinners = contexts.game.GetGroup(GameMatcher.Spin);
         _keys = contexts.input.GetGroup(InputMatcher.Key);
         _senderMessages = contexts.message.GetGroup(MessageMatcher.MessageSender);
+
+        _messagesISent = new List<MessageEntity>();
     }
 
     public void Execute() {
@@ -42,12 +46,24 @@ public class SpinSystem : IExecuteSystem {
         }
 
         // gather all unconsumed messages so they can be replaced with new info
-        var messagesISent = new List<MessageEntity>(_senderMessages.GetEntities());
-        messagesISent = messagesISent.Filter<MessageEntity>(e => {
-            return e.messageSender.Sender == this;
+        foreach (var m in _senderMessages.GetEntities()) {
+            if (m.messageSender.Sender == this) {
+                _messagesISent.Add(m);
+            }
+        }
+        var index = 0;
+        
+        var generateMessage = new Action<float, Rigidbody2D>((t, r) => {
+            if (index < _messagesISent.Count) {
+                _messagesISent[index++].ReplaceApplyTorqueMessage(t, r);
+            }
+            else {
+                var newMessage = MessageGenerator.OwnedMessage(this, true);
+                newMessage.AddApplyTorqueMessage(t, r);
+                newMessage.isPersistUntilConsumed = true;
+            }
         });
 
-        var index = 0;
         foreach (var e in _spinners.GetEntities()) {
             if (!e.hasView) {
                 continue;
@@ -58,37 +74,20 @@ public class SpinSystem : IExecuteSystem {
 
             if (adjust != 0) {
                 var torque = e.spin.Torque * adjust;
-                if (index < messagesISent.Count) {
-                    messagesISent[index++].ReplaceApplyTorqueMessage(torque, rigidbody);
-                }
-                else {
-                    var newMessage = _messageContext.CreateEntity();
-                    newMessage.AddMessageSender(this);
-                    newMessage.AddApplyTorqueMessage(torque, rigidbody);
-                    newMessage.isPersistUntilConsumed = true;
-                    newMessage.isDestroyOnConsume = true;
-                }
+                generateMessage(torque, rigidbody);
             }
 
             var angularVelocity = rigidbody.angularVelocity;
             var angularDirection = (int)(angularVelocity / Mathf.Abs(angularVelocity));
             if (adjust == 0 || adjust != angularDirection) {
                 var counterTorque = -angularVelocity * e.spin.Dampening;
-                if (index < messagesISent.Count) {
-                    messagesISent[index++].ReplaceApplyTorqueMessage(counterTorque, rigidbody);
-                }
-                else {
-                    var newMessage = _messageContext.CreateEntity();
-                    newMessage.AddMessageSender(this);
-                    newMessage.AddApplyTorqueMessage(counterTorque, rigidbody);
-                    newMessage.isPersistUntilConsumed = true;
-                    newMessage.isDestroyOnConsume = true;
-                }
+                generateMessage(counterTorque, rigidbody);
             }
         }
-        while (index < messagesISent.Count) {
-            messagesISent[index++].Destroy();
+        while (index < _messagesISent.Count) {
+            _messagesISent[index++].Destroy();
         }
+        _messagesISent.Clear();
     }
 
 }

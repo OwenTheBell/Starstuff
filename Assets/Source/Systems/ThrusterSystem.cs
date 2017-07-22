@@ -12,11 +12,15 @@ public class ThrusterSystem : IExecuteSystem {
     readonly IGroup<InputEntity> _keys;
     readonly IGroup<MessageEntity> _senderMessages;
 
+    List<MessageEntity> _messagesISent;
+
     public ThrusterSystem(Contexts contexts) {
         _messageContext = contexts.message;
         _thrusters = contexts.game.GetGroup(GameMatcher.Thruster);
         _keys = contexts.input.GetGroup(InputMatcher.Key);
         _senderMessages = contexts.message.GetGroup(MessageMatcher.MessageSender);
+
+        _messagesISent = new List<MessageEntity>();
     }
 
     public void Execute() {
@@ -28,22 +32,21 @@ public class ThrusterSystem : IExecuteSystem {
             }
         }
 
-        var messagesISent = new List<MessageEntity>(_senderMessages.GetEntities());
-        messagesISent = messagesISent.Filter<MessageEntity>(e => {
-            return e.messageSender.Sender == this;
-        });
+        foreach (var m in _senderMessages.GetEntities()) {
+            if (m.messageSender.Sender == this) {
+                _messagesISent.Add(m);
+            }
+        }
         var index = 0;
 
         var generateMessage = new Action<Vector2, ForceMode2D, Rigidbody2D>((f, m, r) => {
-            if (index < messagesISent.Count) {
-                messagesISent[index++].ReplaceApplyForceMessage(f, m, r);
+            if (index < _messagesISent.Count) {
+                _messagesISent[index++].ReplaceApplyForceMessage(f, m, r);
             }
             else {
-                var newMessage = _messageContext.CreateEntity();
-                newMessage.AddMessageSender(this);
-                newMessage.AddApplyForceMessage(f, m, r);
-                newMessage.isPersistUntilConsumed = true;
-                newMessage.isDestroyOnConsume = true;
+                var message = MessageGenerator.OwnedMessage(this, true);
+                message.AddApplyForceMessage(f, m, r);
+                message.isPersistUntilConsumed = true;
             }
         });
 
@@ -74,8 +77,9 @@ public class ThrusterSystem : IExecuteSystem {
                 applyDampening();
             }
         }
-        while (index < messagesISent.Count) {
-            messagesISent[index++].Destroy();
+        while (index < _messagesISent.Count) {
+            _messagesISent[index++].Destroy();
         }
+        _messagesISent.Clear();
     }
 }

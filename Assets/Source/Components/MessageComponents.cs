@@ -17,6 +17,12 @@ public class DestroyOnConsume : IComponent { }
 public class PersistUntilConsumed : IComponent { }
 
 [Message]
+public class JustIssued : IComponent { }
+
+[Message]
+public class CanBeProcessed : IComponent { }
+
+[Message]
 public class SetVelocityMessage : IComponent {
     public Vector2 Velocity;
     public Rigidbody2D Target;

@@ -14,6 +14,12 @@ public class GameController : MonoBehaviour {
         var contexts = Contexts.sharedInstance;
         _systems = new Feature("Systems");
         _fixedUpdatedSystems = new Feature("Fixed Update Systems");
+
+        // add must include features & systems
+        _systems.Add(new InputFeature(contexts));
+        _systems.Add(new MessagingFeature(contexts));
+
+        // add features & systems chosen in editor
         foreach (var feature in Features) {
             if (feature.UseFixedUpdate) {
                 _fixedUpdatedSystems.Add(feature.Generate(contexts));
