@@ -12,7 +12,7 @@ public static class GameComponentsLookup {
     public const int BackgroundTile = 1;
     public const int CatchingUp = 2;
     public const int Catchup = 3;
-    public const int ChangingMovementStateComponeont = 4;
+    public const int ChangingMovementStateComponent = 4;
     public const int Follow = 5;
     public const int Following = 6;
     public const int FollowingPlayer = 7;
@@ -36,7 +36,7 @@ public static class GameComponentsLookup {
         "BackgroundTile",
         "CatchingUp",
         "Catchup",
-        "ChangingMovementStateComponeont",
+        "ChangingMovementStateComponent",
         "Follow",
         "Following",
         "FollowingPlayer",
@@ -59,7 +59,7 @@ public static class GameComponentsLookup {
         typeof(BackgroundTile),
         typeof(CatchingUpComponent),
         typeof(CatchupComponent),
-        typeof(ChangingMovementStateComponeont),
+        typeof(ChangingMovementStateComponent),
         typeof(FollowComponent),
         typeof(FollowingComponent),
         typeof(FollowingPlayerComponent),

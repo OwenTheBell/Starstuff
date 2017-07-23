@@ -93,7 +93,7 @@ public class WaitComponent : sm_Component {
     public float Range;
     public float Delay;
     [HideInInspector]
-    public float _RemainingDelay;
+    public float _RemainingDelay = -1f;
 }
 
 [Game, System.Serializable]
@@ -109,12 +109,12 @@ public class FollowComponent : sm_Component {
 }
 
 [Game]
-public class ChangingMovementStateComponeont : sm_Component {
+public class ChangingMovementStateComponent : sm_Component {
     public float Time;
     [HideInInspector]
-    public float _Remaining;
+    public float _Remaining = -1;
     [HideInInspector]
-    public Vector2 _OldVelocity;
+    public Vector2 _OldVelocity = Vector2.zero;
 }
 
 [Game]
