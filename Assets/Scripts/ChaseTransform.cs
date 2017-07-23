@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [System.Serializable]
 struct WaitingValues {
@@ -144,9 +142,7 @@ public class ChaseTransform : MonoBehaviour {
         // if the star and player are moving roughly towards each other, then restrict
         // the magnitude of the velocity
         var relativeVelocity = velocity - targetVelocity;
-        var targetVel = Target.GetComponent<Rigidbody2D>().velocity;
         var vel = GetComponent<Rigidbody2D>().velocity;
-        var angle = Mathf.Atan2(targetVel.y - vel.y, targetVel.x - vel.x) * Mathf.Rad2Deg;
         // if relativeVelocity is greater than velocity, bodies are moving towards each other
         if (relativeVelocity.magnitude > magnitude) {
             var diff = relativeVelocity.magnitude - magnitude;

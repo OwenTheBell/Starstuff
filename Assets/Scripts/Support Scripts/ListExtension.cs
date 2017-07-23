@@ -20,6 +20,14 @@ public static class ListExtensions {
 		return output;
 	}
 
+    public static void FilterInPlace<T>(this List<T> toFilter, Predicate<T> p) {
+        for (var i = toFilter.Count - 1; i >= 0; i--) {
+            if (!p(toFilter[i])) {
+                toFilter.RemoveAt(i);
+            }
+        }
+    }
+
     public static List<T> FilterAndRemove<T> (this List<T> toFilter, Predicate<T> p) {
         var output = new List<T>();
         for (var i = toFilter.Count - 1; i >= 0; i--) {

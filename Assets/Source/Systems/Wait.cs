@@ -16,7 +16,7 @@ public class Wait : IExecuteSystem {
             var distance = Vector2.Distance(myPos, targetPos);
             var renderer = e.view.gameObject.GetComponentInChildren<Renderer>();
 
-            if ((distance < e.wait.Range && e.wait._RemainingDelay >= 0) &&
+            if ((distance < e.wait.Range && e.wait._RemainingDelay < 0f) &&
                 (!e.wait.BeVisible || (e.wait.BeVisible && renderer.isVisible))
             ) {
                 e.wait._RemainingDelay = e.wait.Delay; 
@@ -28,7 +28,8 @@ public class Wait : IExecuteSystem {
                         e.view.gameObject.GetComponent<WakeupEffect>().Play();
                     }
                     e.isWaiting = false;
-                    e.isFollowing = true;
+                    e.isCatchingUp = true;
+                    e.isFollowingPlayer = true;
                     var state = e.changingMovementStateComponent;
                     state._Remaining = state.Time;
                 }

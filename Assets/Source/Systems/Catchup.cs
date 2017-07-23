@@ -12,11 +12,15 @@ public class Catchup : IExecuteSystem {
     public void Execute() {
         foreach (var e in _catchers.GetEntities()) {
             var myPos = e.view.transform.position;
+            var myBody = e.view.gameObject.GetComponent<Rigidbody2D>();
             var targetPos = e.trackedTransform.Transform.position;
             var radians = Mathf.Atan2(targetPos.y - myPos.y, targetPos.x - myPos.x);
-            var targetVelocity = e.view.gameObject.GetComponent<Rigidbody2D>().velocity;
+            var targetBody = e.trackedTransform.Transform.GetComponent<Rigidbody2D>();
+            var targetVelocity = targetBody.velocity;
             var magnitude = targetVelocity.magnitude * e.catchup.Factor;
-            magnitude = Mathf.Clamp(magnitude, e.catchup.MinimumMagnitude, Mathf.Infinity);
+            var minMagnitude = e.catchup.MinimumMagnitude;
+
+            magnitude = Mathf.Clamp(magnitude, minMagnitude, Mathf.Infinity);
             var velocity = new Vector2(
                 Mathf.Cos(radians) * magnitude,
                 Mathf.Sin(radians) * magnitude
@@ -27,13 +31,14 @@ public class Catchup : IExecuteSystem {
             if (relativeVelocity.magnitude > magnitude) {
                 var diff = relativeVelocity.magnitude - magnitude;
                 magnitude -= diff;
-                magnitude = Mathf.Clamp(magnitude, e.catchup.MinimumMagnitude, Mathf.Infinity);
+                magnitude = Mathf.Clamp(magnitude, minMagnitude, Mathf.Infinity);
                 velocity.Normalize();
                 velocity *= magnitude;
             }
 
             var message = MessageGenerator.Message();
-            message.AddSetVelocityMessage(velocity, e.view.gameObject.GetComponent<Rigidbody2D>());
+            message.AddSetVelocityMessage(velocity, myBody);
+            message.isPersistUntilConsumed = true;
 
             var distance = Vector2.Distance(myPos, targetPos);
             if (distance < e.catchup.Range) {

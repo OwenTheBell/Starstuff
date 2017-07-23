@@ -15,19 +15,24 @@ MonoBehaviour:
     StarPrefab: {fileID: 1071593488491102, guid: 16fb3124f432f4c498552aa31b994bf4,
       type: 2}
     Arc: 80
-    Distance: 5
+    Distance: 10
     Range: {x: 40, y: 60}
     MaxStars: 20
-    _RemainingDistance: 44.170204
-    _LastPosition: {x: 0, y: 14.57976, z: 0}
+    _RemainingDistance: 23.974812
+    _LastPosition: {x: -9.310017, y: 62.574203, z: 0}
   Wait:
     BeVisible: 1
     Range: 100
     Delay: 1
-    _RemainingDelay: 0
+    _RemainingDelay: -0.0070324205
   Catchup:
     Range: 5
     Factor: 1.1
     MinimumMagnitude: 4
   Follow:
     RetargetSpeed: 45
+    Range: 5
+  StateChange:
+    Time: 1
+    _Remaining: 1
+    _OldVelocity: {x: 0, y: 0}

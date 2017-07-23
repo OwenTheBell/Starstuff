@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Entitas;
 
 public class GameController : MonoBehaviour {
@@ -28,6 +26,8 @@ public class GameController : MonoBehaviour {
                 _systems.Add(feature.Generate(contexts));
             }
         }
+
+        _systems.Add(new StarSystems(contexts));
 
         _systems.Initialize();
         _fixedUpdatedSystems.Initialize();

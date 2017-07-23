@@ -108,7 +108,7 @@ public class FollowComponent : sm_Component {
     public float RetargetSpeed;
 }
 
-[Game]
+[Game, System.Serializable]
 public class ChangingMovementStateComponent : sm_Component {
     public float Time;
     [HideInInspector]

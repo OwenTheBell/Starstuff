@@ -46,6 +46,7 @@ public class StarSpawnerSystem : IInitializeSystem, IExecuteSystem {
             var e = _context.CreateEntity();
             e.AddView(star);
             e.isStar = true;
+            e.AddTrackedTransform(_player.view.transform);
             foreach (var c in _starComponents) {
                 AddComponentToEntity(e, c);
             }
