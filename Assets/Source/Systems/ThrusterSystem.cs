@@ -40,23 +40,23 @@ public class ThrusterSystem : IExecuteSystem {
                 continue;
             }
 
-            var applyDampening = new Action(() => {
-                var velocity = -e.thruster.Dampening * body.velocity;
-                applyForce(velocity, body);
+            var applyDampening = new Action<Rigidbody2D>(b => {
+                var velocity = -e.thruster.Dampening * b.velocity;
+                applyForce(velocity, b);
             });
 
             if (thrustKey) {
                 var force = go.transform.up * e.thruster.Force;
-                buffer.AddToBuffer(this, () => applyForce(force, body));
+                buffer.AddToBuffer(this, b => applyForce(force, b));
                 var velocity = body.velocity;
                 var angle1 = Mathf.Atan2(force.y, force.x) * Mathf.Rad2Deg;
                 var angle2 = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
                 if (Mathf.Abs(angle1 - angle2) > 20f) {
-                    buffer.AddToBuffer(this, () => applyDampening());
+                    buffer.AddToBuffer(this, b => applyDampening(b));
                 }
             }
             else {
-                buffer.AddToBuffer(this, () => applyDampening());
+                buffer.AddToBuffer(this, b => applyDampening(b));
             }
         }
     }

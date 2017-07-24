@@ -8,9 +8,9 @@ public class FixedUpdateBuffer : MonoBehaviour {
 
     struct Command {
         public readonly ISystem Issuer;
-        public readonly Action Act;
+        public readonly Action<Rigidbody2D> Act;
 
-        public Command(ISystem issuer, Action act) {
+        public Command(ISystem issuer, Action<Rigidbody2D> act) {
             Issuer = issuer;
             Act = act;
         }
@@ -19,13 +19,14 @@ public class FixedUpdateBuffer : MonoBehaviour {
     private List<Command> _buffer = new List<Command>();
 
     private void FixedUpdate() {
+        var body = GetComponent<Rigidbody2D>();
         foreach (var command in _buffer) {
-            command.Act();
+            command.Act(body);
         }
         Clear();
     }
 
-    public void AddToBuffer(ISystem issuer, Action act) {
+    public void AddToBuffer(ISystem issuer, Action<Rigidbody2D> act) {
         _buffer.Add(new Command(issuer, act));
     }
 

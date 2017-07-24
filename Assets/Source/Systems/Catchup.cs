@@ -43,7 +43,7 @@ public class Catchup : IExecuteSystem {
             var body = e.view.gameObject.GetComponent<Rigidbody2D>();
             var buffer = e.view.gameObject.GetComponent<FixedUpdateBuffer>();
             buffer.RemoveAll(this);
-            buffer.AddToBuffer(this, () => body.velocity = velocity);
+            buffer.AddToBuffer(this, b => b.velocity = velocity);
 
             var distance = Vector2.Distance(myPos, targetPos);
             if (distance < e.catchup.Range) {

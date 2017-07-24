@@ -25,11 +25,10 @@ public class SmoothStarStateChange : IExecuteSystem {
 
             var oldVelocity = changing._OldVelocity;
             var p = 1f - changing._Remaining / changing.Time;
-            var body = e.view.gameObject.GetComponent<Rigidbody2D>();
 
             var buffer = e.view.gameObject.GetComponent<FixedUpdateBuffer>();
             buffer.RemoveAll(this);
-            buffer.AddToBuffer(this, () => {
+            buffer.AddToBuffer(this, body => {
                 var currentVelocity = body.velocity;
                 var velocity = Vector2.Lerp(oldVelocity, currentVelocity, p);
                 body.velocity = velocity;

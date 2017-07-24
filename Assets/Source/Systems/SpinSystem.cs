@@ -52,14 +52,14 @@ public class SpinSystem : IExecuteSystem {
 
             if (adjust != 0) {
                 var torque = e.spin.Torque * adjust;
-                buffer.AddToBuffer(this, () => applyTorque(torque, body));
+                buffer.AddToBuffer(this, b => applyTorque(torque, b));
             }
 
             var angularVel = body.angularVelocity;
             var angularDirection = (int)(angularVel / Mathf.Abs(angularVel));
             if (adjust == 0 || adjust != angularDirection) {
                 var counterTorque = -angularVel * e.spin.Dampening;
-                buffer.AddToBuffer(this, () => applyTorque(counterTorque, body));
+                buffer.AddToBuffer(this, b => applyTorque(counterTorque, b));
             }
         }
     }

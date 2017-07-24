@@ -36,7 +36,7 @@ public class Follow : IExecuteSystem {
 
             var buffer = e.view.gameObject.GetComponent<FixedUpdateBuffer>();
             buffer.RemoveAll(this);
-            buffer.AddToBuffer(this, () => myBody.velocity = newVelocity );
+            buffer.AddToBuffer(this, b => b.velocity = newVelocity );
             //var m = MessageGenerator.Message();
             //m.AddSetVelocityMessage(velocity, myBody);
             //m.isPersistUntilConsumed = true;
