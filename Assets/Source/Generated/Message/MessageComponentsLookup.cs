@@ -8,19 +8,23 @@
 //------------------------------------------------------------------------------
 public static class MessageComponentsLookup {
 
-    public const int ApplyForceMessage = 0;
-    public const int ApplyTorqueMessage = 1;
-    public const int CanBeProcessed = 2;
-    public const int DestroyOnConsume = 3;
-    public const int JustIssued = 4;
-    public const int MessageSender = 5;
-    public const int PersistUntilConsumed = 6;
-    public const int SetAngularVelocityMessage = 7;
-    public const int SetVelocityMessage = 8;
+    public const int ActOnBody = 0;
+    public const int ActOnBody2D = 1;
+    public const int ApplyForceMessage = 2;
+    public const int ApplyTorqueMessage = 3;
+    public const int CanBeProcessed = 4;
+    public const int DestroyOnConsume = 5;
+    public const int JustIssued = 6;
+    public const int MessageSender = 7;
+    public const int PersistUntilConsumed = 8;
+    public const int SetAngularVelocityMessage = 9;
+    public const int SetVelocityMessage = 10;
 
-    public const int TotalComponents = 9;
+    public const int TotalComponents = 11;
 
     public static readonly string[] componentNames = {
+        "ActOnBody",
+        "ActOnBody2D",
         "ApplyForceMessage",
         "ApplyTorqueMessage",
         "CanBeProcessed",
@@ -33,6 +37,8 @@ public static class MessageComponentsLookup {
     };
 
     public static readonly System.Type[] componentTypes = {
+        typeof(ActOnBody),
+        typeof(ActOnBody2D),
         typeof(ApplyForceMessage),
         typeof(ApplyTorqueMessage),
         typeof(CanBeProcessed),

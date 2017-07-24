@@ -47,6 +47,16 @@ public class ThrusterComponent : sm_Component {
 }
 
 [Game]
+public class TriggerThrust : sm_Component {
+    public Vector2 Direction;
+}
+
+[Game]
+public class TriggerSpin : sm_Component {
+    public float value;
+}
+
+[Game]
 public class MaxVelocityComponent : sm_Component {
     public float MaxVelocity;
 }
@@ -122,6 +132,13 @@ public class TrackedTransformComponent : sm_Component {
     public Transform Transform;
 }
 
+public class DampenInertiaComponent : sm_Component {
+    public float value;
+}
+
+public class DampenSpinComponent : sm_Component {
+    public float value;
+}
 
 // input
 [Input, Unique]

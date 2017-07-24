@@ -30,8 +30,6 @@ public class Wait : IExecuteSystem {
                     e.isWaiting = false;
                     e.isCatchingUp = true;
                     e.isFollowingPlayer = true;
-                    var state = e.changingMovementStateComponent;
-                    state._Remaining = state.Time;
                 }
             }
         }

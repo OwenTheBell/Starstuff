@@ -28,6 +28,8 @@ public class GameController : MonoBehaviour {
         }
 
         _systems.Add(new StarSystems(contexts));
+        _systems.Add(new InertiaDampeningSystem(contexts));
+        _systems.Add(new SpinDampeningSystem(contexts));
 
         _systems.Initialize();
         _fixedUpdatedSystems.Initialize();

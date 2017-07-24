@@ -58,10 +58,8 @@ public class SpinSystem : IExecuteSystem {
             var angularVel = body.angularVelocity;
             var angularDirection = (int)(angularVel / Mathf.Abs(angularVel));
             if (adjust == 0 || adjust != angularDirection) {
-                var counterTorque = -angularVel * e.spin.Dampening;
-                buffer.AddToBuffer(this, b => applyTorque(counterTorque, b));
+                e.AddDampenSpin(e.spin.Dampening);
             }
         }
     }
-
 }

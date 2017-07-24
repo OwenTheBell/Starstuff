@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using Entitas;
 
 public class DetectStateChangeSystem : ReactiveSystem<GameEntity> {
@@ -10,9 +8,11 @@ public class DetectStateChangeSystem : ReactiveSystem<GameEntity> {
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context) {
         return context.CreateCollector(
-                    GameMatcher.Following.AddedOrRemoved(),
-                    GameMatcher.Waiting.AddedOrRemoved(),
-                    GameMatcher.CatchingUp.AddedOrRemoved()
+                    GameMatcher.AnyOf(
+                            GameMatcher.Following,
+                            GameMatcher.Waiting,
+                            GameMatcher.CatchingUp
+                        ).AddedOrRemoved()
                 );
     }
 
@@ -22,7 +22,13 @@ public class DetectStateChangeSystem : ReactiveSystem<GameEntity> {
 
     protected override void Execute(List<GameEntity> entities) {
         foreach (var e in entities) {
-            UnityEngine.Debug.Log("detected a state change");
+            //var oldVelocity = e.view.gameObject.GetComponent<Rigidbody2D>().velocity;
+            //if (e.hasChangingMovementState) {
+            //    e.ReplaceChangingMovementState(1f, 0f, oldVelocity);
+            //}
+            //else {
+            //    e.AddChangingMovementState(1f, 0f, oldVelocity);
+            //}
         }
     }
 }

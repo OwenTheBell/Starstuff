@@ -19,27 +19,25 @@ public class Follow : IExecuteSystem {
             var follow = e.follow;
             var catchup = e.catchup;
 
-            if (distance > catchup.Range) {
+            if (distance > catchup.Range * 2) {
                 e.isFollowing = false;
                 e.isCatchingUp = true;
-                var state = e.changingMovementStateComponent;
-                state._Remaining = state.Time;
                 continue;
             }
 
-            var targetVel = target.GetComponent<Rigidbody2D>().velocity;
-            var velocity = myBody.velocity;
-            var angle = Mathf.Atan2(targetVel.y - velocity.y, targetVel.x - velocity.x);
-            var time = angle / 180 * follow.RetargetSpeed;
-            var percent = Time.deltaTime / time;
-            var newVelocity = Vector2.Lerp(velocity, targetVel, percent);
-
             var buffer = e.view.gameObject.GetComponent<FixedUpdateBuffer>();
             buffer.RemoveAll(this);
-            buffer.AddToBuffer(this, b => b.velocity = newVelocity );
-            //var m = MessageGenerator.Message();
-            //m.AddSetVelocityMessage(velocity, myBody);
-            //m.isPersistUntilConsumed = true;
+
+            var targetVel = target.GetComponent<Rigidbody2D>().velocity;
+            var myVelocity = myBody.velocity;
+            var diff = targetVel - myVelocity;
+            buffer.AddToBuffer(this, (Rigidbody2D r) => r.AddForce(diff * r.mass));
+
+            var angle1 = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+            var angle2 = Mathf.Atan2(myVelocity.y, myVelocity.x) * Mathf.Rad2Deg;
+            if (Mathf.Abs(angle1 - angle2) > 20f) {
+                e.AddDampenInertia(0.9f);
+            }
         }
     }
 }

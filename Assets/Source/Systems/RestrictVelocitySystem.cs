@@ -12,13 +12,19 @@ public class RestrictVelocitySystem : IExecuteSystem {
     public void Execute() {
         var entities = _maxVelocity.GetEntities();
         foreach (var e in entities) {
-            var maxVelocity = e.maxVelocity.MaxVelocity;
-            var rigidbody = e.view.gameObject.GetComponent<Rigidbody2D>();
-            if (rigidbody != null && rigidbody.velocity.magnitude > maxVelocity) {
-                var velocity = rigidbody.velocity;
-                velocity.Normalize();
-                rigidbody.velocity = velocity * maxVelocity;
-            }
+            var maxSpeed = e.maxVelocity.MaxVelocity;
+            var buffer = e.view.gameObject.GetComponent<FixedUpdateBuffer>();
+            buffer.RemoveAll(this);
+            buffer.AddToBuffer(this, (Rigidbody2D r) => RestrictVelocity(r, maxSpeed));
+        }
+    }
+
+    void RestrictVelocity(Rigidbody2D r, float maxSpeed) {
+        var magDiff = r.velocity.magnitude - maxSpeed;
+        if (magDiff > 0) {
+            var inverse = -r.velocity;
+            inverse.Normalize();
+            r.AddForce(inverse * magDiff * r.mass, ForceMode2D.Impulse);
         }
     }
 }

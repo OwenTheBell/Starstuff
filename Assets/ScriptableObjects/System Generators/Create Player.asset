@@ -14,13 +14,14 @@ MonoBehaviour:
   PlayerPrefab: {fileID: 1329851734800954, guid: 6dd20f07767bc4d4e81bc2a8ba4df0d4,
     type: 2}
   Thruster:
-    Force: 5
+    Force: 33.5
     Dampening: 0.9
   Spin:
     Torque: 0.3
     Dampening: 0.001
   ThrustPerFollower:
     BaseSpeed: 6
-    SpeedPerFollower: 2
+    SpeedPerFollower: 4
     BaseThrust: 5
-    ThrustPerFollower: 0.75
+    ThrustPerFollower: 1.5
+    TotalFollowers: 0

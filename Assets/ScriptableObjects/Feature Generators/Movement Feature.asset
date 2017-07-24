@@ -13,7 +13,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UseFixedUpdate: 0
   Systems:
+  - {fileID: 11400000, guid: 47c88cd5c9fc1e749933d4595d032fe8, type: 2}
   - {fileID: 11400000, guid: c91ca9c1b69d6d34d9b43f6204c04e06, type: 2}
   - {fileID: 11400000, guid: fb6cff3b9505e8f4487ca68f550766df, type: 2}
-  - {fileID: 11400000, guid: 427faf6bd430a7e43a97ab97d04282ab, type: 2}
   - {fileID: 11400000, guid: 9390177bf70248f47826ca0a945a62c2, type: 2}
+  - {fileID: 11400000, guid: 427faf6bd430a7e43a97ab97d04282ab, type: 2}
+  - {fileID: 11400000, guid: 7c0ae431bff3beb40ba68867d72c0a03, type: 2}

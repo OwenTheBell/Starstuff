@@ -8,11 +8,11 @@
 //------------------------------------------------------------------------------
 public partial class GameEntity {
 
-    public ChangingMovementStateComponent changingMovementStateComponent { get { return (ChangingMovementStateComponent)GetComponent(GameComponentsLookup.ChangingMovementStateComponent); } }
-    public bool hasChangingMovementStateComponent { get { return HasComponent(GameComponentsLookup.ChangingMovementStateComponent); } }
+    public ChangingMovementStateComponent changingMovementState { get { return (ChangingMovementStateComponent)GetComponent(GameComponentsLookup.ChangingMovementState); } }
+    public bool hasChangingMovementState { get { return HasComponent(GameComponentsLookup.ChangingMovementState); } }
 
-    public void AddChangingMovementStateComponent(float newTime, float new_Remaining, UnityEngine.Vector2 new_OldVelocity) {
-        var index = GameComponentsLookup.ChangingMovementStateComponent;
+    public void AddChangingMovementState(float newTime, float new_Remaining, UnityEngine.Vector2 new_OldVelocity) {
+        var index = GameComponentsLookup.ChangingMovementState;
         var component = CreateComponent<ChangingMovementStateComponent>(index);
         component.Time = newTime;
         component._Remaining = new_Remaining;
@@ -20,8 +20,8 @@ public partial class GameEntity {
         AddComponent(index, component);
     }
 
-    public void ReplaceChangingMovementStateComponent(float newTime, float new_Remaining, UnityEngine.Vector2 new_OldVelocity) {
-        var index = GameComponentsLookup.ChangingMovementStateComponent;
+    public void ReplaceChangingMovementState(float newTime, float new_Remaining, UnityEngine.Vector2 new_OldVelocity) {
+        var index = GameComponentsLookup.ChangingMovementState;
         var component = CreateComponent<ChangingMovementStateComponent>(index);
         component.Time = newTime;
         component._Remaining = new_Remaining;
@@ -29,8 +29,8 @@ public partial class GameEntity {
         ReplaceComponent(index, component);
     }
 
-    public void RemoveChangingMovementStateComponent() {
-        RemoveComponent(GameComponentsLookup.ChangingMovementStateComponent);
+    public void RemoveChangingMovementState() {
+        RemoveComponent(GameComponentsLookup.ChangingMovementState);
     }
 }
 
@@ -44,17 +44,17 @@ public partial class GameEntity {
 //------------------------------------------------------------------------------
 public sealed partial class GameMatcher {
 
-    static Entitas.IMatcher<GameEntity> _matcherChangingMovementStateComponent;
+    static Entitas.IMatcher<GameEntity> _matcherChangingMovementState;
 
-    public static Entitas.IMatcher<GameEntity> ChangingMovementStateComponent {
+    public static Entitas.IMatcher<GameEntity> ChangingMovementState {
         get {
-            if (_matcherChangingMovementStateComponent == null) {
-                var matcher = (Entitas.Matcher<GameEntity>)Entitas.Matcher<GameEntity>.AllOf(GameComponentsLookup.ChangingMovementStateComponent);
+            if (_matcherChangingMovementState == null) {
+                var matcher = (Entitas.Matcher<GameEntity>)Entitas.Matcher<GameEntity>.AllOf(GameComponentsLookup.ChangingMovementState);
                 matcher.componentNames = GameComponentsLookup.componentNames;
-                _matcherChangingMovementStateComponent = matcher;
+                _matcherChangingMovementState = matcher;
             }
 
-            return _matcherChangingMovementStateComponent;
+            return _matcherChangingMovementState;
         }
     }
 }

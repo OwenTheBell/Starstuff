@@ -46,3 +46,16 @@ public class ApplyTorqueMessage : IComponent {
     public float Torque;
     public Rigidbody2D Target;
 }
+
+[Message]
+public class ActOnBody : IComponent {
+    public Rigidbody Body;
+    public Action<Rigidbody> Act;
+
+}
+
+[Message]
+public class ActOnBody2D : IComponent {
+    public Rigidbody2D Body;
+    public Action<Rigidbody2D> Act;
+}

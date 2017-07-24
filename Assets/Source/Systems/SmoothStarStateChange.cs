@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Entitas;
+﻿using Entitas;
 using UnityEngine;
 
 public class SmoothStarStateChange : IExecuteSystem {
@@ -11,28 +7,28 @@ public class SmoothStarStateChange : IExecuteSystem {
     readonly IGroup<MessageEntity> _setMessages;
 
     public SmoothStarStateChange(Contexts contexts) {
-        _changers = contexts.game.GetGroup(GameMatcher.ChangingMovementStateComponent);
+        //_changers = contexts.game.GetGroup(GameMatcher.ChangingMovementStateComponent);
         _setMessages = contexts.message.GetGroup(MessageMatcher.SetVelocityMessage);
     }
 
     public void Execute() {
-        foreach (var e in _changers.GetEntities()) {
-            var changing = e.changingMovementStateComponent;
-            if (changing._Remaining < 0f) {
-                continue;
-            }
-            changing._Remaining -= Time.deltaTime;
+        //foreach (var e in _changers.GetEntities()) {
+            //var changing = e.changingMovementStateComponent;
+            //if (changing._Remaining < 0f) {
+            //    continue;
+            //}
+            //changing._Remaining -= Time.deltaTime;
 
-            var oldVelocity = changing._OldVelocity;
-            var p = 1f - changing._Remaining / changing.Time;
+            //var oldVelocity = changing._OldVelocity;
+            //var p = 1f - changing._Remaining / changing.Time;
 
-            var buffer = e.view.gameObject.GetComponent<FixedUpdateBuffer>();
-            buffer.RemoveAll(this);
-            buffer.AddToBuffer(this, body => {
-                var currentVelocity = body.velocity;
-                var velocity = Vector2.Lerp(oldVelocity, currentVelocity, p);
-                body.velocity = velocity;
-            });
-        }
+            //var buffer = e.view.gameObject.GetComponent<FixedUpdateBuffer>();
+            //buffer.RemoveAll(this);
+            //buffer.AddToBuffer(this, (Rigidbody2D r) => {
+            //    var currentVelocity = r.velocity;
+            //    var velocity = Vector2.Lerp(oldVelocity, currentVelocity, p);
+            //    r.velocity = velocity;
+            //});
+        //}
     }
 }
