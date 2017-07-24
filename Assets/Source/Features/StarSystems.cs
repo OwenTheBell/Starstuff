@@ -9,6 +9,7 @@ public class StarSystems : Feature {
         Add(new Wait(contexts));
         Add(new Catchup(contexts));
         Add(new Follow(contexts));
+        Add(new DetectStateChangeSystem(contexts));
         Add(new SmoothStarStateChange(contexts));
     }
 }

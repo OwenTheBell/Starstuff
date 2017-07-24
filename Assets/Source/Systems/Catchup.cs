@@ -36,9 +36,14 @@ public class Catchup : IExecuteSystem {
                 velocity *= magnitude;
             }
 
-            var message = MessageGenerator.Message();
-            message.AddSetVelocityMessage(velocity, myBody);
-            message.isPersistUntilConsumed = true;
+            //var message = MessageGenerator.Message();
+            //message.AddSetVelocityMessage(velocity, myBody);
+            //message.isPersistUntilConsumed = true;
+
+            var body = e.view.gameObject.GetComponent<Rigidbody2D>();
+            var buffer = e.view.gameObject.GetComponent<FixedUpdateBuffer>();
+            buffer.RemoveAll(this);
+            buffer.AddToBuffer(this, () => body.velocity = velocity);
 
             var distance = Vector2.Distance(myPos, targetPos);
             if (distance < e.catchup.Range) {

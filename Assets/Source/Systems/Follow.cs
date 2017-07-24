@@ -33,9 +33,13 @@ public class Follow : IExecuteSystem {
             var time = angle / 180 * follow.RetargetSpeed;
             var percent = Time.deltaTime / time;
             var newVelocity = Vector2.Lerp(velocity, targetVel, percent);
-            var m = MessageGenerator.Message();
-            m.AddSetVelocityMessage(velocity, myBody);
-            m.isPersistUntilConsumed = true;
+
+            var buffer = e.view.gameObject.GetComponent<FixedUpdateBuffer>();
+            buffer.RemoveAll(this);
+            buffer.AddToBuffer(this, () => myBody.velocity = newVelocity );
+            //var m = MessageGenerator.Message();
+            //m.AddSetVelocityMessage(velocity, myBody);
+            //m.isPersistUntilConsumed = true;
         }
     }
 }

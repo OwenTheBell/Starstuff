@@ -24,16 +24,16 @@ public class SmoothStarStateChange : IExecuteSystem {
             changing._Remaining -= Time.deltaTime;
 
             var oldVelocity = changing._OldVelocity;
-            var p = changing._Remaining / changing.Time;
+            var p = 1f - changing._Remaining / changing.Time;
             var body = e.view.gameObject.GetComponent<Rigidbody2D>();
-            foreach (var m in _setMessages.GetEntities()) {
-                if (m.setVelocityMessage.Target == body) {
-                    var targetVelocity = m.setVelocityMessage.Velocity;
-                    var adjustedVelocity = Vector2.Lerp(oldVelocity, targetVelocity, p);
-                    m.ReplaceSetVelocityMessage(adjustedVelocity, body);
-                    break;
-                }
-            }
+
+            var buffer = e.view.gameObject.GetComponent<FixedUpdateBuffer>();
+            buffer.RemoveAll(this);
+            buffer.AddToBuffer(this, () => {
+                var currentVelocity = body.velocity;
+                var velocity = Vector2.Lerp(oldVelocity, currentVelocity, p);
+                body.velocity = velocity;
+            });
         }
     }
 }

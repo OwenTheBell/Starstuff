@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 58760540178181700}
   - component: {fileID: 50549212044557096}
   - component: {fileID: 114731155725573714}
+  - component: {fileID: 114717056309405222}
   m_Layer: 9
   m_Name: Entitas Star
   m_TagString: Untagged
@@ -138,6 +139,17 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.2
+--- !u!114 &114717056309405222
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1071593488491102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68d84bbb8f1cfac4e928f8448bcc3ceb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114731155725573714
 MonoBehaviour:
   m_ObjectHideFlags: 1
