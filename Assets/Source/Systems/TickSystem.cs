@@ -7,13 +7,17 @@ public class TickSystem : IExecuteSystem {
 
     public TickSystem(Contexts contexts) {
         _gameContext = contexts.game;
-        _gameContext.tickTracker.Time = Time.time;
-        _gameContext.tickTracker.Tick = Time.deltaTime;
-        _gameContext.tickTracker.Scale = 1f;
+        var e = _gameContext.CreateEntity();
+        e.AddTickTracker(Time.time, 0f, 1f);
     }
 
     public void Execute() {
-        _gameContext.tickTracker.Time = Time.time;
-        _gameContext.tickTracker.Tick = Time.deltaTime * _gameContext.tickTracker.Scale;
+        if (!_gameContext.isPaused) {
+            _gameContext.tickTracker.Tick = Time.deltaTime * _gameContext.tickTracker.Scale;
+        }
+        else {
+            _gameContext.tickTracker.Tick = 0f;
+        }
+        _gameContext.tickTracker.Time += _gameContext.tickTracker.Tick;
     }
 }

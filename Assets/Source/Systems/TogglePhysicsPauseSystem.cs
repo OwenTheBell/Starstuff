@@ -12,6 +12,7 @@ public class TogglePhysicsPauseSystem : ReactiveSystem<GameEntity> {
     readonly IGroup<GameEntity> _2dBodies;
     readonly IGroup<GameEntity> _preservedBodies;
     readonly IGroup<GameEntity> _2dPreservedBodies;
+    readonly IGroup<GameEntity> _buffers;
 
     public TogglePhysicsPauseSystem(Contexts contexts) : base(contexts.game) {
         _gameContext = contexts.game;
@@ -19,13 +20,14 @@ public class TogglePhysicsPauseSystem : ReactiveSystem<GameEntity> {
         _2dBodies = _gameContext.GetGroup(GameMatcher.Body2D);
         _preservedBodies = _gameContext.GetGroup(GameMatcher.PreservedBodyState);
         _2dPreservedBodies = _gameContext.GetGroup(GameMatcher.PreservedBody2DState);
+        _buffers = _gameContext.GetGroup(GameMatcher.UpdateBuffer);
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context) {
         return context.CreateCollector(GameMatcher.Paused.AddedOrRemoved());
     }
 
-    protected override bool Filter(GameEntity entity) { return false; }
+    protected override bool Filter(GameEntity entity) { return true; }
 
     protected override void Execute(List<GameEntity> entities) {
         if (_gameContext.isPaused) {
@@ -45,6 +47,9 @@ public class TogglePhysicsPauseSystem : ReactiveSystem<GameEntity> {
                 body.angularVelocity = 0f;
                 body.isKinematic = true;
             }
+            foreach (var e in _buffers.GetEntities()) {
+                e.updateBuffer.buffer.enabled = false;
+            }
         }
         else {
             foreach (var p in _preservedBodies.GetEntities()) {
@@ -62,12 +67,15 @@ public class TogglePhysicsPauseSystem : ReactiveSystem<GameEntity> {
                 var bodyState = p.preservedBody2DState;
                 var e = _gameContext.GetEntityWithId(bodyState.Id);
                 if (e != null) {
-                    var body = e.body.value;
+                    var body = e.body2D.value;
                     body.velocity = bodyState.velocity;
-                    body.angularVelocity = bodyState.velocity;
+                    body.angularVelocity = bodyState.angularVelocity;
                     body.isKinematic = false;
                 }
                 p.Destroy();
+            }
+            foreach (var e in _buffers.GetEntities()) {
+                e.updateBuffer.buffer.enabled = true;
             }
         }
     }

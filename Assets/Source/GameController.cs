@@ -20,6 +20,7 @@ public class GameController : MonoBehaviour {
         // add must include features & systems
         _systems.Add(new InputFeature(contexts));
         _systems.Add(new MessagingFeature(contexts));
+        _systems.Add(new PauseSystem(contexts));
         _systems.Add(new TickSystem(contexts));
         _systems.Add(new TogglePhysicsPauseSystem(contexts));
         _systems.Add(new StarSystems(contexts));
