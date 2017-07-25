@@ -1,65 +1,32 @@
 ﻿using System;
+using System.Collections.Generic;
 using Entitas;
 using UnityEngine;
 
-public class SpinSystem : IExecuteSystem {
+public class SpinSystem : ReactiveSystem<GameEntity> {
 
-    readonly MessageContext _messageContext;
+    public SpinSystem(Contexts contexts) : base (contexts.game) { }
 
-    readonly IGroup<GameEntity> _spinners;
-    readonly IGroup<InputEntity> _keys;
-
-    public SpinSystem(Contexts contexts) {
-        _messageContext = contexts.message;
-        _spinners = contexts.game.GetGroup(GameMatcher.Spin);
-        _keys = contexts.input.GetGroup(InputMatcher.Key);
+    protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> c) {
+        return c.CreateCollector(GameMatcher.AllOf(
+                                        GameMatcher.TriggerSpin,
+                                        GameMatcher.Spin,
+                                        GameMatcher.UpdateBuffer
+                                    )
+                                );
     }
 
-    public void Execute() {
-        var leftKey = false;
-        var rightKey = false;
-        foreach (var e in _keys.GetEntities()) {
-            if (e.hasKey && !e.isKeyUp) {
-                if (e.key.name == "Left") {
-                    leftKey = true;
-                }
-                else if (e.key.name == "Right") {
-                    rightKey = true;
-                }
-            }
-        }
-        var adjust = 0;
-        if (leftKey && !rightKey) {
-            adjust = 1;
-        }
-        else if (!leftKey && rightKey) {
-            adjust = -1;
-        }
+    protected override bool Filter(GameEntity entity) { return true; }
 
-        var applyTorque = new Action<float, Rigidbody2D>((f, r) => {
-            r.AddTorque(f);
-        });
-
-        foreach (var e in _spinners.GetEntities()) {
-            if (!e.hasView) {
-                continue;
-            }
-
-            var go = e.view.gameObject;
-            var body = go.GetComponent<Rigidbody2D>();
-            var buffer = e.view.gameObject.GetComponent<FixedUpdateBuffer>();
+    protected override void Execute(List<GameEntity> entities) {
+        foreach (var e in entities) {
+            var body = e.view.gameObject.GetComponent<Rigidbody2D>();
+            var buffer = e.updateBuffer.buffer;
             buffer.RemoveAll(this);
-
-            if (adjust != 0) {
-                var torque = e.spin.Torque * adjust;
-                buffer.AddToBuffer(this, b => applyTorque(torque, b));
-            }
-
-            var angularVel = body.angularVelocity;
-            var angularDirection = (int)(angularVel / Mathf.Abs(angularVel));
-            if (adjust == 0 || adjust != angularDirection) {
-                e.AddDampenSpin(e.spin.Dampening);
-            }
+            var torque = e.spin.Torque * e.triggerSpin.value;
+            buffer.AddToBuffer(this, (Rigidbody2D r) => {
+                r.AddTorque(torque);
+            });
         }
     }
 }

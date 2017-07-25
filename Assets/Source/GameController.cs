@@ -16,9 +16,11 @@ public class GameController : MonoBehaviour {
         // add must include features & systems
         _systems.Add(new InputFeature(contexts));
         _systems.Add(new MessagingFeature(contexts));
+        _systems.Add(new StarSystems(contexts));
 
         // add features & systems chosen in editor
         foreach (var feature in Features) {
+            Debug.Log("adding feature " + feature.name);
             if (feature.UseFixedUpdate) {
                 _fixedUpdatedSystems.Add(feature.Generate(contexts));
             }
@@ -27,9 +29,11 @@ public class GameController : MonoBehaviour {
             }
         }
 
-        _systems.Add(new StarSystems(contexts));
         _systems.Add(new InertiaDampeningSystem(contexts));
         _systems.Add(new SpinDampeningSystem(contexts));
+        _systems.Add(new ClearThrustAndSpin(contexts));
+
+        _systems.Add(new DestroySystem(contexts));
 
         _systems.Initialize();
         _fixedUpdatedSystems.Initialize();

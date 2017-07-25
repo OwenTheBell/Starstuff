@@ -43,6 +43,7 @@ public class StarSpawnerSystem : IInitializeSystem, IExecuteSystem {
             point = _player.view.transform.TransformPoint(point);
             var euler = new Vector3(0, 0, Random.value * 360f);
             var star = GameObject.Instantiate(info.StarPrefab, point, Quaternion.Euler(euler));
+            var buffer = star.AddComponent<FixedUpdateBuffer>();
             var e = _context.CreateEntity();
             e.AddView(star);
             e.isStar = true;
@@ -51,6 +52,10 @@ public class StarSpawnerSystem : IInitializeSystem, IExecuteSystem {
                 AddComponentToEntity(e, c);
             }
             e.isWaiting = true;
+            e.AddThruster(0f, 0f);
+            e.AddDampenInertia(0.9f);
+            e.AddDampenSpin(0.0001f);
+            e.AddUpdateBuffer(buffer);
             star.Link(e, _context);
         }
     }

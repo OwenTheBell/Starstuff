@@ -16,11 +16,10 @@ public class CreatePlayerSystem : IInitializeSystem {
         _context = contexts.game;
         _playerPrefab = playerPrefab;
         _components = components;
-    }
 
-    public void Initialize() {
         var player = GameObject.Instantiate(_playerPrefab);
         player.name = "Player";
+        var buffer = player.AddComponent<FixedUpdateBuffer>();
         var e = _context.CreateEntity();
         e.AddView(player);
         e.isPlayer = true;
@@ -36,5 +35,11 @@ public class CreatePlayerSystem : IInitializeSystem {
             e.AddComponent(index, component);
         }
         player.Link(e, _context);
+        e.AddDampenInertia(e.thruster.Dampening);
+        e.AddDampenSpin(e.spin.Dampening);
+        e.AddUpdateBuffer(buffer);
+    }
+
+    public void Initialize() {
     }
 }

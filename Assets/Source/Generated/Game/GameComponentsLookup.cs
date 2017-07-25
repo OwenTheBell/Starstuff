@@ -15,25 +15,27 @@ public static class GameComponentsLookup {
     public const int ChangingMovementState = 4;
     public const int DampenInertia = 5;
     public const int DampenSpin = 6;
-    public const int Follow = 7;
-    public const int Following = 8;
-    public const int FollowingPlayer = 9;
-    public const int MatchMotion = 10;
-    public const int MaxVelocity = 11;
-    public const int Player = 12;
-    public const int Spin = 13;
-    public const int Star = 14;
-    public const int StarSpawnInfo = 15;
-    public const int Thruster = 16;
-    public const int ThrustPerFollower = 17;
-    public const int TrackedTransform = 18;
-    public const int TriggerSpin = 19;
-    public const int TriggerThrust = 20;
-    public const int View = 21;
-    public const int Wait = 22;
-    public const int Waiting = 23;
+    public const int Destroyed = 7;
+    public const int Follow = 8;
+    public const int Following = 9;
+    public const int FollowingPlayer = 10;
+    public const int MatchMotion = 11;
+    public const int MaxVelocity = 12;
+    public const int Player = 13;
+    public const int Spin = 14;
+    public const int Star = 15;
+    public const int StarSpawnInfo = 16;
+    public const int Thruster = 17;
+    public const int ThrustPerFollower = 18;
+    public const int TrackedTransform = 19;
+    public const int TriggerSpin = 20;
+    public const int TriggerThrust = 21;
+    public const int UpdateBuffer = 22;
+    public const int View = 23;
+    public const int Wait = 24;
+    public const int Waiting = 25;
 
-    public const int TotalComponents = 24;
+    public const int TotalComponents = 26;
 
     public static readonly string[] componentNames = {
         "BackgroundLayer",
@@ -43,6 +45,7 @@ public static class GameComponentsLookup {
         "ChangingMovementState",
         "DampenInertia",
         "DampenSpin",
+        "Destroyed",
         "Follow",
         "Following",
         "FollowingPlayer",
@@ -57,6 +60,7 @@ public static class GameComponentsLookup {
         "TrackedTransform",
         "TriggerSpin",
         "TriggerThrust",
+        "UpdateBuffer",
         "View",
         "Wait",
         "Waiting"
@@ -70,6 +74,7 @@ public static class GameComponentsLookup {
         typeof(ChangingMovementStateComponent),
         typeof(DampenInertiaComponent),
         typeof(DampenSpinComponent),
+        typeof(Destroyed),
         typeof(FollowComponent),
         typeof(FollowingComponent),
         typeof(FollowingPlayerComponent),
@@ -84,6 +89,7 @@ public static class GameComponentsLookup {
         typeof(TrackedTransformComponent),
         typeof(TriggerSpin),
         typeof(TriggerThrust),
+        typeof(UpdateBufferComponent),
         typeof(ViewComponent),
         typeof(WaitComponent),
         typeof(WaitingComponent)

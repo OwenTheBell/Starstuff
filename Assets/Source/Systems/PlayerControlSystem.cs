@@ -5,7 +5,7 @@ using System.Text;
 using Entitas;
 using UnityEngine;
 
-public class PlayerControlSystem : IExecuteSystem, ICleanupSystem {
+public class PlayerControlSystem : IExecuteSystem {
 
     readonly IGroup<InputEntity> _keys;
     private GameEntity _player;
@@ -44,10 +44,5 @@ public class PlayerControlSystem : IExecuteSystem, ICleanupSystem {
         else if (!spinLeft && spinRight) {
             _player.AddTriggerSpin(-1);
         }
-    }
-
-    public void Cleanup() {
-        if (_player.hasTriggerThrust) _player.RemoveTriggerThrust();
-        if (_player.hasTriggerSpin) _player.RemoveTriggerSpin();
     }
 }

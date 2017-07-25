@@ -6,12 +6,16 @@ public class InertiaDampeningSystem : IExecuteSystem {
     readonly IGroup<GameEntity> _dampeners;
 
     public InertiaDampeningSystem(Contexts contexts) {
-        _dampeners = contexts.game.GetGroup(GameMatcher.DampenInertia);
+        _dampeners = contexts.game.GetGroup(GameMatcher.AllOf(
+                                                    GameMatcher.DampenInertia,
+                                                    GameMatcher.UpdateBuffer
+                                                )
+                                            );
     }
 
     public void Execute() {
         foreach (var e in _dampeners.GetEntities()) {
-            var buffer = e.view.gameObject.GetComponent<FixedUpdateBuffer>();
+            var buffer = e.updateBuffer.buffer;
             buffer.RemoveAll(this);
             var dampening = e.thruster.Dampening;
             if (e.hasTriggerThrust) {
@@ -26,14 +30,6 @@ public class InertiaDampeningSystem : IExecuteSystem {
             else {
                 buffer.AddToBuffer(this, (Rigidbody2D r) => DampenIntertia(r, dampening));
             }
-            //var dampening = e.dampenInertia.value;
-            //var buffer = e.view.gameObject.GetComponent<FixedUpdateBuffer>();
-            //buffer.RemoveAll(this);
-            //buffer.AddToBuffer(this, (Rigidbody2D r) => {
-            //    var force = -(dampening * r.mass * r.velocity);
-            //    r.AddForce(force, ForceMode2D.Force);
-            //});
-            //e.RemoveDampenInertia();
         }
     }
 

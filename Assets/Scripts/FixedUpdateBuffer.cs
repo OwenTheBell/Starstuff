@@ -35,47 +35,62 @@ public class FixedUpdateBuffer : MonoBehaviour {
 
     public bool Is2D { get; private set; }
 
+    private List<Command> _persistantBuffer = new List<Command>();
     private List<Command> _buffer = new List<Command>();
-
-    private void FixedUpdate() {
-        var go = gameObject;
-        var body = GetComponent<Rigidbody>();
-        var body2D = GetComponent<Rigidbody2D>();
-        foreach (var command in _buffer) {
-            if (command.GetType() == typeof(RigidbodyCommand) && !Is2D) {
-                (command as RigidbodyCommand).Act(body);
-            }
-            else if (command.GetType() == typeof(Rigidbody2DCommand) && Is2D) {
-                (command as Rigidbody2DCommand).Act(body2D);
-            }
-            else {
-                (command as GameObjectCommand).Act(go);
-            }
-        }
-        Clear();
-    }
 
     private void Awake() {
         Is2D = gameObject.HasComponent<Rigidbody2D>();
     }
 
-    public void AddToBuffer(ISystem issuer, Action<GameObject> act) {
-        _buffer.Add(new GameObjectCommand(issuer, act));
+    private void FixedUpdate() {
+        var go = gameObject;
+        var body = GetComponent<Rigidbody>();
+        var body2D = GetComponent<Rigidbody2D>();
+        var processCommand = new Action<Command>(c => {
+            if (c.GetType() == typeof(RigidbodyCommand) && !Is2D) {
+                (c as RigidbodyCommand).Act(body);
+            }
+            else if (c.GetType() == typeof(Rigidbody2DCommand) && Is2D) {
+                (c as Rigidbody2DCommand).Act(body2D);
+            }
+            else {
+                (c as GameObjectCommand).Act(go);
+            }
+        });
+        foreach (var command in _buffer) {
+            processCommand(command);
+        }
+        foreach (var command in _persistantBuffer) {
+            processCommand(command);
+        }
+        Purge();
     }
 
-    public void AddToBuffer(ISystem issuer, Action<Rigidbody2D> act) {
+    void GenericAdd(Command c, bool persist) {
+        if (persist) {
+            _persistantBuffer.Add(c);
+        }
+        else {
+            _buffer.Add(c);
+        }
+    }
+
+    public void AddToBuffer(ISystem issuer, Action<GameObject> act, bool persist = false) {
+        GenericAdd(new GameObjectCommand(issuer, act), persist);
+    }
+
+    public void AddToBuffer(ISystem issuer, Action<Rigidbody2D> act, bool persist = false) {
         if (!Is2D) {
-            Debug.Log("<color='red'>TRYING TO BUFFER 3D ACTION ON 2D BODY</color>");
+            Debug.Log(CreateMessage(issuer, "TRIED TO BUFFER 3D ACTION ON 2D BODY"));
         }
-        _buffer.Add(new Rigidbody2DCommand(issuer, act));
+        GenericAdd(new Rigidbody2DCommand(issuer, act), persist);
     }
 
-    public void AddToBuffer(ISystem issuer, Action<Rigidbody> act) {
+    public void AddToBuffer(ISystem issuer, Action<Rigidbody> act, bool persist = false) {
         if (Is2D) {
-            Debug.Log("<color='red'>TRYING TO BUFFER 2D ACTION ON 3D BODY</color>");
+            Debug.Log(CreateMessage(issuer, "TRIED TO BUFFER 2D ACTION ON 3D BODY"));
         }
-        _buffer.Add(new RigidbodyCommand(issuer, act));
-
+        GenericAdd(new RigidbodyCommand(issuer, act), persist);
     }
 
     public void RemoveAll(ISystem issuer) {
@@ -84,5 +99,14 @@ public class FixedUpdateBuffer : MonoBehaviour {
 
     public void Clear() {
         _buffer.Clear();
+    }
+
+    public void Purge() {
+        Clear();
+        _persistantBuffer.Clear();
+    }
+
+    string CreateMessage(ISystem issuer, string alert) {
+        return "<color='red'>" + issuer + " " + alert + "</color>";
     }
 }

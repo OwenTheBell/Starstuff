@@ -13,14 +13,15 @@ public static class MessageComponentsLookup {
     public const int ApplyForceMessage = 2;
     public const int ApplyTorqueMessage = 3;
     public const int CanBeProcessed = 4;
-    public const int DestroyOnConsume = 5;
-    public const int JustIssued = 6;
-    public const int MessageSender = 7;
-    public const int PersistUntilConsumed = 8;
-    public const int SetAngularVelocityMessage = 9;
-    public const int SetVelocityMessage = 10;
+    public const int Destroyed = 5;
+    public const int DestroyOnConsume = 6;
+    public const int JustIssued = 7;
+    public const int MessageSender = 8;
+    public const int PersistUntilConsumed = 9;
+    public const int SetAngularVelocityMessage = 10;
+    public const int SetVelocityMessage = 11;
 
-    public const int TotalComponents = 11;
+    public const int TotalComponents = 12;
 
     public static readonly string[] componentNames = {
         "ActOnBody",
@@ -28,6 +29,7 @@ public static class MessageComponentsLookup {
         "ApplyForceMessage",
         "ApplyTorqueMessage",
         "CanBeProcessed",
+        "Destroyed",
         "DestroyOnConsume",
         "JustIssued",
         "MessageSender",
@@ -42,6 +44,7 @@ public static class MessageComponentsLookup {
         typeof(ApplyForceMessage),
         typeof(ApplyTorqueMessage),
         typeof(CanBeProcessed),
+        typeof(Destroyed),
         typeof(DestroyOnConsume),
         typeof(JustIssued),
         typeof(MessageSender),

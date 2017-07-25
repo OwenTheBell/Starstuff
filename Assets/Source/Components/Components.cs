@@ -132,12 +132,19 @@ public class TrackedTransformComponent : sm_Component {
     public Transform Transform;
 }
 
+[Game]
 public class DampenInertiaComponent : sm_Component {
     public float value;
 }
 
+[Game]
 public class DampenSpinComponent : sm_Component {
     public float value;
+}
+
+[Game]
+public class UpdateBufferComponent : sm_Component {
+    public FixedUpdateBuffer buffer;
 }
 
 // input
@@ -173,3 +180,6 @@ public class KeyComponent : sm_Component {
 
 [Input]
 public class KeyUpComponent : sm_Component { }
+
+[Game, Input, Message]
+public class Destroyed : sm_Component { }

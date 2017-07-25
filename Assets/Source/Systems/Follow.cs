@@ -24,20 +24,12 @@ public class Follow : IExecuteSystem {
                 e.isCatchingUp = true;
                 continue;
             }
-
-            var buffer = e.view.gameObject.GetComponent<FixedUpdateBuffer>();
-            buffer.RemoveAll(this);
-
             var targetVel = target.GetComponent<Rigidbody2D>().velocity;
             var myVelocity = myBody.velocity;
             var diff = targetVel - myVelocity;
-            buffer.AddToBuffer(this, (Rigidbody2D r) => r.AddForce(diff * r.mass));
-
-            var angle1 = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
-            var angle2 = Mathf.Atan2(myVelocity.y, myVelocity.x) * Mathf.Rad2Deg;
-            if (Mathf.Abs(angle1 - angle2) > 20f) {
-                e.AddDampenInertia(0.9f);
-            }
+            e.thruster.Force = diff.magnitude * myBody.mass;
+            diff.Normalize();
+            e.AddTriggerThrust(diff);
         }
     }
 }

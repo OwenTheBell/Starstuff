@@ -6,8 +6,7 @@ using Entitas;
 
 public class MessagingFeature : Feature {
 
-    public MessagingFeature(Contexts contexts) : base("Messsaging") {
-        Add(new PrepareMessages(contexts));
+    public MessagingFeature(Contexts contexts) : base("Messaging") {
         Add(new CleanupMessages(contexts));
     }
 
