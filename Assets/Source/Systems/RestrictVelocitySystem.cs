@@ -18,7 +18,7 @@ public class RestrictVelocitySystem : IExecuteSystem {
         foreach (var e in entities) {
             var maxSpeed = e.maxVelocity.MaxVelocity;
             var buffer = e.updateBuffer.buffer;
-            buffer.RemoveAll(this);
+            //buffer.RemoveAll(this);
             buffer.AddToBuffer(this, (Rigidbody2D r) => RestrictVelocity(r, maxSpeed));
         }
     }

@@ -16,7 +16,6 @@ public class InertiaDampeningSystem : IExecuteSystem {
     public void Execute() {
         foreach (var e in _dampeners.GetEntities()) {
             var buffer = e.updateBuffer.buffer;
-            buffer.RemoveAll(this);
             var dampening = e.thruster.Dampening;
             if (e.hasTriggerThrust) {
                 var direction = e.triggerThrust.Direction;

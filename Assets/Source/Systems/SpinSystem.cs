@@ -22,7 +22,6 @@ public class SpinSystem : ReactiveSystem<GameEntity> {
         foreach (var e in entities) {
             var body = e.view.gameObject.GetComponent<Rigidbody2D>();
             var buffer = e.updateBuffer.buffer;
-            buffer.RemoveAll(this);
             var torque = e.spin.Torque * e.triggerSpin.value;
             buffer.AddToBuffer(this, (Rigidbody2D r) => {
                 r.AddTorque(torque);

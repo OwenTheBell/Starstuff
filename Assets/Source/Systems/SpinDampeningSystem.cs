@@ -22,7 +22,6 @@ public class SpinDampeningSystem : IExecuteSystem {
                 !e.hasTriggerSpin
             ) {
                 var buffer = e.updateBuffer.buffer;
-                buffer.RemoveAll(this);
                 buffer.AddToBuffer(this, (Rigidbody2D r) => {
                     r.AddTorque(-r.angularVelocity * e.dampenSpin.value);
                 });

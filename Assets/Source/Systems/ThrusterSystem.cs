@@ -27,7 +27,6 @@ public class ThrusterSystem : ReactiveSystem<GameEntity> {
     protected override void Execute(List<GameEntity> entities) {
         foreach(var e in entities) {
             var buffer = e.updateBuffer.buffer;
-            buffer.RemoveAll(this);
             var force = e.triggerThrust.Direction * e.thruster.Force;
             buffer.AddToBuffer(this, (Rigidbody2D r) => r.AddForce(force) );
         }

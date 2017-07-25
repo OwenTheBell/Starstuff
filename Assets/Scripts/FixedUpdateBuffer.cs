@@ -37,6 +37,8 @@ public class FixedUpdateBuffer : MonoBehaviour {
 
     private List<Command> _persistantBuffer = new List<Command>();
     private List<Command> _buffer = new List<Command>();
+    private List<Command> _tempPersistant = new List<Command>();
+    private List<Command> _tempBuffer = new List<Command>();
 
     private void Awake() {
         Is2D = gameObject.HasComponent<Rigidbody2D>();
@@ -68,10 +70,10 @@ public class FixedUpdateBuffer : MonoBehaviour {
 
     void GenericAdd(Command c, bool persist) {
         if (persist) {
-            _persistantBuffer.Add(c);
+            _tempPersistant.Add(c);
         }
         else {
-            _buffer.Add(c);
+            _tempBuffer.Add(c);
         }
     }
 
@@ -104,6 +106,14 @@ public class FixedUpdateBuffer : MonoBehaviour {
     public void Purge() {
         Clear();
         _persistantBuffer.Clear();
+    }
+
+    public void CycleBuffers() {
+        _persistantBuffer.AddRange(_tempPersistant);
+        _tempPersistant.Clear();
+        _buffer.Clear();
+        _buffer.AddRange(_tempBuffer);
+        _tempBuffer.Clear();
     }
 
     string CreateMessage(ISystem issuer, string alert) {

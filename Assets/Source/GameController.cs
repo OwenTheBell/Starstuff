@@ -33,6 +33,7 @@ public class GameController : MonoBehaviour {
         _systems.Add(new SpinDampeningSystem(contexts));
         _systems.Add(new ClearThrustAndSpin(contexts));
 
+        _systems.Add(new ProcessFixedUpdateSystem(contexts));
         _systems.Add(new DestroySystem(contexts));
 
         _systems.Initialize();
