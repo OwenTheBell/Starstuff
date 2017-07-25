@@ -29,7 +29,6 @@ public class GameController : MonoBehaviour {
         _systems.Add(new DestroySystem(contexts));
 
         _systems.Initialize();
-        _fixedUpdatedSystems.Initialize();
 	}
 	
 	void Update () {
