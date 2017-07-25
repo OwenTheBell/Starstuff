@@ -32,7 +32,10 @@ public class Catchup : IExecuteSystem {
             var force = new Vector2(Mathf.Cos(radians), Mathf.Sin(radians));
 
             e.thruster.Force = magnitude * myBody.mass;
-            e.AddTriggerThrust(force);
+            var m = MessageGenerator.Message(true);
+            m.AddTriggerThrust(force);
+            m.AddMessageTarget(e.id.value);
+            //e.AddTriggerThrust(force);
         }
     }
 }

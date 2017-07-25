@@ -29,7 +29,10 @@ public class Follow : IExecuteSystem {
             var diff = targetVel - myVelocity;
             e.thruster.Force = diff.magnitude * myBody.mass;
             diff.Normalize();
-            e.AddTriggerThrust(diff);
+            var m = MessageGenerator.Message(true);
+            m.AddTriggerThrust(diff);
+            m.AddMessageTarget(e.id.value);
+            //e.AddTriggerThrust(diff);
         }
     }
 }

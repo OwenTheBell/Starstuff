@@ -8,14 +8,15 @@ using UnityEngine;
 public class PlayerControlSystem : IExecuteSystem {
 
     readonly IGroup<InputEntity> _keys;
-    private GameEntity _player;
+    readonly GameContext _gameContext;
 
     public PlayerControlSystem(Contexts contexts) {
         _keys = contexts.input.GetGroup(InputMatcher.Key);
-        _player = contexts.game.playerEntity;
+        _gameContext = contexts.game;
     }
 
     public void Execute() {
+        var player = _gameContext.playerEntity;
         var thrust = false;
         var spinLeft = false;
         var spinRight = false;
@@ -35,14 +36,20 @@ public class PlayerControlSystem : IExecuteSystem {
         }
 
         if (thrust) {
-            var direction = _player.view.transform.up;
-            _player.AddTriggerThrust(direction);
+            var direction = player.view.transform.up;
+            var m = MessageGenerator.Message(true);
+            m.AddTriggerThrust(direction);
+            m.AddMessageTarget(player.id.value);
         }
         if (spinLeft && !spinRight) {
-            _player.AddTriggerSpin(1);
+            var m = MessageGenerator.Message(true);
+            m.AddTriggerSpin(1);
+            m.AddMessageTarget(player.id.value);
         }
         else if (!spinLeft && spinRight) {
-            _player.AddTriggerSpin(-1);
+            var m = MessageGenerator.Message(true);
+            m.AddTriggerSpin(-1);
+            m.AddMessageTarget(player.id.value);
         }
     }
 }

@@ -29,14 +29,14 @@ public static class GameComponentsLookup {
     public const int PreservedBody2DState = 18;
     public const int PreservedBodyState = 19;
     public const int Spin = 20;
-    public const int Star = 21;
-    public const int StarSpawnInfo = 22;
-    public const int Thruster = 23;
-    public const int ThrustPerFollower = 24;
-    public const int TickTracker = 25;
-    public const int TrackedTransform = 26;
-    public const int TriggerSpin = 27;
-    public const int TriggerThrust = 28;
+    public const int Spinning = 21;
+    public const int Star = 22;
+    public const int StarSpawnInfo = 23;
+    public const int Thruster = 24;
+    public const int ThrustPerFollower = 25;
+    public const int Thrustring = 26;
+    public const int TickTracker = 27;
+    public const int TrackedTransform = 28;
     public const int UpdateBuffer = 29;
     public const int View = 30;
     public const int Wait = 31;
@@ -66,14 +66,14 @@ public static class GameComponentsLookup {
         "PreservedBody2DState",
         "PreservedBodyState",
         "Spin",
+        "Spinning",
         "Star",
         "StarSpawnInfo",
         "Thruster",
         "ThrustPerFollower",
+        "Thrustring",
         "TickTracker",
         "TrackedTransform",
-        "TriggerSpin",
-        "TriggerThrust",
         "UpdateBuffer",
         "View",
         "Wait",
@@ -102,14 +102,14 @@ public static class GameComponentsLookup {
         typeof(PreservedBody2DStateComponent),
         typeof(PreservedBodyStateComponent),
         typeof(SpinComponent),
+        typeof(SpinningComponent),
         typeof(StarComponent),
         typeof(StarSpawnInfo),
         typeof(ThrusterComponent),
         typeof(ThrustPerFollowerComponent),
+        typeof(ThrustringComponent),
         typeof(TickTracker),
         typeof(TrackedTransformComponent),
-        typeof(TriggerSpin),
-        typeof(TriggerThrust),
         typeof(UpdateBufferComponent),
         typeof(ViewComponent),
         typeof(WaitComponent),

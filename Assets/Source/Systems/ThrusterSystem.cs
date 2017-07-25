@@ -1,34 +1,60 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Entitas;
 using UnityEngine;
 
-public class ThrusterSystem : ReactiveSystem<GameEntity> {
+public class ThrusterSystem : ReactiveSystem<MessageEntity>, ICleanupSystem {
 
-    readonly IGroup<GameEntity> _thrustTriggers;
+    //readonly IGroup<GameEntity> _thrustTriggers;
+    readonly GameContext _gameContext;
+    readonly IGroup<GameEntity> _thrusting;
 
-    public ThrusterSystem(Contexts contexts) : base(contexts.game) {
-        _thrustTriggers = contexts.game.GetGroup(GameMatcher.TriggerThrust);
+    public ThrusterSystem(Contexts contexts) : base(contexts.message) {
+        //_thrustTriggers = contexts.game.GetGroup(GameMatcher.TriggerThrust);
+        _gameContext = contexts.game;
+        _thrusting = _gameContext.GetGroup(GameMatcher.Thrustring);
     }
 
-    protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> c) {
-        return c.CreateCollector(GameMatcher.AllOf(
-                                        GameMatcher.TriggerThrust,
-                                        GameMatcher.Thruster,
-                                        GameMatcher.UpdateBuffer
-                                    )
-                                );
+    //protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> c) {
+    //    return c.CreateCollector(GameMatcher.AllOf(
+    //                                    //GameMatcher.TriggerThrust,
+    //                                    GameMatcher.Thruster,
+    //                                    GameMatcher.UpdateBuffer
+    //                                )
+    //                            );
+    //}
+
+    protected override ICollector<MessageEntity> GetTrigger(IContext<MessageEntity> c) {
+        return c.CreateCollector(MessageMatcher.AllOf(
+                                                        MessageMatcher.TriggerThrust,
+                                                        MessageMatcher.CanBeProcessed,
+                                                        MessageMatcher.MessageTarget
+                                                    )
+                                                );
     }
 
-    protected override bool Filter(GameEntity e) { return true; }
+    protected override bool Filter(MessageEntity e) {
+        var g = _gameContext.GetEntityWithId(e.messageTarget.id);
+        if (g == null) {
+            return false;
+        }
+        return g.hasUpdateBuffer && g.hasThruster;
+    }
 
-    protected override void Execute(List<GameEntity> entities) {
+    protected override void Execute(List<MessageEntity> entities) {
         foreach(var e in entities) {
-            var buffer = e.updateBuffer.buffer;
-            var force = e.triggerThrust.Direction * e.thruster.Force;
-            buffer.AddToBuffer(this, (Rigidbody2D r) => r.AddForce(force) );
+            var gameEntity = _gameContext.GetEntityWithId(e.messageTarget.id);
+            var force = e.triggerThrust.direction * gameEntity.thruster.Force;
+            var m = MessageGenerator.Message();
+            m.AddMessageTarget(e.messageTarget.id);
+            m.AddBuffer2DAction(this, (Rigidbody2D r) => r.AddForce(force));
+            gameEntity.isThrustring = true;
+        }
+    }
+
+    public void Cleanup() {
+        foreach (var e in _thrusting.GetEntities()) {
+            e.isThrustring = false;
         }
     }
 }

@@ -12,13 +12,6 @@ public class FixedUpdateBuffer : MonoBehaviour {
         }
     }
 
-    class GameObjectCommand : Command {
-        public readonly Action<GameObject> Act;
-        public GameObjectCommand(ISystem issuer, Action<GameObject> act) : base(issuer) {
-            Act = act;
-        }
-    }
-
     class RigidbodyCommand : Command {
         public readonly Action<Rigidbody> Act;
         public RigidbodyCommand(ISystem issuer, Action<Rigidbody> act) : base(issuer) {
@@ -55,9 +48,6 @@ public class FixedUpdateBuffer : MonoBehaviour {
             else if (c.GetType() == typeof(Rigidbody2DCommand) && Is2D) {
                 (c as Rigidbody2DCommand).Act(body2D);
             }
-            else {
-                (c as GameObjectCommand).Act(go);
-            }
         });
         foreach (var command in _buffer) {
             processCommand(command);
@@ -81,10 +71,6 @@ public class FixedUpdateBuffer : MonoBehaviour {
         else {
             _tempBuffer.Add(c);
         }
-    }
-
-    public void AddToBuffer(ISystem issuer, Action<GameObject> act, bool persist = false) {
-        GenericAdd(new GameObjectCommand(issuer, act), persist);
     }
 
     public void AddToBuffer(ISystem issuer, Action<Rigidbody2D> act, bool persist = false) {

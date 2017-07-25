@@ -8,33 +8,48 @@
 //------------------------------------------------------------------------------
 public static class MessageComponentsLookup {
 
-    public const int CanBeProcessed = 0;
-    public const int Destroyed = 1;
-    public const int DestroyOnConsume = 2;
-    public const int Id = 3;
-    public const int JustIssued = 4;
-    public const int MessageSender = 5;
-    public const int PersistUntilConsumed = 6;
+    public const int Buffer2DAction = 0;
+    public const int BufferAction = 1;
+    public const int CanBeProcessed = 2;
+    public const int Destroyed = 3;
+    public const int DestroyOnConsume = 4;
+    public const int Id = 5;
+    public const int JustIssued = 6;
+    public const int MessageSender = 7;
+    public const int MessageTarget = 8;
+    public const int PersistUntilConsumed = 9;
+    public const int TriggerSpin = 10;
+    public const int TriggerThrust = 11;
 
-    public const int TotalComponents = 7;
+    public const int TotalComponents = 12;
 
     public static readonly string[] componentNames = {
+        "Buffer2DAction",
+        "BufferAction",
         "CanBeProcessed",
         "Destroyed",
         "DestroyOnConsume",
         "Id",
         "JustIssued",
         "MessageSender",
-        "PersistUntilConsumed"
+        "MessageTarget",
+        "PersistUntilConsumed",
+        "TriggerSpin",
+        "TriggerThrust"
     };
 
     public static readonly System.Type[] componentTypes = {
+        typeof(Buffer2DAction),
+        typeof(BufferAction),
         typeof(CanBeProcessed),
         typeof(Destroyed),
         typeof(DestroyOnConsume),
         typeof(IdComponent),
         typeof(JustIssued),
         typeof(MessageSender),
-        typeof(PersistUntilConsumed)
+        typeof(MessageTarget),
+        typeof(PersistUntilConsumed),
+        typeof(TriggerSpin),
+        typeof(TriggerThrust)
     };
 }

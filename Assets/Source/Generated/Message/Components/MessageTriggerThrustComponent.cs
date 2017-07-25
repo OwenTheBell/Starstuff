@@ -6,27 +6,27 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-public partial class GameEntity {
+public partial class MessageEntity {
 
-    public TriggerThrust triggerThrust { get { return (TriggerThrust)GetComponent(GameComponentsLookup.TriggerThrust); } }
-    public bool hasTriggerThrust { get { return HasComponent(GameComponentsLookup.TriggerThrust); } }
+    public TriggerThrust triggerThrust { get { return (TriggerThrust)GetComponent(MessageComponentsLookup.TriggerThrust); } }
+    public bool hasTriggerThrust { get { return HasComponent(MessageComponentsLookup.TriggerThrust); } }
 
-    public void AddTriggerThrust(UnityEngine.Vector2 newDirection) {
-        var index = GameComponentsLookup.TriggerThrust;
+    public void AddTriggerThrust(UnityEngine.Vector3 newDirection) {
+        var index = MessageComponentsLookup.TriggerThrust;
         var component = CreateComponent<TriggerThrust>(index);
-        component.Direction = newDirection;
+        component.direction = newDirection;
         AddComponent(index, component);
     }
 
-    public void ReplaceTriggerThrust(UnityEngine.Vector2 newDirection) {
-        var index = GameComponentsLookup.TriggerThrust;
+    public void ReplaceTriggerThrust(UnityEngine.Vector3 newDirection) {
+        var index = MessageComponentsLookup.TriggerThrust;
         var component = CreateComponent<TriggerThrust>(index);
-        component.Direction = newDirection;
+        component.direction = newDirection;
         ReplaceComponent(index, component);
     }
 
     public void RemoveTriggerThrust() {
-        RemoveComponent(GameComponentsLookup.TriggerThrust);
+        RemoveComponent(MessageComponentsLookup.TriggerThrust);
     }
 }
 
@@ -38,15 +38,15 @@ public partial class GameEntity {
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-public sealed partial class GameMatcher {
+public sealed partial class MessageMatcher {
 
-    static Entitas.IMatcher<GameEntity> _matcherTriggerThrust;
+    static Entitas.IMatcher<MessageEntity> _matcherTriggerThrust;
 
-    public static Entitas.IMatcher<GameEntity> TriggerThrust {
+    public static Entitas.IMatcher<MessageEntity> TriggerThrust {
         get {
             if (_matcherTriggerThrust == null) {
-                var matcher = (Entitas.Matcher<GameEntity>)Entitas.Matcher<GameEntity>.AllOf(GameComponentsLookup.TriggerThrust);
-                matcher.componentNames = GameComponentsLookup.componentNames;
+                var matcher = (Entitas.Matcher<MessageEntity>)Entitas.Matcher<MessageEntity>.AllOf(MessageComponentsLookup.TriggerThrust);
+                matcher.componentNames = MessageComponentsLookup.componentNames;
                 _matcherTriggerThrust = matcher;
             }
 

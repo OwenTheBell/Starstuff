@@ -53,14 +53,7 @@ public class ThrusterComponent : sm_Component {
 }
 
 [Game]
-public class TriggerThrust : sm_Component {
-    public Vector2 Direction;
-}
-
-[Game]
-public class TriggerSpin : sm_Component {
-    public float value;
-}
+public class ThrustringComponent : sm_Component { }
 
 [Game]
 public class MaxVelocityComponent : sm_Component {
@@ -72,6 +65,9 @@ public class SpinComponent : sm_Component {
     public float Torque;
     public float Dampening;
 }
+
+[Game]
+public class SpinningComponent : sm_Component { }
 
 [Game]
 public class BackgroundLayer : sm_Component {

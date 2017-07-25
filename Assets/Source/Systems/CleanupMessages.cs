@@ -25,7 +25,6 @@ public class CleanupMessages : ICleanupSystem {
         foreach (var e in _JustIssued.GetEntities()) {
             e.isJustIssued = false;
             e.isCanBeProcessed = true;
-            e.isDestroyed = true; // the destroy system will clear this up
         }
         //foreach (var e in _Processable.GetEntities()) {
         //    if (!e.isPersistUntilConsumed && !e.isJustIssued) {

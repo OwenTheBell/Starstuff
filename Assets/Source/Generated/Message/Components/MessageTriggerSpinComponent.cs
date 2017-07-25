@@ -6,27 +6,27 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-public partial class GameEntity {
+public partial class MessageEntity {
 
-    public TriggerSpin triggerSpin { get { return (TriggerSpin)GetComponent(GameComponentsLookup.TriggerSpin); } }
-    public bool hasTriggerSpin { get { return HasComponent(GameComponentsLookup.TriggerSpin); } }
+    public TriggerSpin triggerSpin { get { return (TriggerSpin)GetComponent(MessageComponentsLookup.TriggerSpin); } }
+    public bool hasTriggerSpin { get { return HasComponent(MessageComponentsLookup.TriggerSpin); } }
 
-    public void AddTriggerSpin(float newValue) {
-        var index = GameComponentsLookup.TriggerSpin;
+    public void AddTriggerSpin(int newValue) {
+        var index = MessageComponentsLookup.TriggerSpin;
         var component = CreateComponent<TriggerSpin>(index);
         component.value = newValue;
         AddComponent(index, component);
     }
 
-    public void ReplaceTriggerSpin(float newValue) {
-        var index = GameComponentsLookup.TriggerSpin;
+    public void ReplaceTriggerSpin(int newValue) {
+        var index = MessageComponentsLookup.TriggerSpin;
         var component = CreateComponent<TriggerSpin>(index);
         component.value = newValue;
         ReplaceComponent(index, component);
     }
 
     public void RemoveTriggerSpin() {
-        RemoveComponent(GameComponentsLookup.TriggerSpin);
+        RemoveComponent(MessageComponentsLookup.TriggerSpin);
     }
 }
 
@@ -38,15 +38,15 @@ public partial class GameEntity {
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-public sealed partial class GameMatcher {
+public sealed partial class MessageMatcher {
 
-    static Entitas.IMatcher<GameEntity> _matcherTriggerSpin;
+    static Entitas.IMatcher<MessageEntity> _matcherTriggerSpin;
 
-    public static Entitas.IMatcher<GameEntity> TriggerSpin {
+    public static Entitas.IMatcher<MessageEntity> TriggerSpin {
         get {
             if (_matcherTriggerSpin == null) {
-                var matcher = (Entitas.Matcher<GameEntity>)Entitas.Matcher<GameEntity>.AllOf(GameComponentsLookup.TriggerSpin);
-                matcher.componentNames = GameComponentsLookup.componentNames;
+                var matcher = (Entitas.Matcher<MessageEntity>)Entitas.Matcher<MessageEntity>.AllOf(MessageComponentsLookup.TriggerSpin);
+                matcher.componentNames = MessageComponentsLookup.componentNames;
                 _matcherTriggerSpin = matcher;
             }
 
