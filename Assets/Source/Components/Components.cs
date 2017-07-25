@@ -8,6 +8,12 @@ using Entitas.CodeGeneration.Attributes;
 [System.Serializable]
 public abstract class sm_Component : System.Object, IComponent { };
 
+[Game, Input, Message]
+public class IdComponent : sm_Component {
+    [PrimaryEntityIndex]
+    public int value;
+}
+
 // rendering
 [Game]
 public class ViewComponent : sm_Component {
@@ -147,6 +153,16 @@ public class UpdateBufferComponent : sm_Component {
     public FixedUpdateBuffer buffer;
 }
 
+[Game]
+public class BodyComponent : sm_Component {
+    public Rigidbody value;
+}
+
+[Game]
+public class Body2DComponent : sm_Component {
+    public Rigidbody2D value;
+}
+
 // input
 [Input, Unique]
 public class LeftMouseComponent : sm_Component { }
@@ -183,3 +199,27 @@ public class KeyUpComponent : sm_Component { }
 
 [Game, Input, Message]
 public class Destroyed : sm_Component { }
+
+[Game, Unique]
+public class TickTracker : sm_Component {
+    public float Tick;
+    public float Time;
+    public float Scale;
+}
+
+[Game, Unique]
+public class Paused : sm_Component { }
+
+[Game]
+public class PreservedBodyStateComponent : sm_Component {
+    public int Id;
+    public Vector3 velocity;
+    public Vector3 angularVelocity;
+}
+
+[Game]
+public class PreservedBody2DStateComponent : sm_Component {
+    public int Id;
+    public Vector2 velocity;
+    public float angularVelocity;
+}

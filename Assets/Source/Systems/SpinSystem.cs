@@ -20,7 +20,6 @@ public class SpinSystem : ReactiveSystem<GameEntity> {
 
     protected override void Execute(List<GameEntity> entities) {
         foreach (var e in entities) {
-            var body = e.view.gameObject.GetComponent<Rigidbody2D>();
             var buffer = e.updateBuffer.buffer;
             var torque = e.spin.Torque * e.triggerSpin.value;
             buffer.AddToBuffer(this, (Rigidbody2D r) => {

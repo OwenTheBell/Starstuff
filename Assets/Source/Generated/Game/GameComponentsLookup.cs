@@ -10,36 +10,45 @@ public static class GameComponentsLookup {
 
     public const int BackgroundLayer = 0;
     public const int BackgroundTile = 1;
-    public const int CatchingUp = 2;
-    public const int Catchup = 3;
-    public const int ChangingMovementState = 4;
-    public const int DampenInertia = 5;
-    public const int DampenSpin = 6;
-    public const int Destroyed = 7;
-    public const int Follow = 8;
-    public const int Following = 9;
-    public const int FollowingPlayer = 10;
-    public const int MatchMotion = 11;
-    public const int MaxVelocity = 12;
-    public const int Player = 13;
-    public const int Spin = 14;
-    public const int Star = 15;
-    public const int StarSpawnInfo = 16;
-    public const int Thruster = 17;
-    public const int ThrustPerFollower = 18;
-    public const int TrackedTransform = 19;
-    public const int TriggerSpin = 20;
-    public const int TriggerThrust = 21;
-    public const int UpdateBuffer = 22;
-    public const int View = 23;
-    public const int Wait = 24;
-    public const int Waiting = 25;
+    public const int Body2D = 2;
+    public const int Body = 3;
+    public const int CatchingUp = 4;
+    public const int Catchup = 5;
+    public const int ChangingMovementState = 6;
+    public const int DampenInertia = 7;
+    public const int DampenSpin = 8;
+    public const int Destroyed = 9;
+    public const int Follow = 10;
+    public const int Following = 11;
+    public const int FollowingPlayer = 12;
+    public const int Id = 13;
+    public const int MatchMotion = 14;
+    public const int MaxVelocity = 15;
+    public const int Paused = 16;
+    public const int Player = 17;
+    public const int PreservedBody2DState = 18;
+    public const int PreservedBodyState = 19;
+    public const int Spin = 20;
+    public const int Star = 21;
+    public const int StarSpawnInfo = 22;
+    public const int Thruster = 23;
+    public const int ThrustPerFollower = 24;
+    public const int TickTracker = 25;
+    public const int TrackedTransform = 26;
+    public const int TriggerSpin = 27;
+    public const int TriggerThrust = 28;
+    public const int UpdateBuffer = 29;
+    public const int View = 30;
+    public const int Wait = 31;
+    public const int Waiting = 32;
 
-    public const int TotalComponents = 26;
+    public const int TotalComponents = 33;
 
     public static readonly string[] componentNames = {
         "BackgroundLayer",
         "BackgroundTile",
+        "Body2D",
+        "Body",
         "CatchingUp",
         "Catchup",
         "ChangingMovementState",
@@ -49,14 +58,19 @@ public static class GameComponentsLookup {
         "Follow",
         "Following",
         "FollowingPlayer",
+        "Id",
         "MatchMotion",
         "MaxVelocity",
+        "Paused",
         "Player",
+        "PreservedBody2DState",
+        "PreservedBodyState",
         "Spin",
         "Star",
         "StarSpawnInfo",
         "Thruster",
         "ThrustPerFollower",
+        "TickTracker",
         "TrackedTransform",
         "TriggerSpin",
         "TriggerThrust",
@@ -69,6 +83,8 @@ public static class GameComponentsLookup {
     public static readonly System.Type[] componentTypes = {
         typeof(BackgroundLayer),
         typeof(BackgroundTile),
+        typeof(Body2DComponent),
+        typeof(BodyComponent),
         typeof(CatchingUpComponent),
         typeof(CatchupComponent),
         typeof(ChangingMovementStateComponent),
@@ -78,14 +94,19 @@ public static class GameComponentsLookup {
         typeof(FollowComponent),
         typeof(FollowingComponent),
         typeof(FollowingPlayerComponent),
+        typeof(IdComponent),
         typeof(MatchMotionComponent),
         typeof(MaxVelocityComponent),
+        typeof(Paused),
         typeof(PlayerComponent),
+        typeof(PreservedBody2DStateComponent),
+        typeof(PreservedBodyStateComponent),
         typeof(SpinComponent),
         typeof(StarComponent),
         typeof(StarSpawnInfo),
         typeof(ThrusterComponent),
         typeof(ThrustPerFollowerComponent),
+        typeof(TickTracker),
         typeof(TrackedTransformComponent),
         typeof(TriggerSpin),
         typeof(TriggerThrust),

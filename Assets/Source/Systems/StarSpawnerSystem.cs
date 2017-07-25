@@ -56,6 +56,7 @@ public class StarSpawnerSystem : IInitializeSystem, IExecuteSystem {
             e.AddDampenInertia(0.9f);
             e.AddDampenSpin(0.0001f);
             e.AddUpdateBuffer(buffer);
+            e.AddBody2D(star.GetComponent<Rigidbody2D>());
             star.Link(e, _context);
         }
     }

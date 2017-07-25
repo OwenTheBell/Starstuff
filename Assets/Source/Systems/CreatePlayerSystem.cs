@@ -38,6 +38,7 @@ public class CreatePlayerSystem : IInitializeSystem {
         e.AddDampenInertia(e.thruster.Dampening);
         e.AddDampenSpin(e.spin.Dampening);
         e.AddUpdateBuffer(buffer);
+        e.AddBody2D(player.GetComponent<Rigidbody2D>());
     }
 
     public void Initialize() {

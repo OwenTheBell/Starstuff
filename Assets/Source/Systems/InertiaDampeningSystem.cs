@@ -8,7 +8,8 @@ public class InertiaDampeningSystem : IExecuteSystem {
     public InertiaDampeningSystem(Contexts contexts) {
         _dampeners = contexts.game.GetGroup(GameMatcher.AllOf(
                                                     GameMatcher.DampenInertia,
-                                                    GameMatcher.UpdateBuffer
+                                                    GameMatcher.UpdateBuffer,
+                                                    GameMatcher.Body2D
                                                 )
                                             );
     }
@@ -19,7 +20,7 @@ public class InertiaDampeningSystem : IExecuteSystem {
             var dampening = e.thruster.Dampening;
             if (e.hasTriggerThrust) {
                 var direction = e.triggerThrust.Direction;
-                var velocity = e.view.gameObject.GetComponent<Rigidbody2D>().velocity;
+                var velocity = e.body2D.value.velocity;
                 var angle1 = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                 var angle2 = Mathf.Atan2(velocity.y, velocity.y) * Mathf.Rad2Deg;
                 if (Mathf.Abs(angle1 - angle2) > 20f) {

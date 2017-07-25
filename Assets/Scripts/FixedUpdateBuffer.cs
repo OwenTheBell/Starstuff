@@ -65,7 +65,13 @@ public class FixedUpdateBuffer : MonoBehaviour {
         foreach (var command in _persistantBuffer) {
             processCommand(command);
         }
-        Purge();
+
+        // only clear the persistant buffer
+        _persistantBuffer.Clear();
+        // keep everything in the regular buffer and keep processing it. This is to
+        // account for when FixedUpdate runs at a higher frequency than Update. The
+        // buffer should preserve it's values so that continuous forces are not
+        // interrupted by main thread slowdown
     }
 
     void GenericAdd(Command c, bool persist) {
@@ -113,8 +119,11 @@ public class FixedUpdateBuffer : MonoBehaviour {
     }
 
     public void CycleBuffers() {
+        // do not clear the persistant buffer since those actions need to be
+        // preserved
         _persistantBuffer.AddRange(_tempPersistant);
         _tempPersistant.Clear();
+
         _buffer.Clear();
         _buffer.AddRange(_tempBuffer);
         _tempBuffer.Clear();

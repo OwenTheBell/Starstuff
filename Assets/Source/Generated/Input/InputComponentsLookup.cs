@@ -9,19 +9,21 @@
 public static class InputComponentsLookup {
 
     public const int Destroyed = 0;
-    public const int Key = 1;
-    public const int KeyDown = 2;
-    public const int KeyUp = 3;
-    public const int LeftMouse = 4;
-    public const int MouseDown = 5;
-    public const int MousePosition = 6;
-    public const int MouseUp = 7;
-    public const int RightMouse = 8;
+    public const int Id = 1;
+    public const int Key = 2;
+    public const int KeyDown = 3;
+    public const int KeyUp = 4;
+    public const int LeftMouse = 5;
+    public const int MouseDown = 6;
+    public const int MousePosition = 7;
+    public const int MouseUp = 8;
+    public const int RightMouse = 9;
 
-    public const int TotalComponents = 9;
+    public const int TotalComponents = 10;
 
     public static readonly string[] componentNames = {
         "Destroyed",
+        "Id",
         "Key",
         "KeyDown",
         "KeyUp",
@@ -34,6 +36,7 @@ public static class InputComponentsLookup {
 
     public static readonly System.Type[] componentTypes = {
         typeof(Destroyed),
+        typeof(IdComponent),
         typeof(KeyComponent),
         typeof(KeyDownComponent),
         typeof(KeyUpComponent),

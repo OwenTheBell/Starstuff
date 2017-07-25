@@ -9,11 +9,19 @@ public class GameController : MonoBehaviour {
 
 	void Start () {
         var contexts = Contexts.sharedInstance;
+
+        foreach (var c in contexts.allContexts) {
+            c.OnEntityCreated += AddId;
+        }
+
+
         _systems = new Feature("Systems");
 
         // add must include features & systems
         _systems.Add(new InputFeature(contexts));
         _systems.Add(new MessagingFeature(contexts));
+        _systems.Add(new TickSystem(contexts));
+        _systems.Add(new TogglePhysicsPauseSystem(contexts));
         _systems.Add(new StarSystems(contexts));
 
         // add features & systems chosen in editor
@@ -35,4 +43,8 @@ public class GameController : MonoBehaviour {
         _systems.Execute();
         _systems.Cleanup();
 	}
+
+    void AddId(IContext c, IEntity e) {
+        (e as IId).AddId(e.creationIndex);
+    }
 }
