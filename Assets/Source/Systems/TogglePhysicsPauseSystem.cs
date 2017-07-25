@@ -34,7 +34,12 @@ public class TogglePhysicsPauseSystem : ReactiveSystem<GameEntity> {
             foreach (var e in _bodies.GetEntities()) {
                 var bodyState = _gameContext.CreateEntity();
                 var body = e.body.value;
-                bodyState.AddPreservedBodyState(e.id.value, body.velocity, body.angularVelocity);
+                bodyState.AddPreservedBodyState(
+                                                    e.id.value,
+                                                    body.velocity,
+                                                    body.angularVelocity,
+                                                    body.isKinematic
+                                                );
                 body.velocity = Vector3.zero;
                 body.angularVelocity = Vector3.zero;
                 body.isKinematic = true;
@@ -42,7 +47,12 @@ public class TogglePhysicsPauseSystem : ReactiveSystem<GameEntity> {
             foreach (var e in _2dBodies.GetEntities()) {
                 var bodyState = _gameContext.CreateEntity();
                 var body = e.body2D.value;
-                bodyState.AddPreservedBody2DState(e.id.value, body.velocity, body.angularVelocity);
+                bodyState.AddPreservedBody2DState(
+                                                    e.id.value,
+                                                    body.velocity,
+                                                    body.angularVelocity,
+                                                    body.isKinematic
+                                                );
                 body.velocity = Vector3.zero;
                 body.angularVelocity = 0f;
                 body.isKinematic = true;
@@ -59,7 +69,7 @@ public class TogglePhysicsPauseSystem : ReactiveSystem<GameEntity> {
                     var body = e.body.value;
                     body.velocity = bodyState.velocity;
                     body.angularVelocity = bodyState.velocity;
-                    body.isKinematic = false;
+                    body.isKinematic = bodyState.isKinematic;
                 }
                 p.Destroy();
             }
@@ -70,7 +80,7 @@ public class TogglePhysicsPauseSystem : ReactiveSystem<GameEntity> {
                     var body = e.body2D.value;
                     body.velocity = bodyState.velocity;
                     body.angularVelocity = bodyState.angularVelocity;
-                    body.isKinematic = false;
+                    body.isKinematic = body.isKinematic;
                 }
                 p.Destroy();
             }

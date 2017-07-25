@@ -215,6 +215,7 @@ public class PreservedBodyStateComponent : sm_Component {
     public int Id;
     public Vector3 velocity;
     public Vector3 angularVelocity;
+    public bool isKinematic;
 }
 
 [Game]
@@ -222,4 +223,5 @@ public class PreservedBody2DStateComponent : sm_Component {
     public int Id;
     public Vector2 velocity;
     public float angularVelocity;
+    public bool isKinematic;
 }

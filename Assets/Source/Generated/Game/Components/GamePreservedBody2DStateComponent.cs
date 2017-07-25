@@ -11,21 +11,23 @@ public partial class GameEntity {
     public PreservedBody2DStateComponent preservedBody2DState { get { return (PreservedBody2DStateComponent)GetComponent(GameComponentsLookup.PreservedBody2DState); } }
     public bool hasPreservedBody2DState { get { return HasComponent(GameComponentsLookup.PreservedBody2DState); } }
 
-    public void AddPreservedBody2DState(int newId, UnityEngine.Vector2 newVelocity, float newAngularVelocity) {
+    public void AddPreservedBody2DState(int newId, UnityEngine.Vector2 newVelocity, float newAngularVelocity, bool newIsKinematic) {
         var index = GameComponentsLookup.PreservedBody2DState;
         var component = CreateComponent<PreservedBody2DStateComponent>(index);
         component.Id = newId;
         component.velocity = newVelocity;
         component.angularVelocity = newAngularVelocity;
+        component.isKinematic = newIsKinematic;
         AddComponent(index, component);
     }
 
-    public void ReplacePreservedBody2DState(int newId, UnityEngine.Vector2 newVelocity, float newAngularVelocity) {
+    public void ReplacePreservedBody2DState(int newId, UnityEngine.Vector2 newVelocity, float newAngularVelocity, bool newIsKinematic) {
         var index = GameComponentsLookup.PreservedBody2DState;
         var component = CreateComponent<PreservedBody2DStateComponent>(index);
         component.Id = newId;
         component.velocity = newVelocity;
         component.angularVelocity = newAngularVelocity;
+        component.isKinematic = newIsKinematic;
         ReplaceComponent(index, component);
     }
 
