@@ -96,7 +96,11 @@ public class FixedUpdateBuffer : MonoBehaviour {
     }
 
     public void RemoveAll(ISystem issuer) {
-        _buffer.FilterInPlace<Command>(c => { return c.Issuer != issuer; });
+        var filter = new Predicate<Command>(c => { return c.Issuer != issuer; });
+        _buffer.FilterInPlace<Command>(filter);
+        _persistantBuffer.FilterInPlace<Command>(filter);
+        _tempBuffer.FilterInPlace<Command>(filter);
+        _tempPersistant.FilterInPlace<Command>(filter);
     }
 
     public void Clear() {

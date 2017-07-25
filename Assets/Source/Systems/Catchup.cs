@@ -30,25 +30,9 @@ public class Catchup : IExecuteSystem {
 
             magnitude = Mathf.Clamp(magnitude, minMagnitude, Mathf.Infinity);
             var force = new Vector2(Mathf.Cos(radians), Mathf.Sin(radians));
-            //var force = new Vector2(
-            //    Mathf.Cos(radians) * magnitude,
-            //    Mathf.Sin(radians) * magnitude
-            //);
 
             e.thruster.Force = magnitude * myBody.mass;
             e.AddTriggerThrust(force);
-
-            //var body = e.view.gameObject.GetComponent<Rigidbody2D>();
-            //var buffer = e.view.gameObject.GetComponent<FixedUpdateBuffer>();
-            //buffer.RemoveAll(this);
-            //buffer.AddToBuffer(this, (Rigidbody2D r) => r.AddForce(force * r.mass));
-
-
-            //var angle1 = Mathf.Atan2(force.y, force.x) * Mathf.Rad2Deg;
-            //var angle2 = Mathf.Atan2(myVelocity.y, myVelocity.x) * Mathf.Rad2Deg;
-            //if (Mathf.Abs(angle1 - angle2) > 20f) {
-            //    e.AddDampenInertia(0.9f);
-            //}
         }
     }
 }

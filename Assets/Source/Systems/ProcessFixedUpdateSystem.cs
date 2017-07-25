@@ -1,6 +1,6 @@
 ﻿using Entitas;
 
-public class ProcessFixedUpdateSystem : IExecuteSystem {
+public class ProcessFixedUpdateSystem : ICleanupSystem {
 
     readonly IGroup<GameEntity> _buffers;
 
@@ -8,7 +8,7 @@ public class ProcessFixedUpdateSystem : IExecuteSystem {
         _buffers = contexts.game.GetGroup(GameMatcher.UpdateBuffer);
     }
 
-    public void Execute() {
+    public void Cleanup() {
         foreach (var e in _buffers.GetEntities()) {
             e.updateBuffer.buffer.CycleBuffers();
         }

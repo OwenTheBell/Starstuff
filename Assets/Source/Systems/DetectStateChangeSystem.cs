@@ -22,13 +22,6 @@ public class DetectStateChangeSystem : ReactiveSystem<GameEntity> {
 
     protected override void Execute(List<GameEntity> entities) {
         foreach (var e in entities) {
-            //var oldVelocity = e.view.gameObject.GetComponent<Rigidbody2D>().velocity;
-            //if (e.hasChangingMovementState) {
-            //    e.ReplaceChangingMovementState(1f, 0f, oldVelocity);
-            //}
-            //else {
-            //    e.AddChangingMovementState(1f, 0f, oldVelocity);
-            //}
         }
     }
 }
