@@ -47,11 +47,15 @@ public class SpinDampeningSystem : IExecuteSystem {
                 shouldDampen = direction == currentDirection;
             }
             if (shouldDampen) {
-                var m = MessageGenerator.Message(true);
-                m.AddBuffer2DAction(this, (Rigidbody2D r) => {
-                    r.AddTorque(-r.angularVelocity * e.dampenSpin.value);
-                });
-                m.AddMessageTarget(e.id.value);
+                for (var i = 0; i < 10; i++) {
+                    //var go = new GameObject();
+                    //go.name = "Instantiation test";
+                    var m = MessageGenerator.Message(true);
+                    //m.AddBuffer2DAction(this, (Rigidbody2D r) => {
+                    //    r.AddTorque(-r.angularVelocity * e.dampenSpin.value);
+                    //});
+                    //m.AddMessageTarget(e.id.value);
+                }
             }
 
             //var angularVelocity = e.body2D.value.angularVelocity;

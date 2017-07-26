@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour {
         foreach (var c in contexts.allContexts) {
             c.OnEntityCreated += AddId;
         }
+        //contexts.game.OnEntityCreated += AddId;
 
 
         _systems = new Feature("Systems");
