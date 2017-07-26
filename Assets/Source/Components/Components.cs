@@ -130,6 +130,13 @@ public class ChangingMovementStateComponent : sm_Component {
 }
 
 [Game]
+public class RepulserComponent : sm_Component {
+    public float angleVariance;
+    public float force;
+    public float range;
+}
+
+[Game]
 public class TrackedTransformComponent : sm_Component {
     public Transform Transform;
 }

@@ -28,21 +28,22 @@ public static class GameComponentsLookup {
     public const int Player = 17;
     public const int PreservedBody2DState = 18;
     public const int PreservedBodyState = 19;
-    public const int Spin = 20;
-    public const int Spinning = 21;
-    public const int Star = 22;
-    public const int StarSpawnInfo = 23;
-    public const int Thruster = 24;
-    public const int ThrustPerFollower = 25;
-    public const int Thrustring = 26;
-    public const int TickTracker = 27;
-    public const int TrackedTransform = 28;
-    public const int UpdateBuffer = 29;
-    public const int View = 30;
-    public const int Wait = 31;
-    public const int Waiting = 32;
+    public const int Repulser = 20;
+    public const int Spin = 21;
+    public const int Spinning = 22;
+    public const int Star = 23;
+    public const int StarSpawnInfo = 24;
+    public const int Thruster = 25;
+    public const int ThrustPerFollower = 26;
+    public const int Thrustring = 27;
+    public const int TickTracker = 28;
+    public const int TrackedTransform = 29;
+    public const int UpdateBuffer = 30;
+    public const int View = 31;
+    public const int Wait = 32;
+    public const int Waiting = 33;
 
-    public const int TotalComponents = 33;
+    public const int TotalComponents = 34;
 
     public static readonly string[] componentNames = {
         "BackgroundLayer",
@@ -65,6 +66,7 @@ public static class GameComponentsLookup {
         "Player",
         "PreservedBody2DState",
         "PreservedBodyState",
+        "Repulser",
         "Spin",
         "Spinning",
         "Star",
@@ -101,6 +103,7 @@ public static class GameComponentsLookup {
         typeof(PlayerComponent),
         typeof(PreservedBody2DStateComponent),
         typeof(PreservedBodyStateComponent),
+        typeof(RepulserComponent),
         typeof(SpinComponent),
         typeof(SpinningComponent),
         typeof(StarComponent),

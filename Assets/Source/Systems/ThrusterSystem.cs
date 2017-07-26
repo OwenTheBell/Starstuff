@@ -45,7 +45,7 @@ public class ThrusterSystem : ReactiveSystem<MessageEntity>, ICleanupSystem {
         foreach(var e in entities) {
             var gameEntity = _gameContext.GetEntityWithId(e.messageTarget.id);
             var force = e.triggerThrust.direction * gameEntity.thruster.Force;
-            var m = MessageGenerator.Message();
+            var m = MessageGenerator.Message(true);
             m.AddMessageTarget(e.messageTarget.id);
             m.AddBuffer2DAction(this, (Rigidbody2D r) => r.AddForce(force));
             gameEntity.isThrustring = true;

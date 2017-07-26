@@ -10,7 +10,6 @@ public static class MessageGenerator {
         var e = Contexts.sharedInstance.message.CreateEntity();
         if (immediate) {
             e.isCanBeProcessed = true;
-            e.isDestroyed = true;
         }
         else {
             e.isJustIssued = true;
