@@ -5,8 +5,12 @@ public class SpinDampeningSystem : IExecuteSystem {
 
     readonly IGroup<GameEntity> _dampeners;
     readonly IGroup<MessageEntity> _triggerSpin;
+    readonly MessageContext _messageContext;
+
+    bool _firstPass = true;
 
     public SpinDampeningSystem(Contexts contexts) {
+        _messageContext = contexts.message;
         _dampeners = contexts.game.GetGroup(GameMatcher.AllOf(
                                                 GameMatcher.DampenSpin,
                                                 GameMatcher.UpdateBuffer,
@@ -25,7 +29,7 @@ public class SpinDampeningSystem : IExecuteSystem {
         foreach (var e in _dampeners.GetEntities()) {
             var buffer = e.updateBuffer.buffer;
 
-            var shouldDampen = e.isSpinning;
+            var shouldDampen = !e.isSpinning;
             if (e.isSpinning) {
                 var direction = 0;
                 foreach (var m in _triggerSpin.GetEntities()) {
@@ -45,8 +49,8 @@ public class SpinDampeningSystem : IExecuteSystem {
             if (shouldDampen) {
                 var m = MessageGenerator.Message(true);
                 m.AddBuffer2DAction(this, (Rigidbody2D r) => {
-                        r.AddTorque(-r.angularVelocity * e.dampenSpin.value);
-                    });
+                    r.AddTorque(-r.angularVelocity * e.dampenSpin.value);
+                });
                 m.AddMessageTarget(e.id.value);
             }
 
