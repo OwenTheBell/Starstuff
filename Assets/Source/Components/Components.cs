@@ -18,7 +18,6 @@ public class IdComponent : sm_Component {
 [Game]
 public class ViewComponent : sm_Component {
     public GameObject gameObject;
-
     public Transform transform { get { return gameObject.transform; } }
 }
 
