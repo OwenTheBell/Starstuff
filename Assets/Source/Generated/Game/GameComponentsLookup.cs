@@ -34,16 +34,17 @@ public static class GameComponentsLookup {
     public const int Star = 23;
     public const int StarSpawnInfo = 24;
     public const int Thruster = 25;
-    public const int ThrustPerFollower = 26;
-    public const int Thrustring = 27;
-    public const int TickTracker = 28;
-    public const int TrackedTransform = 29;
-    public const int UpdateBuffer = 30;
-    public const int View = 31;
-    public const int Wait = 32;
-    public const int Waiting = 33;
+    public const int ThrustParticle = 26;
+    public const int ThrustPerFollower = 27;
+    public const int Thrustring = 28;
+    public const int TickTracker = 29;
+    public const int TrackedTransform = 30;
+    public const int UpdateBuffer = 31;
+    public const int View = 32;
+    public const int Wait = 33;
+    public const int Waiting = 34;
 
-    public const int TotalComponents = 34;
+    public const int TotalComponents = 35;
 
     public static readonly string[] componentNames = {
         "BackgroundLayer",
@@ -72,6 +73,7 @@ public static class GameComponentsLookup {
         "Star",
         "StarSpawnInfo",
         "Thruster",
+        "ThrustParticle",
         "ThrustPerFollower",
         "Thrustring",
         "TickTracker",
@@ -109,6 +111,7 @@ public static class GameComponentsLookup {
         typeof(StarComponent),
         typeof(StarSpawnInfo),
         typeof(ThrusterComponent),
+        typeof(ThrustParticleComponent),
         typeof(ThrustPerFollowerComponent),
         typeof(ThrustringComponent),
         typeof(TickTracker),

@@ -39,6 +39,7 @@ public class CreatePlayerSystem : IInitializeSystem {
         e.AddDampenSpin(e.spin.Dampening);
         e.AddUpdateBuffer(buffer);
         e.AddBody2D(player.GetComponent<Rigidbody2D>());
+        e.AddThrustParticle(player.GetComponentInChildren<ParticleSystem>());
     }
 
     public void Initialize() {

@@ -31,6 +31,8 @@ public class GameController : MonoBehaviour {
             _systems.Add(feature.Generate(contexts));
         }
 
+        _systems.Add(new ThrustParticleSystem(contexts));
+
         _systems.Add(new InertiaDampeningSystem(contexts));
         _systems.Add(new SpinDampeningSystem(contexts));
         _systems.Add(new ProcessFixedUpdateSystem(contexts));

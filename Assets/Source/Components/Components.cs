@@ -84,6 +84,7 @@ public class StarSpawnInfo : sm_Component {
     public float Distance;
     public Vector2 Range;
     public int MaxStars;
+    public float GapIncrease;
 
     [HideInInspector]
     public float _RemainingDistance;
@@ -226,4 +227,9 @@ public class PreservedBody2DStateComponent : sm_Component {
     public Vector2 velocity;
     public float angularVelocity;
     public bool isKinematic;
+}
+
+[Game]
+public class ThrustParticleComponent : sm_Component {
+    public ParticleSystem system;
 }

@@ -5,24 +5,13 @@ using UnityEngine;
 
 public class ThrusterSystem : ReactiveSystem<MessageEntity>, ICleanupSystem {
 
-    //readonly IGroup<GameEntity> _thrustTriggers;
     readonly GameContext _gameContext;
     readonly IGroup<GameEntity> _thrusting;
 
     public ThrusterSystem(Contexts contexts) : base(contexts.message) {
-        //_thrustTriggers = contexts.game.GetGroup(GameMatcher.TriggerThrust);
         _gameContext = contexts.game;
         _thrusting = _gameContext.GetGroup(GameMatcher.Thrustring);
     }
-
-    //protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> c) {
-    //    return c.CreateCollector(GameMatcher.AllOf(
-    //                                    //GameMatcher.TriggerThrust,
-    //                                    GameMatcher.Thruster,
-    //                                    GameMatcher.UpdateBuffer
-    //                                )
-    //                            );
-    //}
 
     protected override ICollector<MessageEntity> GetTrigger(IContext<MessageEntity> c) {
         return c.CreateCollector(MessageMatcher.AllOf(

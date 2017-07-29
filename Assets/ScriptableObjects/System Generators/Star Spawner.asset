@@ -18,13 +18,14 @@ MonoBehaviour:
     Distance: 20
     Range: {x: 40, y: 60}
     MaxStars: 20
-    _RemainingDistance: 2.9212766
-    _LastPosition: {x: -60.594353, y: 93.7247, z: 0}
+    GapIncrease: 1.2
+    _RemainingDistance: -4628.0566
+    _LastPosition: {x: -47.839104, y: 1259.4104, z: 0}
   Wait:
     BeVisible: 1
     Range: 100
     Delay: 1
-    _RemainingDelay: -0.0038751774
+    _RemainingDelay: -0.012612045
   Catchup:
     Range: 5
     Factor: 1.1

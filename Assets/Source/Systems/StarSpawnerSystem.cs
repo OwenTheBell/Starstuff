@@ -33,6 +33,7 @@ public class StarSpawnerSystem : IInitializeSystem, IExecuteSystem {
         info._RemainingDistance -= (playerPos - info._LastPosition).magnitude;
         info._LastPosition = playerPos;
         if (info._RemainingDistance <= 0f && _stars.count < info.MaxStars) {
+            info.Range *= info.GapIncrease;
             info._RemainingDistance = Random.Range(info.Range.x, info.Range.y);
             var halfarc = info.Arc * Mathf.Deg2Rad / 2f;
             var angle = Random.Range(-halfarc, halfarc) + (Mathf.PI / 2f);

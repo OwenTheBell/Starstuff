@@ -14,8 +14,8 @@ MonoBehaviour:
   PlayerPrefab: {fileID: 1329851734800954, guid: 6dd20f07767bc4d4e81bc2a8ba4df0d4,
     type: 2}
   Thruster:
-    Force: 33.5
-    Dampening: 0.9
+    Force: 5
+    Dampening: 0.8
   Spin:
     Torque: 0.3
     Dampening: 0.001
@@ -24,4 +24,3 @@ MonoBehaviour:
     SpeedPerFollower: 4
     BaseThrust: 5
     ThrustPerFollower: 1.5
-    TotalFollowers: 0

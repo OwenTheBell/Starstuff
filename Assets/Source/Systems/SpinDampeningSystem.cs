@@ -47,15 +47,11 @@ public class SpinDampeningSystem : IExecuteSystem {
                 shouldDampen = direction != currentDirection;
             }
             if (shouldDampen) {
-                Debug.Log("damping");
                 var m = MessageGenerator.Message(true);
                 m.AddBuffer2DAction(this, (Rigidbody2D r) => {
                     r.AddTorque(-r.angularVelocity * e.dampenSpin.value);
                 });
                 m.AddMessageTarget(e.id.value);
-            }
-            else {
-                Debug.Log("not damping");
             }
         }
     }

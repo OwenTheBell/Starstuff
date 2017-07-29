@@ -43,15 +43,13 @@ public class InertiaDampeningSystem : IExecuteSystem {
                 totalThrusts = (int)Mathf.Clamp(totalThrusts, 1f, Mathf.Infinity);
                 direction /= totalThrusts;
 
-                //if (totalThrusts > 0) {
-                    //var direction = e.triggerThrust.Direction;
                 var velocity = e.body2D.value.velocity;
                 var angle1 = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                var angle2 = Mathf.Atan2(velocity.y, velocity.y) * Mathf.Rad2Deg;
+                var angle2 = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
                 if (Mathf.Abs(angle1 - angle2) > 20f) {
+                    Debug.Log("angle calculation is wrong");
                     buffer.AddToBuffer(this, (Rigidbody2D r) => DampenIntertia(r, dampening));
                 }
-                //}
             }
             else {
                 buffer.AddToBuffer(this, (Rigidbody2D r) => DampenIntertia(r, dampening));
@@ -60,6 +58,7 @@ public class InertiaDampeningSystem : IExecuteSystem {
     }
 
     void DampenIntertia(Rigidbody2D r, float dampening) {
+        Debug.Log("dampen inertia");
         var force = -(dampening * r.mass * r.velocity);
         r.AddForce(force, ForceMode2D.Force);
     }

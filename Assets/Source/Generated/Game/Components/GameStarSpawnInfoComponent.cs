@@ -12,22 +12,22 @@ public partial class GameContext {
     public StarSpawnInfo starSpawnInfo { get { return starSpawnInfoEntity.starSpawnInfo; } }
     public bool hasStarSpawnInfo { get { return starSpawnInfoEntity != null; } }
 
-    public GameEntity SetStarSpawnInfo(UnityEngine.GameObject newStarPrefab, float newArc, float newDistance, UnityEngine.Vector2 newRange, int newMaxStars, float new_RemainingDistance, UnityEngine.Vector3 new_LastPosition) {
+    public GameEntity SetStarSpawnInfo(UnityEngine.GameObject newStarPrefab, float newArc, float newDistance, UnityEngine.Vector2 newRange, int newMaxStars, float newGapIncrease, float new_RemainingDistance, UnityEngine.Vector3 new_LastPosition) {
         if (hasStarSpawnInfo) {
             throw new Entitas.EntitasException("Could not set StarSpawnInfo!\n" + this + " already has an entity with StarSpawnInfo!",
                 "You should check if the context already has a starSpawnInfoEntity before setting it or use context.ReplaceStarSpawnInfo().");
         }
         var entity = CreateEntity();
-        entity.AddStarSpawnInfo(newStarPrefab, newArc, newDistance, newRange, newMaxStars, new_RemainingDistance, new_LastPosition);
+        entity.AddStarSpawnInfo(newStarPrefab, newArc, newDistance, newRange, newMaxStars, newGapIncrease, new_RemainingDistance, new_LastPosition);
         return entity;
     }
 
-    public void ReplaceStarSpawnInfo(UnityEngine.GameObject newStarPrefab, float newArc, float newDistance, UnityEngine.Vector2 newRange, int newMaxStars, float new_RemainingDistance, UnityEngine.Vector3 new_LastPosition) {
+    public void ReplaceStarSpawnInfo(UnityEngine.GameObject newStarPrefab, float newArc, float newDistance, UnityEngine.Vector2 newRange, int newMaxStars, float newGapIncrease, float new_RemainingDistance, UnityEngine.Vector3 new_LastPosition) {
         var entity = starSpawnInfoEntity;
         if (entity == null) {
-            entity = SetStarSpawnInfo(newStarPrefab, newArc, newDistance, newRange, newMaxStars, new_RemainingDistance, new_LastPosition);
+            entity = SetStarSpawnInfo(newStarPrefab, newArc, newDistance, newRange, newMaxStars, newGapIncrease, new_RemainingDistance, new_LastPosition);
         } else {
-            entity.ReplaceStarSpawnInfo(newStarPrefab, newArc, newDistance, newRange, newMaxStars, new_RemainingDistance, new_LastPosition);
+            entity.ReplaceStarSpawnInfo(newStarPrefab, newArc, newDistance, newRange, newMaxStars, newGapIncrease, new_RemainingDistance, new_LastPosition);
         }
     }
 
@@ -49,7 +49,7 @@ public partial class GameEntity {
     public StarSpawnInfo starSpawnInfo { get { return (StarSpawnInfo)GetComponent(GameComponentsLookup.StarSpawnInfo); } }
     public bool hasStarSpawnInfo { get { return HasComponent(GameComponentsLookup.StarSpawnInfo); } }
 
-    public void AddStarSpawnInfo(UnityEngine.GameObject newStarPrefab, float newArc, float newDistance, UnityEngine.Vector2 newRange, int newMaxStars, float new_RemainingDistance, UnityEngine.Vector3 new_LastPosition) {
+    public void AddStarSpawnInfo(UnityEngine.GameObject newStarPrefab, float newArc, float newDistance, UnityEngine.Vector2 newRange, int newMaxStars, float newGapIncrease, float new_RemainingDistance, UnityEngine.Vector3 new_LastPosition) {
         var index = GameComponentsLookup.StarSpawnInfo;
         var component = CreateComponent<StarSpawnInfo>(index);
         component.StarPrefab = newStarPrefab;
@@ -57,12 +57,13 @@ public partial class GameEntity {
         component.Distance = newDistance;
         component.Range = newRange;
         component.MaxStars = newMaxStars;
+        component.GapIncrease = newGapIncrease;
         component._RemainingDistance = new_RemainingDistance;
         component._LastPosition = new_LastPosition;
         AddComponent(index, component);
     }
 
-    public void ReplaceStarSpawnInfo(UnityEngine.GameObject newStarPrefab, float newArc, float newDistance, UnityEngine.Vector2 newRange, int newMaxStars, float new_RemainingDistance, UnityEngine.Vector3 new_LastPosition) {
+    public void ReplaceStarSpawnInfo(UnityEngine.GameObject newStarPrefab, float newArc, float newDistance, UnityEngine.Vector2 newRange, int newMaxStars, float newGapIncrease, float new_RemainingDistance, UnityEngine.Vector3 new_LastPosition) {
         var index = GameComponentsLookup.StarSpawnInfo;
         var component = CreateComponent<StarSpawnInfo>(index);
         component.StarPrefab = newStarPrefab;
@@ -70,6 +71,7 @@ public partial class GameEntity {
         component.Distance = newDistance;
         component.Range = newRange;
         component.MaxStars = newMaxStars;
+        component.GapIncrease = newGapIncrease;
         component._RemainingDistance = new_RemainingDistance;
         component._LastPosition = new_LastPosition;
         ReplaceComponent(index, component);
