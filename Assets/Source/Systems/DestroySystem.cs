@@ -2,31 +2,23 @@
 using System.Collections.Generic;
 using Entitas;
 
-public interface IDestroyedEntity : IEntity, IDestroyed { }
+public class DestroySystem : ICleanupSystem {
 
-public partial class GameEntity : IDestroyedEntity { }
-public partial class InputEntity : IDestroyedEntity { }
-public partial class MessageEntity : IDestroyedEntity { }
+    readonly ICollector[] _destroyed;
 
-public class DestroySystem : MultiReactiveSystem<IDestroyedEntity, Contexts> {
-
-    public DestroySystem(Contexts contexts) : base(contexts) { }
-
-    protected override ICollector[] GetTrigger(Contexts contexts) {
-        return new ICollector[] {
+    public DestroySystem(Contexts contexts) {
+        _destroyed = new ICollector[] {
             contexts.game.CreateCollector(GameMatcher.Destroyed),
             contexts.input.CreateCollector(InputMatcher.Destroyed),
-            contexts.message.CreateCollector(MessageMatcher.Destroyed),
+            contexts.message.CreateCollector(MessageMatcher.Destroyed)
         };
     }
-
-    protected override bool Filter(IDestroyedEntity entity) {
-        return entity.isDestroyed;
-    }
-
-    protected override void Execute(List<IDestroyedEntity> entities) {
-        foreach (var e in entities) {
-            e.Destroy();
+    public void Cleanup() {
+        foreach(var group in _destroyed) {
+            foreach (var e in group.GetCollectedEntities<IEntity>()) {
+                e.Destroy();
+            }
+            group.ClearCollectedEntities();
         }
     }
 }

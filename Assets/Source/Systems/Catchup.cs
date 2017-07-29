@@ -22,20 +22,17 @@ public class Catchup : IExecuteSystem {
 
             var myBody = e.view.gameObject.GetComponent<Rigidbody2D>();
             var myVelocity = myBody.velocity;
-            var radians = Mathf.Atan2(targetPos.y - myPos.y, targetPos.x - myPos.x);
             var targetBody = e.trackedTransform.Transform.GetComponent<Rigidbody2D>();
-            // calculate how much faster than the target's velocity to go
-            var magnitude = targetBody.velocity.magnitude * e.catchup.Factor;
+            var maxMagnitude = targetBody.velocity.magnitude * e.catchup.Factor;
             var minMagnitude = e.catchup.MinimumMagnitude;
-
-            magnitude = Mathf.Clamp(magnitude, minMagnitude, Mathf.Infinity);
+            var radians = Mathf.Atan2(targetPos.y - myPos.y, targetPos.x - myPos.x);
             var force = new Vector2(Mathf.Cos(radians), Mathf.Sin(radians));
-
+            var magnitude = Mathf.Clamp(maxMagnitude, minMagnitude, Mathf.Infinity);
             e.thruster.Force = magnitude * myBody.mass;
+            e.maxVelocity.MaxVelocity = maxMagnitude;
             var m = MessageGenerator.Message(true);
             m.AddTriggerThrust(force);
             m.AddMessageTarget(e.id.value);
-            //e.AddTriggerThrust(force);
         }
     }
 }

@@ -18,9 +18,6 @@ public class SpinSystem : ReactiveSystem<MessageEntity>, ICleanupSystem {
                                         MessageMatcher.TriggerSpin,
                                         MessageMatcher.CanBeProcessed,
                                         MessageMatcher.MessageTarget
-                                        //MessageMatcher.TriggerSpin,
-                                        //MessageMatcher.Spin,
-                                        //MessageMatcher.UpdateBuffer
                                     )
                                 );
     }
@@ -41,11 +38,6 @@ public class SpinSystem : ReactiveSystem<MessageEntity>, ICleanupSystem {
             m.AddBuffer2DAction(this, (Rigidbody2D r) => r.AddTorque(torque));
             m.AddMessageTarget(gameEntity.id.value);
             gameEntity.isSpinning = true;
-            //var buffer = e.updateBuffer.buffer;
-            //var torque = e.spin.Torque * e.triggerSpin.value;
-            //buffer.AddToBuffer(this, (Rigidbody2D r) => {
-            //    r.AddTorque(torque);
-            //});
         }
     }
 

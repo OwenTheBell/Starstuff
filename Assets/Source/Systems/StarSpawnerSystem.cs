@@ -53,11 +53,12 @@ public class StarSpawnerSystem : IInitializeSystem, IExecuteSystem {
             }
             e.isWaiting = true;
             e.AddThruster(0f, 0f);
-            e.AddDampenInertia(0.9f);
+            e.AddDampenInertia(1.1f);
             e.AddDampenSpin(0.0001f);
             e.AddUpdateBuffer(buffer);
             e.AddBody2D(star.GetComponent<Rigidbody2D>());
             e.AddRepulser(0f, 10f, 3f);
+            e.AddMaxVelocity(100f);
             star.Link(e, _context);
         }
     }

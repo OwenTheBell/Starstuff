@@ -44,30 +44,19 @@ public class SpinDampeningSystem : IExecuteSystem {
                 var angularVelocity = e.body2D.value.angularVelocity;
                 var currentDirection = (int)(angularVelocity / Mathf.Abs(angularVelocity));
 
-                shouldDampen = direction == currentDirection;
+                shouldDampen = direction != currentDirection;
             }
             if (shouldDampen) {
-                for (var i = 0; i < 10; i++) {
-                    //var go = new GameObject();
-                    //go.name = "Instantiation test";
-                    var m = MessageGenerator.Message(true);
-                    //m.AddBuffer2DAction(this, (Rigidbody2D r) => {
-                    //    r.AddTorque(-r.angularVelocity * e.dampenSpin.value);
-                    //});
-                    //m.AddMessageTarget(e.id.value);
-                }
+                Debug.Log("damping");
+                var m = MessageGenerator.Message(true);
+                m.AddBuffer2DAction(this, (Rigidbody2D r) => {
+                    r.AddTorque(-r.angularVelocity * e.dampenSpin.value);
+                });
+                m.AddMessageTarget(e.id.value);
             }
-
-            //var angularVelocity = e.body2D.value.angularVelocity;
-            //var direction = (int)(angularVelocity / Mathf.Abs(angularVelocity));
-            //if ((e.hasTriggerSpin && direction != e.triggerSpin.value) ||
-            //    !e.hasTriggerSpin
-            //) {
-            //    var buffer = e.updateBuffer.buffer;
-            //    buffer.AddToBuffer(this, (Rigidbody2D r) => {
-            //        r.AddTorque(-r.angularVelocity * e.dampenSpin.value);
-            //    });
-            //}
+            else {
+                Debug.Log("not damping");
+            }
         }
     }
 }
