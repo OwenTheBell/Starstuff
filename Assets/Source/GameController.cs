@@ -15,7 +15,6 @@ public class GameController : MonoBehaviour {
         }
         //contexts.game.OnEntityCreated += AddId;
 
-
         _systems = new sm_Feature("Systems");
 
         // add must include features & systems
@@ -36,7 +35,6 @@ public class GameController : MonoBehaviour {
         _systems.Add(new ThrustParticleSystem(contexts));
         _systems.Add(new BehaviorFeature(contexts));
 
-        _systems.Add(new InertiaDampeningSystem(contexts));
         _systems.Add(new SpinDampeningSystem(contexts));
         _systems.Add(new ProcessFixedUpdateSystem(contexts));
         _systems.Add(new CleanupMessages(contexts));
@@ -45,6 +43,8 @@ public class GameController : MonoBehaviour {
         // Fixed Update Systems
         _systems.Add(new FixedTickSystem(contexts));
         _systems.Add(new ApplyThrustSystem(contexts));
+        _systems.Add(new InertiaDampeningSystem(contexts));
+        _systems.Add(new ReactiveAccelerationSystem(contexts));
         _systems.Add(new ConvertAppliedThrustSystem(contexts));
 
         _systems.Initialize();

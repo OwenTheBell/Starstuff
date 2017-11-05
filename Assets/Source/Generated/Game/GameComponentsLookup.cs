@@ -35,26 +35,28 @@ public static class GameComponentsLookup {
     public const int PreservedBody2DState = 24;
     public const int PreservedBodyState = 25;
     public const int PullTowards = 26;
-    public const int Repulser = 27;
-    public const int Rigidbody2D = 28;
-    public const int SlamStar = 29;
-    public const int Spin = 30;
-    public const int Spinning = 31;
-    public const int Star = 32;
-    public const int StarSpawnInfo = 33;
-    public const int Thruster = 34;
-    public const int ThrustParticle = 35;
-    public const int ThrustPerFollower = 36;
-    public const int Thrustring = 37;
-    public const int TickTracker = 38;
-    public const int TrackedTransform = 39;
-    public const int Twirl = 40;
-    public const int UpdateBuffer = 41;
-    public const int View = 42;
-    public const int Wait = 43;
-    public const int Waiting = 44;
+    public const int QuadraticeDrag = 27;
+    public const int ReactiveAcceleration = 28;
+    public const int Repulser = 29;
+    public const int Rigidbody2D = 30;
+    public const int SlamStar = 31;
+    public const int Spin = 32;
+    public const int Spinning = 33;
+    public const int Star = 34;
+    public const int StarSpawnInfo = 35;
+    public const int Thruster = 36;
+    public const int ThrustParticle = 37;
+    public const int ThrustPerFollower = 38;
+    public const int Thrustring = 39;
+    public const int TickTracker = 40;
+    public const int TrackedTransform = 41;
+    public const int Twirl = 42;
+    public const int UpdateBuffer = 43;
+    public const int View = 44;
+    public const int Wait = 45;
+    public const int Waiting = 46;
 
-    public const int TotalComponents = 45;
+    public const int TotalComponents = 47;
 
     public static readonly string[] componentNames = {
         "AppliedThrust",
@@ -84,6 +86,8 @@ public static class GameComponentsLookup {
         "PreservedBody2DState",
         "PreservedBodyState",
         "PullTowards",
+        "QuadraticeDrag",
+        "ReactiveAcceleration",
         "Repulser",
         "Rigidbody2D",
         "SlamStar",
@@ -132,6 +136,8 @@ public static class GameComponentsLookup {
         typeof(PreservedBody2DStateComponent),
         typeof(PreservedBodyStateComponent),
         typeof(PullTowardsComponent),
+        typeof(QuadraticeDragComponent),
+        typeof(ReactiveAccelerationComponent),
         typeof(RepulserComponent),
         typeof(Rigidbody2DComponent),
         typeof(SlamStarComponent),

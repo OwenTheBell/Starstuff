@@ -1,7 +1,7 @@
 ﻿using Entitas;
 using UnityEngine;
 
-public class Catchup : IFixedUpdateSystem {
+public class Catchup : IExecuteSystem {
 
     readonly IGroup<GameEntity> _catchers;
 
@@ -13,7 +13,7 @@ public class Catchup : IFixedUpdateSystem {
         _catchers = contexts.game.GetGroup(allOf);
     }
 
-    public void FixedUpdate() {
+    public void Execute() {
         foreach (var e in _catchers.GetEntities()) {
             var myPos = e.view.transform.position;
             var targetPos = e.trackedTransform.Transform.position;

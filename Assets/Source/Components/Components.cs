@@ -178,28 +178,6 @@ public class Body2DComponent : sm_Component {
     public Rigidbody2D value;
 }
 
-// input
-[Input, Unique]
-public class LeftMouseComponent : sm_Component { }
-
-[Input, Unique]
-public class RightMouseComponent : sm_Component { }
-
-[Input]
-public class MouseDownComponent : sm_Component {
-    public Vector2 position;
-}
-
-[Input]
-public class MousePositionComponent : sm_Component {
-    public Vector2 position;
-}
-
-[Input]
-public class MouseUpComponent : sm_Component {
-    public Vector2 position;
-}
-
 [Input]
 public class KeyDownComponent : sm_Component { }
 
@@ -277,4 +255,14 @@ public class CatapultComponent : sm_Component { }
 public class PullTowardsComponent : sm_Component {
     public int id;
     public float force;
+}
+
+[Game]
+public class QuadraticeDragComponent : sm_Component {
+    public float value;
+}
+
+[Game]
+public class ReactiveAccelerationComponent : sm_Component {
+    public float percent;
 }
