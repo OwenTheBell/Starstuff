@@ -8,7 +8,7 @@ public class TickSystem : IExecuteSystem {
     public TickSystem(Contexts contexts) {
         _gameContext = contexts.game;
         var e = _gameContext.CreateEntity();
-        e.AddTickTracker(Time.time, 0f, 1f);
+        e.AddTickTracker(Time.time, 0f, 1f, 0f);
     }
 
     public void Execute() {

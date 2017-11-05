@@ -21,6 +21,11 @@ public class ViewComponent : sm_Component {
     public Transform transform { get { return gameObject.transform; } }
 }
 
+[Game]
+public class Rigidbody2DComponent : sm_Component {
+    public Rigidbody2D body2D;
+}
+
 [Game, Unique]
 public class PlayerComponent : sm_Component { }
 
@@ -53,6 +58,10 @@ public class ThrusterComponent : sm_Component {
 
 [Game]
 public class ThrustringComponent : sm_Component { }
+
+public class AppliedThrustComponent : sm_Component {
+    public Vector2 value;
+}
 
 [Game]
 public class MaxVelocityComponent : sm_Component {
@@ -137,6 +146,9 @@ public class RepulserComponent : sm_Component {
 }
 
 [Game]
+public class ImmuneToRepulsionComponent : sm_Component { }
+
+[Game]
 public class TrackedTransformComponent : sm_Component {
     public Transform Transform;
 }
@@ -208,6 +220,7 @@ public class TickTracker : sm_Component {
     public float Tick;
     public float Time;
     public float Scale;
+    public float Fixed;
 }
 
 [Game, Unique]
@@ -232,4 +245,36 @@ public class PreservedBody2DStateComponent : sm_Component {
 [Game]
 public class ThrustParticleComponent : sm_Component {
     public ParticleSystem system;
+}
+
+[Game]
+public class BehaviorDelayComponent : sm_Component {
+    public float value;
+}
+
+[Game]
+public class CirclePlayerComponent : sm_Component { }
+
+[Game]
+public class CircleStarComponent : sm_Component { }
+
+[Game]
+public class TwirlComponent : sm_Component {
+    public float duration;
+    public int partnerId;
+    public float distance;
+    public float force;
+    public bool clockwise; 
+}
+
+[Game]
+public class SlamStarComponent : sm_Component { }
+
+[Game]
+public class CatapultComponent : sm_Component { }
+
+[Game]
+public class PullTowardsComponent : sm_Component {
+    public int id;
+    public float force;
 }

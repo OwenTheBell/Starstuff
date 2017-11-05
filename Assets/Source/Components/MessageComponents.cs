@@ -53,3 +53,9 @@ public class Buffer2DAction : IComponent {
     public ISystem issuer;
     public Action<Rigidbody2D> act;
 }
+
+[Message]
+public class ChangeBehavior : IComponent {
+    public Type behaviorType;
+    public int id;
+}

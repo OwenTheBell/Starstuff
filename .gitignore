@@ -37,4 +37,5 @@ Thumbs.db
 Builds/
 *.sublime*
 .vscode/
+.vs/
 Images/

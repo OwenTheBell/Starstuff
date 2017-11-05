@@ -1,15 +1,19 @@
 ﻿using Entitas;
 using UnityEngine;
 
-public class Catchup : IExecuteSystem {
+public class Catchup : IFixedUpdateSystem {
 
     readonly IGroup<GameEntity> _catchers;
 
     public Catchup(Contexts contexts) {
-        _catchers = contexts.game.GetGroup(GameMatcher.CatchingUp);
+        var allOf = GameMatcher.AllOf(
+            GameMatcher.Rigidbody2D,
+            GameMatcher.CatchingUp
+        );
+        _catchers = contexts.game.GetGroup(allOf);
     }
 
-    public void Execute() {
+    public void FixedUpdate() {
         foreach (var e in _catchers.GetEntities()) {
             var myPos = e.view.transform.position;
             var targetPos = e.trackedTransform.Transform.position;
@@ -30,9 +34,9 @@ public class Catchup : IExecuteSystem {
             var magnitude = Mathf.Clamp(maxMagnitude, minMagnitude, Mathf.Infinity);
             e.thruster.Force = magnitude * myBody.mass;
             e.maxVelocity.MaxVelocity = maxMagnitude;
-            var m = MessageGenerator.Message(true);
-            m.AddTriggerThrust(force);
-            m.AddMessageTarget(e.id.value);
+            //var m = MessageGenerator.Message(true);
+            //m.AddTriggerThrust(force);
+            //m.AddMessageTarget(e.id.value);
         }
     }
 }

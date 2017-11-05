@@ -12,22 +12,22 @@ public partial class GameContext {
     public TickTracker tickTracker { get { return tickTrackerEntity.tickTracker; } }
     public bool hasTickTracker { get { return tickTrackerEntity != null; } }
 
-    public GameEntity SetTickTracker(float newTick, float newTime, float newScale) {
+    public GameEntity SetTickTracker(float newTick, float newTime, float newScale, float newFixed) {
         if (hasTickTracker) {
             throw new Entitas.EntitasException("Could not set TickTracker!\n" + this + " already has an entity with TickTracker!",
                 "You should check if the context already has a tickTrackerEntity before setting it or use context.ReplaceTickTracker().");
         }
         var entity = CreateEntity();
-        entity.AddTickTracker(newTick, newTime, newScale);
+        entity.AddTickTracker(newTick, newTime, newScale, newFixed);
         return entity;
     }
 
-    public void ReplaceTickTracker(float newTick, float newTime, float newScale) {
+    public void ReplaceTickTracker(float newTick, float newTime, float newScale, float newFixed) {
         var entity = tickTrackerEntity;
         if (entity == null) {
-            entity = SetTickTracker(newTick, newTime, newScale);
+            entity = SetTickTracker(newTick, newTime, newScale, newFixed);
         } else {
-            entity.ReplaceTickTracker(newTick, newTime, newScale);
+            entity.ReplaceTickTracker(newTick, newTime, newScale, newFixed);
         }
     }
 
@@ -49,21 +49,23 @@ public partial class GameEntity {
     public TickTracker tickTracker { get { return (TickTracker)GetComponent(GameComponentsLookup.TickTracker); } }
     public bool hasTickTracker { get { return HasComponent(GameComponentsLookup.TickTracker); } }
 
-    public void AddTickTracker(float newTick, float newTime, float newScale) {
+    public void AddTickTracker(float newTick, float newTime, float newScale, float newFixed) {
         var index = GameComponentsLookup.TickTracker;
         var component = CreateComponent<TickTracker>(index);
         component.Tick = newTick;
         component.Time = newTime;
         component.Scale = newScale;
+        component.Fixed = newFixed;
         AddComponent(index, component);
     }
 
-    public void ReplaceTickTracker(float newTick, float newTime, float newScale) {
+    public void ReplaceTickTracker(float newTick, float newTime, float newScale, float newFixed) {
         var index = GameComponentsLookup.TickTracker;
         var component = CreateComponent<TickTracker>(index);
         component.Tick = newTick;
         component.Time = newTime;
         component.Scale = newScale;
+        component.Fixed = newFixed;
         ReplaceComponent(index, component);
     }
 

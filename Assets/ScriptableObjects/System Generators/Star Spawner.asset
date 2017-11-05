@@ -16,16 +16,16 @@ MonoBehaviour:
       type: 2}
     Arc: 80
     Distance: 20
-    Range: {x: 40, y: 60}
+    Range: {x: 10, y: 10}
     MaxStars: 20
     GapIncrease: 1.2
-    _RemainingDistance: -4628.0566
-    _LastPosition: {x: -47.839104, y: 1259.4104, z: 0}
+    _RemainingDistance: 30.714415
+    _LastPosition: {x: 0, y: 31.202631, z: 0}
   Wait:
     BeVisible: 1
     Range: 100
     Delay: 1
-    _RemainingDelay: -0.012612045
+    _RemainingDelay: -0.0046169236
   Catchup:
     Range: 5
     Factor: 1.1

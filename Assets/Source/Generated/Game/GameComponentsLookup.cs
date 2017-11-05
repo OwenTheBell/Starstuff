@@ -8,52 +8,67 @@
 //------------------------------------------------------------------------------
 public static class GameComponentsLookup {
 
-    public const int BackgroundLayer = 0;
-    public const int BackgroundTile = 1;
-    public const int Body2D = 2;
-    public const int Body = 3;
-    public const int CatchingUp = 4;
-    public const int Catchup = 5;
-    public const int ChangingMovementState = 6;
-    public const int DampenInertia = 7;
-    public const int DampenSpin = 8;
-    public const int Destroyed = 9;
-    public const int Follow = 10;
-    public const int Following = 11;
-    public const int FollowingPlayer = 12;
-    public const int Id = 13;
-    public const int MatchMotion = 14;
-    public const int MaxVelocity = 15;
-    public const int Paused = 16;
-    public const int Player = 17;
-    public const int PreservedBody2DState = 18;
-    public const int PreservedBodyState = 19;
-    public const int Repulser = 20;
-    public const int Spin = 21;
-    public const int Spinning = 22;
-    public const int Star = 23;
-    public const int StarSpawnInfo = 24;
-    public const int Thruster = 25;
-    public const int ThrustParticle = 26;
-    public const int ThrustPerFollower = 27;
-    public const int Thrustring = 28;
-    public const int TickTracker = 29;
-    public const int TrackedTransform = 30;
-    public const int UpdateBuffer = 31;
-    public const int View = 32;
-    public const int Wait = 33;
-    public const int Waiting = 34;
+    public const int AppliedThrust = 0;
+    public const int BackgroundLayer = 1;
+    public const int BackgroundTile = 2;
+    public const int BehaviorDelay = 3;
+    public const int Body2D = 4;
+    public const int Body = 5;
+    public const int Catapult = 6;
+    public const int CatchingUp = 7;
+    public const int Catchup = 8;
+    public const int ChangingMovementState = 9;
+    public const int CirclePlayer = 10;
+    public const int CircleStar = 11;
+    public const int DampenInertia = 12;
+    public const int DampenSpin = 13;
+    public const int Destroyed = 14;
+    public const int Follow = 15;
+    public const int Following = 16;
+    public const int FollowingPlayer = 17;
+    public const int Id = 18;
+    public const int ImmuneToRepulsion = 19;
+    public const int MatchMotion = 20;
+    public const int MaxVelocity = 21;
+    public const int Paused = 22;
+    public const int Player = 23;
+    public const int PreservedBody2DState = 24;
+    public const int PreservedBodyState = 25;
+    public const int PullTowards = 26;
+    public const int Repulser = 27;
+    public const int Rigidbody2D = 28;
+    public const int SlamStar = 29;
+    public const int Spin = 30;
+    public const int Spinning = 31;
+    public const int Star = 32;
+    public const int StarSpawnInfo = 33;
+    public const int Thruster = 34;
+    public const int ThrustParticle = 35;
+    public const int ThrustPerFollower = 36;
+    public const int Thrustring = 37;
+    public const int TickTracker = 38;
+    public const int TrackedTransform = 39;
+    public const int Twirl = 40;
+    public const int UpdateBuffer = 41;
+    public const int View = 42;
+    public const int Wait = 43;
+    public const int Waiting = 44;
 
-    public const int TotalComponents = 35;
+    public const int TotalComponents = 45;
 
     public static readonly string[] componentNames = {
+        "AppliedThrust",
         "BackgroundLayer",
         "BackgroundTile",
+        "BehaviorDelay",
         "Body2D",
         "Body",
+        "Catapult",
         "CatchingUp",
         "Catchup",
         "ChangingMovementState",
+        "CirclePlayer",
+        "CircleStar",
         "DampenInertia",
         "DampenSpin",
         "Destroyed",
@@ -61,13 +76,17 @@ public static class GameComponentsLookup {
         "Following",
         "FollowingPlayer",
         "Id",
+        "ImmuneToRepulsion",
         "MatchMotion",
         "MaxVelocity",
         "Paused",
         "Player",
         "PreservedBody2DState",
         "PreservedBodyState",
+        "PullTowards",
         "Repulser",
+        "Rigidbody2D",
+        "SlamStar",
         "Spin",
         "Spinning",
         "Star",
@@ -78,6 +97,7 @@ public static class GameComponentsLookup {
         "Thrustring",
         "TickTracker",
         "TrackedTransform",
+        "Twirl",
         "UpdateBuffer",
         "View",
         "Wait",
@@ -85,13 +105,18 @@ public static class GameComponentsLookup {
     };
 
     public static readonly System.Type[] componentTypes = {
+        typeof(AppliedThrustComponent),
         typeof(BackgroundLayer),
         typeof(BackgroundTile),
+        typeof(BehaviorDelayComponent),
         typeof(Body2DComponent),
         typeof(BodyComponent),
+        typeof(CatapultComponent),
         typeof(CatchingUpComponent),
         typeof(CatchupComponent),
         typeof(ChangingMovementStateComponent),
+        typeof(CirclePlayerComponent),
+        typeof(CircleStarComponent),
         typeof(DampenInertiaComponent),
         typeof(DampenSpinComponent),
         typeof(Destroyed),
@@ -99,13 +124,17 @@ public static class GameComponentsLookup {
         typeof(FollowingComponent),
         typeof(FollowingPlayerComponent),
         typeof(IdComponent),
+        typeof(ImmuneToRepulsionComponent),
         typeof(MatchMotionComponent),
         typeof(MaxVelocityComponent),
         typeof(Paused),
         typeof(PlayerComponent),
         typeof(PreservedBody2DStateComponent),
         typeof(PreservedBodyStateComponent),
+        typeof(PullTowardsComponent),
         typeof(RepulserComponent),
+        typeof(Rigidbody2DComponent),
+        typeof(SlamStarComponent),
         typeof(SpinComponent),
         typeof(SpinningComponent),
         typeof(StarComponent),
@@ -116,6 +145,7 @@ public static class GameComponentsLookup {
         typeof(ThrustringComponent),
         typeof(TickTracker),
         typeof(TrackedTransformComponent),
+        typeof(TwirlComponent),
         typeof(UpdateBufferComponent),
         typeof(ViewComponent),
         typeof(WaitComponent),

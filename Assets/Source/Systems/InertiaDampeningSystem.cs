@@ -58,7 +58,6 @@ public class InertiaDampeningSystem : IExecuteSystem {
     }
 
     void DampenIntertia(Rigidbody2D r, float dampening) {
-        Debug.Log("dampen inertia");
         var force = -(dampening * r.mass * r.velocity);
         r.AddForce(force, ForceMode2D.Force);
     }

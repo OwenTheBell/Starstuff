@@ -74,7 +74,14 @@ public class StarSpawnerSystem : IInitializeSystem, IExecuteSystem {
             }
         }
         if (index >= 0) {
-            entity.AddComponent(index, component);
+            // use reflection to copy the component so that alterations to it
+            // do not change the value of the original component
+            var newComponent = entity.CreateComponent(index, types[index]);
+            foreach (var field in types[index].GetFields()) {
+                var value = field.GetValue(component);
+                field.SetValue(newComponent, value);
+            }
+            entity.AddComponent(index, newComponent);
         }
     }
 }

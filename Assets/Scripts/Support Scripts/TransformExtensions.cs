@@ -29,4 +29,12 @@ public static class TransformExtensions {
 		}
 		return () => { return l.ToArray(); };
 	}
+
+    public static Quaternion DirectionTo(this Transform t, Transform other) {
+        var savedRotation = t.rotation;
+        t.LookAt(other);
+        var direction = t.rotation;
+        t.rotation = savedRotation;
+        return direction;
+    }
 }

@@ -17,6 +17,7 @@ public class RepulserSystem : IExecuteSystem {
 
     public void Execute() {
         foreach (var e in _repulsers.GetEntities()) {
+            if (e.isImmuneToRepulsion) continue;
             foreach (var otherE in _repulsers.GetEntities()) {
                 if (e == otherE) continue;
 
