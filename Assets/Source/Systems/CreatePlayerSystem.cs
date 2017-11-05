@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Entitas;
+﻿using Entitas;
 using Entitas.Unity;
 using UnityEngine;
 
@@ -35,10 +31,7 @@ public class CreatePlayerSystem : IInitializeSystem {
             e.AddComponent(index, component);
         }
         player.Link(e, _context);
-        e.AddDampenInertia(e.thruster.Dampening);
-        e.AddDampenSpin(e.spin.Dampening);
-        e.AddUpdateBuffer(buffer);
-        e.AddBody2D(player.GetComponent<Rigidbody2D>());
+        e.AddRigidbody2D(player.GetComponent<Rigidbody2D>());
         e.AddThrustParticle(player.GetComponentInChildren<ParticleSystem>());
     }
 

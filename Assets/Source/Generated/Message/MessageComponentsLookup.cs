@@ -8,25 +8,19 @@
 //------------------------------------------------------------------------------
 public static class MessageComponentsLookup {
 
-    public const int Buffer2DAction = 0;
-    public const int BufferAction = 1;
-    public const int CanBeProcessed = 2;
-    public const int ChangeBehavior = 3;
-    public const int Destroyed = 4;
-    public const int DestroyOnConsume = 5;
-    public const int Id = 6;
-    public const int JustIssued = 7;
-    public const int MessageSender = 8;
-    public const int MessageTarget = 9;
-    public const int PersistUntilConsumed = 10;
-    public const int TriggerSpin = 11;
-    public const int TriggerThrust = 12;
+    public const int CanBeProcessed = 0;
+    public const int ChangeBehavior = 1;
+    public const int Destroyed = 2;
+    public const int DestroyOnConsume = 3;
+    public const int Id = 4;
+    public const int JustIssued = 5;
+    public const int MessageSender = 6;
+    public const int MessageTarget = 7;
+    public const int PersistUntilConsumed = 8;
 
-    public const int TotalComponents = 13;
+    public const int TotalComponents = 9;
 
     public static readonly string[] componentNames = {
-        "Buffer2DAction",
-        "BufferAction",
         "CanBeProcessed",
         "ChangeBehavior",
         "Destroyed",
@@ -35,14 +29,10 @@ public static class MessageComponentsLookup {
         "JustIssued",
         "MessageSender",
         "MessageTarget",
-        "PersistUntilConsumed",
-        "TriggerSpin",
-        "TriggerThrust"
+        "PersistUntilConsumed"
     };
 
     public static readonly System.Type[] componentTypes = {
-        typeof(Buffer2DAction),
-        typeof(BufferAction),
         typeof(CanBeProcessed),
         typeof(ChangeBehavior),
         typeof(Destroyed),
@@ -51,8 +41,6 @@ public static class MessageComponentsLookup {
         typeof(JustIssued),
         typeof(MessageSender),
         typeof(MessageTarget),
-        typeof(PersistUntilConsumed),
-        typeof(TriggerSpin),
-        typeof(TriggerThrust)
+        typeof(PersistUntilConsumed)
     };
 }

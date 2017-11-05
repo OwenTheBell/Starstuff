@@ -11,10 +11,10 @@ public class ThrustParticleSystem : IExecuteSystem {
 
 	public void Execute() {
 		foreach (var e in _particleEntities.GetEntities()) {
-			if (e.isThrustring && !e.thrustParticle.system.isPlaying) {
+			if (e.hasThrusting && !e.thrustParticle.system.isPlaying) {
 				e.thrustParticle.system.Play();
 			}
-			else if (!e.isThrustring && e.thrustParticle.system.isPlaying) {
+			else if (!e.hasThrusting && e.thrustParticle.system.isPlaying) {
 				e.thrustParticle.system.Stop();
 			}
 		}

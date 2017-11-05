@@ -8,25 +8,25 @@
 //------------------------------------------------------------------------------
 public partial class GameEntity {
 
-    public SpinningComponent spinning { get { return (SpinningComponent)GetComponent(GameComponentsLookup.Spinning); } }
-    public bool hasSpinning { get { return HasComponent(GameComponentsLookup.Spinning); } }
+    public Thrusting thrusting { get { return (Thrusting)GetComponent(GameComponentsLookup.Thrusting); } }
+    public bool hasThrusting { get { return HasComponent(GameComponentsLookup.Thrusting); } }
 
-    public void AddSpinning(int newDirection) {
-        var index = GameComponentsLookup.Spinning;
-        var component = CreateComponent<SpinningComponent>(index);
+    public void AddThrusting(UnityEngine.Vector3 newDirection) {
+        var index = GameComponentsLookup.Thrusting;
+        var component = CreateComponent<Thrusting>(index);
         component.direction = newDirection;
         AddComponent(index, component);
     }
 
-    public void ReplaceSpinning(int newDirection) {
-        var index = GameComponentsLookup.Spinning;
-        var component = CreateComponent<SpinningComponent>(index);
+    public void ReplaceThrusting(UnityEngine.Vector3 newDirection) {
+        var index = GameComponentsLookup.Thrusting;
+        var component = CreateComponent<Thrusting>(index);
         component.direction = newDirection;
         ReplaceComponent(index, component);
     }
 
-    public void RemoveSpinning() {
-        RemoveComponent(GameComponentsLookup.Spinning);
+    public void RemoveThrusting() {
+        RemoveComponent(GameComponentsLookup.Thrusting);
     }
 }
 
@@ -40,17 +40,17 @@ public partial class GameEntity {
 //------------------------------------------------------------------------------
 public sealed partial class GameMatcher {
 
-    static Entitas.IMatcher<GameEntity> _matcherSpinning;
+    static Entitas.IMatcher<GameEntity> _matcherThrusting;
 
-    public static Entitas.IMatcher<GameEntity> Spinning {
+    public static Entitas.IMatcher<GameEntity> Thrusting {
         get {
-            if (_matcherSpinning == null) {
-                var matcher = (Entitas.Matcher<GameEntity>)Entitas.Matcher<GameEntity>.AllOf(GameComponentsLookup.Spinning);
+            if (_matcherThrusting == null) {
+                var matcher = (Entitas.Matcher<GameEntity>)Entitas.Matcher<GameEntity>.AllOf(GameComponentsLookup.Thrusting);
                 matcher.componentNames = GameComponentsLookup.componentNames;
-                _matcherSpinning = matcher;
+                _matcherThrusting = matcher;
             }
 
-            return _matcherSpinning;
+            return _matcherThrusting;
         }
     }
 }

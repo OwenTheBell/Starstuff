@@ -28,30 +28,8 @@ public class JustIssued : IComponent { }
 public class CanBeProcessed : IComponent { }
 
 [Message]
-public class TriggerThrust : IComponent {
-    public Vector3 direction;
-}
-
-[Message]
-public class TriggerSpin : IComponent {
-    public int value;
-}
-
-[Message]
 public class MessageTarget : IComponent {
     public int id;
-}
-
-[Message]
-public class BufferAction : IComponent {
-    public ISystem issuer;
-    public Action<Rigidbody> act;
-}
-
-[Message]
-public class Buffer2DAction : IComponent {
-    public ISystem issuer;
-    public Action<Rigidbody2D> act;
 }
 
 [Message]

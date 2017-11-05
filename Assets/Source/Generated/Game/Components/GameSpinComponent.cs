@@ -11,19 +11,17 @@ public partial class GameEntity {
     public SpinComponent spin { get { return (SpinComponent)GetComponent(GameComponentsLookup.Spin); } }
     public bool hasSpin { get { return HasComponent(GameComponentsLookup.Spin); } }
 
-    public void AddSpin(float newTorque, float newDampening) {
+    public void AddSpin(float newTorque) {
         var index = GameComponentsLookup.Spin;
         var component = CreateComponent<SpinComponent>(index);
         component.Torque = newTorque;
-        component.Dampening = newDampening;
         AddComponent(index, component);
     }
 
-    public void ReplaceSpin(float newTorque, float newDampening) {
+    public void ReplaceSpin(float newTorque) {
         var index = GameComponentsLookup.Spin;
         var component = CreateComponent<SpinComponent>(index);
         component.Torque = newTorque;
-        component.Dampening = newDampening;
         ReplaceComponent(index, component);
     }
 

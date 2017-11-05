@@ -30,9 +30,7 @@ public class Follow : IExecuteSystem {
             e.thruster.Force = diff.magnitude * myBody.mass;
             e.maxVelocity.MaxVelocity = targetVel.magnitude;
             diff.Normalize();
-            var m = MessageGenerator.Message(true);
-            m.AddTriggerThrust(diff);
-            m.AddMessageTarget(e.id.value);
+            e.AddThrusting(diff);
         }
     }
 }

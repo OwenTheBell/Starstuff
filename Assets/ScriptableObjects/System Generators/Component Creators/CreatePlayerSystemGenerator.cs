@@ -10,7 +10,9 @@ public class CreatePlayerSystemGenerator : SystemGenerator {
 
     public GameObject PlayerPrefab;
     public ThrusterComponent Thruster;
+    public DampenInertiaComponent DampenIntertia;
     public SpinComponent Spin;
+    public DampenSpinComponent DampenSpin;
     public ThrustPerFollowerComponent ThrustPerFollower;
 
     public override ISystem Generate(Contexts contexts) {

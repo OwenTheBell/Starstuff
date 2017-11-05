@@ -37,26 +37,27 @@ public static class GameComponentsLookup {
     public const int PullTowards = 26;
     public const int QuadraticeDrag = 27;
     public const int ReactiveAcceleration = 28;
-    public const int Repulser = 29;
-    public const int Rigidbody2D = 30;
-    public const int SlamStar = 31;
-    public const int Spin = 32;
-    public const int Spinning = 33;
-    public const int Star = 34;
-    public const int StarSpawnInfo = 35;
-    public const int Thruster = 36;
-    public const int ThrustParticle = 37;
-    public const int ThrustPerFollower = 38;
-    public const int Thrustring = 39;
-    public const int TickTracker = 40;
-    public const int TrackedTransform = 41;
-    public const int Twirl = 42;
-    public const int UpdateBuffer = 43;
-    public const int View = 44;
-    public const int Wait = 45;
-    public const int Waiting = 46;
+    public const int ReactiveTorque = 29;
+    public const int Repulser = 30;
+    public const int Rigidbody2D = 31;
+    public const int SlamStar = 32;
+    public const int Spin = 33;
+    public const int Spinning = 34;
+    public const int Star = 35;
+    public const int StarSpawnInfo = 36;
+    public const int Thruster = 37;
+    public const int Thrusting = 38;
+    public const int ThrustParticle = 39;
+    public const int ThrustPerFollower = 40;
+    public const int TickTracker = 41;
+    public const int TrackedTransform = 42;
+    public const int Twirl = 43;
+    public const int UpdateBuffer = 44;
+    public const int View = 45;
+    public const int Wait = 46;
+    public const int Waiting = 47;
 
-    public const int TotalComponents = 47;
+    public const int TotalComponents = 48;
 
     public static readonly string[] componentNames = {
         "AppliedThrust",
@@ -88,6 +89,7 @@ public static class GameComponentsLookup {
         "PullTowards",
         "QuadraticeDrag",
         "ReactiveAcceleration",
+        "ReactiveTorque",
         "Repulser",
         "Rigidbody2D",
         "SlamStar",
@@ -96,9 +98,9 @@ public static class GameComponentsLookup {
         "Star",
         "StarSpawnInfo",
         "Thruster",
+        "Thrusting",
         "ThrustParticle",
         "ThrustPerFollower",
-        "Thrustring",
         "TickTracker",
         "TrackedTransform",
         "Twirl",
@@ -138,6 +140,7 @@ public static class GameComponentsLookup {
         typeof(PullTowardsComponent),
         typeof(QuadraticeDragComponent),
         typeof(ReactiveAccelerationComponent),
+        typeof(ReactiveTorqueComponent),
         typeof(RepulserComponent),
         typeof(Rigidbody2DComponent),
         typeof(SlamStarComponent),
@@ -146,9 +149,9 @@ public static class GameComponentsLookup {
         typeof(StarComponent),
         typeof(StarSpawnInfo),
         typeof(ThrusterComponent),
+        typeof(Thrusting),
         typeof(ThrustParticleComponent),
         typeof(ThrustPerFollowerComponent),
-        typeof(ThrustringComponent),
         typeof(TickTracker),
         typeof(TrackedTransformComponent),
         typeof(TwirlComponent),

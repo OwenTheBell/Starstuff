@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Entitas;
+﻿using Entitas;
 using UnityEngine;
 
 public class PlayerControlSystem : IExecuteSystem {
@@ -36,20 +32,25 @@ public class PlayerControlSystem : IExecuteSystem {
         }
 
         if (thrust) {
-            var direction = player.view.transform.up;
-            var m = MessageGenerator.Message(true);
-            m.AddTriggerThrust(direction);
-            m.AddMessageTarget(player.id.value);
+            player.AddThrusting(player.view.transform.up);
         }
         if (spinLeft && !spinRight) {
-            var m = MessageGenerator.Message(true);
-            m.AddTriggerSpin(1);
-            m.AddMessageTarget(player.id.value);
+            SetSpinning(player, 1);
         }
         else if (!spinLeft && spinRight) {
-            var m = MessageGenerator.Message(true);
-            m.AddTriggerSpin(-1);
-            m.AddMessageTarget(player.id.value);
+            SetSpinning(player, -1);
+        }
+        else if (player.hasSpinning) {
+            player.RemoveSpinning();
+        }
+    }
+
+    void SetSpinning(GameEntity e, int direction) {
+        if (e.hasSpinning) {
+            e.ReplaceSpinning(direction);
+        }
+        else {
+            e.AddSpinning(direction);
         }
     }
 }

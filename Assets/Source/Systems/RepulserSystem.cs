@@ -1,21 +1,19 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using Entitas;
 
-public class RepulserSystem : IExecuteSystem {
+public class RepulserSystem : IFixedUpdateSystem {
 
     readonly IGroup<GameEntity> _repulsers;
 
     public RepulserSystem(Contexts contexts) {
-        _repulsers = contexts.game.GetGroup(GameMatcher.AllOf(
-										            GameMatcher.Repulser,
-										            GameMatcher.Body2D,
-										            GameMatcher.UpdateBuffer
-										        )
-                                           );
+        var allOf = GameMatcher.AllOf(
+            GameMatcher.Repulser,
+            GameMatcher.Rigidbody2D
+        );
+        _repulsers = contexts.game.GetGroup(allOf);
     }
 
-    public void Execute() {
+    public void FixedUpdate() {
         foreach (var e in _repulsers.GetEntities()) {
             if (e.isImmuneToRepulsion) continue;
             foreach (var otherE in _repulsers.GetEntities()) {
@@ -31,9 +29,7 @@ public class RepulserSystem : IExecuteSystem {
 						                    e.repulser.force * Mathf.Cos(angle),
 	                                        e.repulser.force * Mathf.Sin(angle)
                                         );
-                var m = MessageGenerator.Message(true);
-                m.AddBuffer2DAction(this, (Rigidbody2D r) => r.AddForce(force));
-                m.AddMessageTarget(e.id.value);
+                e.rigidbody2D.body2D.AddForce(force);
             }
         }   
     }

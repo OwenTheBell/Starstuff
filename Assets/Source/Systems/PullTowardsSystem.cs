@@ -26,11 +26,8 @@ public class PullTowardsSystem : IExecuteSystem {
                 Mathf.Cos(radians) * e.pullTowards.force,
                 Mathf.Sin(radians) * e.pullTowards.force
             );
-            var m = MessageGenerator.Message(true);
-            m.AddMessageTarget(e.id.value);
-            m.AddBuffer2DAction(this, (Rigidbody2D r) => {
-                r.AddForce(force);
-            });
+            e.thruster.Force = force.magnitude;
+            e.AddThrusting(force.normalized);
         }
     }
 }

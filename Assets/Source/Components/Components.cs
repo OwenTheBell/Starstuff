@@ -53,11 +53,12 @@ public class MatchMotionComponent : sm_Component {
 [Game, System.Serializable]
 public class ThrusterComponent : sm_Component {
     public float Force;
-    public float Dampening;
 }
 
 [Game]
-public class ThrustringComponent : sm_Component { }
+public class Thrusting : sm_Component {
+    public Vector3 direction;
+}
 
 public class AppliedThrustComponent : sm_Component {
     public Vector2 value;
@@ -71,11 +72,12 @@ public class MaxVelocityComponent : sm_Component {
 [Game, System.Serializable]
 public class SpinComponent : sm_Component {
     public float Torque;
-    public float Dampening;
 }
 
 [Game]
-public class SpinningComponent : sm_Component { }
+public class SpinningComponent : sm_Component {
+    public int direction;
+}
 
 [Game]
 public class BackgroundLayer : sm_Component {
@@ -153,12 +155,12 @@ public class TrackedTransformComponent : sm_Component {
     public Transform Transform;
 }
 
-[Game]
+[Game, System.Serializable]
 public class DampenInertiaComponent : sm_Component {
     public float value;
 }
 
-[Game]
+[Game, System.Serializable]
 public class DampenSpinComponent : sm_Component {
     public float value;
 }
@@ -262,7 +264,12 @@ public class QuadraticeDragComponent : sm_Component {
     public float value;
 }
 
-[Game]
+[Game, System.Serializable]
 public class ReactiveAccelerationComponent : sm_Component {
+    public float percent;
+}
+
+[Game, System.Serializable]
+public class ReactiveTorqueComponent : sm_Component {
     public float percent;
 }

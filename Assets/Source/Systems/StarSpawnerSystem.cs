@@ -53,7 +53,7 @@ public class StarSpawnerSystem : IInitializeSystem, IExecuteSystem {
                 AddComponentToEntity(e, c);
             }
             e.isWaiting = true;
-            e.AddThruster(0f, 0f);
+            e.AddThruster(0f);
             e.AddDampenInertia(1.1f);
             e.AddDampenSpin(0.0001f);
             e.AddUpdateBuffer(buffer);

@@ -68,11 +68,8 @@ public class TwirlSystem : BehaviorSystem {
                 Mathf.Sin(radians) * e.twirl.force
             );
 
-            var m = MessageGenerator.Message(true);
-            m.AddMessageTarget(e.id.value);
-            m.AddBuffer2DAction(this, (Rigidbody2D r) => {
-                r.AddForce(force);
-            });
+            e.thruster.Force = force.magnitude;
+            e.AddThrusting(force.normalized);
 
             e.twirl.duration -= Time.deltaTime;
             if (e.twirl.duration <= 0f) {
