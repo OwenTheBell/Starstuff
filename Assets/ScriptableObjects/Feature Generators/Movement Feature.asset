@@ -11,9 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3c5a2291502fab498dba70ca574d25b, type: 3}
   m_Name: Movement Feature
   m_EditorClassIdentifier: 
-  UseFixedUpdate: 0
   Systems:
   - {fileID: 11400000, guid: c91ca9c1b69d6d34d9b43f6204c04e06, type: 2}
-  - {fileID: 11400000, guid: 9390177bf70248f47826ca0a945a62c2, type: 2}
   - {fileID: 11400000, guid: 427faf6bd430a7e43a97ab97d04282ab, type: 2}
   - {fileID: 11400000, guid: 7c0ae431bff3beb40ba68867d72c0a03, type: 2}

@@ -13,19 +13,15 @@ public class GameController : MonoBehaviour {
         foreach (var c in contexts.allContexts) {
             c.OnEntityCreated += AddId;
         }
-        //contexts.game.OnEntityCreated += AddId;
 
         _systems = new sm_Feature("Systems");
 
         // add must include features & systems
         _systems.Add(new CleanThrustingSystem(contexts));
         _systems.Add(new EmitInputSystem(contexts));
-        //_systems.Add(new InputFeature(contexts));
-        //_systems.Add(new MessagingFeature(contexts));
         _systems.Add(new PauseSystem(contexts));
         _systems.Add(new TickSystem(contexts));
         _systems.Add(new TogglePhysicsPauseSystem(contexts));
-        //_systems.Add(new StarSystems(contexts));
         _systems.Add(new PullTowardsTest(contexts));
 
         // add features & systems chosen in editor
@@ -50,6 +46,8 @@ public class GameController : MonoBehaviour {
         _systems.Add(new ReactiveTorqueSystem(contexts));
         _systems.Add(new RepulserSystem(contexts));
         _systems.Add(new ConvertAppliedThrustSystem(contexts));
+        _systems.Add(new MaxVelocitySystem(contexts));
+        _systems.Add(new MaxSpinSystem(contexts));
 
         // Cleanup Systems
         _systems.Add(new CleanupMessages(contexts));

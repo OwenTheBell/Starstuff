@@ -28,7 +28,7 @@ public class Follow : IExecuteSystem {
             var myVelocity = myBody.velocity;
             var diff = targetVel - myVelocity;
             e.thruster.Force = diff.magnitude * myBody.mass;
-            e.maxVelocity.MaxVelocity = targetVel.magnitude;
+            e.maxVelocity.value = targetVel.magnitude;
             diff.Normalize();
             e.AddThrusting(diff);
         }

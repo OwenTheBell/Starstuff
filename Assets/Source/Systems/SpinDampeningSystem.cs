@@ -3,12 +3,7 @@ using UnityEngine;
 
 public class SpinDampeningSystem : IFixedUpdateSystem {
 
-    readonly IGroup<GameEntity> _dampeners;
-    readonly IGroup<MessageEntity> _triggerSpin;
-    readonly MessageContext _messageContext;
     readonly IGroup<GameEntity> _entities;
-
-    bool _firstPass = true;
 
     public SpinDampeningSystem(Contexts contexts) {
         var allOf = GameMatcher.AllOf(

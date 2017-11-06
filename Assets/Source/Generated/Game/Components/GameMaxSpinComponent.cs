@@ -8,25 +8,25 @@
 //------------------------------------------------------------------------------
 public partial class GameEntity {
 
-    public MaxVelocityComponent maxVelocity { get { return (MaxVelocityComponent)GetComponent(GameComponentsLookup.MaxVelocity); } }
-    public bool hasMaxVelocity { get { return HasComponent(GameComponentsLookup.MaxVelocity); } }
+    public MaxSpinComponent maxSpin { get { return (MaxSpinComponent)GetComponent(GameComponentsLookup.MaxSpin); } }
+    public bool hasMaxSpin { get { return HasComponent(GameComponentsLookup.MaxSpin); } }
 
-    public void AddMaxVelocity(float newValue) {
-        var index = GameComponentsLookup.MaxVelocity;
-        var component = CreateComponent<MaxVelocityComponent>(index);
+    public void AddMaxSpin(float newValue) {
+        var index = GameComponentsLookup.MaxSpin;
+        var component = CreateComponent<MaxSpinComponent>(index);
         component.value = newValue;
         AddComponent(index, component);
     }
 
-    public void ReplaceMaxVelocity(float newValue) {
-        var index = GameComponentsLookup.MaxVelocity;
-        var component = CreateComponent<MaxVelocityComponent>(index);
+    public void ReplaceMaxSpin(float newValue) {
+        var index = GameComponentsLookup.MaxSpin;
+        var component = CreateComponent<MaxSpinComponent>(index);
         component.value = newValue;
         ReplaceComponent(index, component);
     }
 
-    public void RemoveMaxVelocity() {
-        RemoveComponent(GameComponentsLookup.MaxVelocity);
+    public void RemoveMaxSpin() {
+        RemoveComponent(GameComponentsLookup.MaxSpin);
     }
 }
 
@@ -40,17 +40,17 @@ public partial class GameEntity {
 //------------------------------------------------------------------------------
 public sealed partial class GameMatcher {
 
-    static Entitas.IMatcher<GameEntity> _matcherMaxVelocity;
+    static Entitas.IMatcher<GameEntity> _matcherMaxSpin;
 
-    public static Entitas.IMatcher<GameEntity> MaxVelocity {
+    public static Entitas.IMatcher<GameEntity> MaxSpin {
         get {
-            if (_matcherMaxVelocity == null) {
-                var matcher = (Entitas.Matcher<GameEntity>)Entitas.Matcher<GameEntity>.AllOf(GameComponentsLookup.MaxVelocity);
+            if (_matcherMaxSpin == null) {
+                var matcher = (Entitas.Matcher<GameEntity>)Entitas.Matcher<GameEntity>.AllOf(GameComponentsLookup.MaxSpin);
                 matcher.componentNames = GameComponentsLookup.componentNames;
-                _matcherMaxVelocity = matcher;
+                _matcherMaxSpin = matcher;
             }
 
-            return _matcherMaxVelocity;
+            return _matcherMaxSpin;
         }
     }
 }

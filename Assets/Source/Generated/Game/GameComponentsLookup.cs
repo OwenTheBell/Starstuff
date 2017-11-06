@@ -29,35 +29,36 @@ public static class GameComponentsLookup {
     public const int Id = 18;
     public const int ImmuneToRepulsion = 19;
     public const int MatchMotion = 20;
-    public const int MaxVelocity = 21;
-    public const int Paused = 22;
-    public const int Player = 23;
-    public const int PreservedBody2DState = 24;
-    public const int PreservedBodyState = 25;
-    public const int PullTowards = 26;
-    public const int QuadraticeDrag = 27;
-    public const int ReactiveAcceleration = 28;
-    public const int ReactiveTorque = 29;
-    public const int Repulser = 30;
-    public const int Rigidbody2D = 31;
-    public const int SlamStar = 32;
-    public const int Spin = 33;
-    public const int Spinning = 34;
-    public const int Star = 35;
-    public const int StarSpawnInfo = 36;
-    public const int Thruster = 37;
-    public const int Thrusting = 38;
-    public const int ThrustParticle = 39;
-    public const int ThrustPerFollower = 40;
-    public const int TickTracker = 41;
-    public const int TrackedTransform = 42;
-    public const int Twirl = 43;
-    public const int UpdateBuffer = 44;
-    public const int View = 45;
-    public const int Wait = 46;
-    public const int Waiting = 47;
+    public const int MaxSpin = 21;
+    public const int MaxVelocity = 22;
+    public const int Paused = 23;
+    public const int Player = 24;
+    public const int PreservedBody2DState = 25;
+    public const int PreservedBodyState = 26;
+    public const int PullTowards = 27;
+    public const int QuadraticeDrag = 28;
+    public const int ReactiveAcceleration = 29;
+    public const int ReactiveTorque = 30;
+    public const int Repulser = 31;
+    public const int Rigidbody2D = 32;
+    public const int SlamStar = 33;
+    public const int Spin = 34;
+    public const int Spinning = 35;
+    public const int Star = 36;
+    public const int StarSpawnInfo = 37;
+    public const int Thruster = 38;
+    public const int Thrusting = 39;
+    public const int ThrustParticle = 40;
+    public const int ThrustPerFollower = 41;
+    public const int TickTracker = 42;
+    public const int TrackedTransform = 43;
+    public const int Twirl = 44;
+    public const int UpdateBuffer = 45;
+    public const int View = 46;
+    public const int Wait = 47;
+    public const int Waiting = 48;
 
-    public const int TotalComponents = 48;
+    public const int TotalComponents = 49;
 
     public static readonly string[] componentNames = {
         "AppliedThrust",
@@ -81,6 +82,7 @@ public static class GameComponentsLookup {
         "Id",
         "ImmuneToRepulsion",
         "MatchMotion",
+        "MaxSpin",
         "MaxVelocity",
         "Paused",
         "Player",
@@ -132,6 +134,7 @@ public static class GameComponentsLookup {
         typeof(IdComponent),
         typeof(ImmuneToRepulsionComponent),
         typeof(MatchMotionComponent),
+        typeof(MaxSpinComponent),
         typeof(MaxVelocityComponent),
         typeof(Paused),
         typeof(PlayerComponent),

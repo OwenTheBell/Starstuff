@@ -66,7 +66,12 @@ public class AppliedThrustComponent : sm_Component {
 
 [Game]
 public class MaxVelocityComponent : sm_Component {
-    public float MaxVelocity;
+    public float value;
+}
+
+[Game]
+public class MaxSpinComponent : sm_Component {
+    public float value;
 }
 
 [Game, System.Serializable]

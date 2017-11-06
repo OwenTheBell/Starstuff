@@ -15,7 +15,7 @@ public class RestrictVelocitySystem : IFixedUpdateSystem {
 
     public void FixedUpdate() {
         foreach (var e in _maxVelocity.GetEntities()) {
-            var maxSpeed = e.maxVelocity.MaxVelocity;
+            var maxSpeed = e.maxVelocity.value;
             if (e.rigidbody2D.body2D.velocity.sqrMagnitude > maxSpeed * maxSpeed) {
                 e.rigidbody2D.body2D.velocity = e.rigidbody2D.body2D.velocity.normalized * maxSpeed;
             }
